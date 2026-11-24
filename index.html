@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="ro" data-tema="piata">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rețete</title>
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon180.png">
+<link rel="apple-touch-icon" href="icon180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rețete">
+<meta name="theme-color" content="#F1F2EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&family=Outfit:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Archivo:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F2EC; --bg2:#E8EAE1;
+  --ink:#1A2016; --ink2:#4A5444; --ink3:#78826F;
+  --line:#D9DCD0; --line2:#C6CABA;
+  --card:#FBFBF7;
+  --verde:#4F7A2E; --verde-d:#3A5C20; --verde-l:#E7F0DC;
+  --prun:#6B2D4F; --prun-l:#F3E4EC;
+  --rosu:#BE2F45; --rosu-l:#FBE6E9;
+  --galben:#C98A12; --galben-l:#FBF0D9;
+  --r-s:10px; --r-m:16px; --r-l:24px; --r-p:999px;
+  --pad:16px;
+  --sans:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Literata",ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sh:0 1px 2px rgba(26,32,22,.06),0 8px 24px -16px rgba(26,32,22,.4);
+  --sh-l:0 2px 6px rgba(26,32,22,.08),0 24px 48px -24px rgba(26,32,22,.5);
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scrollbar-width:none;-ms-overflow-style:none;overflow-x:hidden;background:var(--bg)}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;height:0;display:none}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;
+  overflow-x:hidden;overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;
+  padding:calc(env(safe-area-inset-top,0px) + 8px) 0 calc(96px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
+.wrap{max-width:560px;margin:0 auto;padding:0 var(--pad)}
+.serif{font-family:var(--serif);font-weight:500;letter-spacing:-.005em}
+
+/* ---- bara de sus ---- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.marca{display:flex;align-items:center;gap:11px;min-width:0}
+.logo{width:46px;height:46px;border-radius:var(--r-s);object-fit:cover;flex:0 0 auto;
+  border:1px solid var(--line);background:#FBF7EE;box-shadow:var(--sh)}
+html[data-tema="gradina"] .logo,html[data-tema="dulce"] .logo,html[data-tema="tejghea"] .logo{border-radius:var(--r-p)}
+html[data-tema="piperi"] .logo{border-radius:0;border-color:var(--ink);border-width:1.5px}
+.top h1{font-family:var(--serif);font-size:27px;line-height:1.05;font-weight:600;letter-spacing:-.015em}
+.top .sub{color:var(--ink3);font-size:12.5px;margin-top:2px}
+.icon-b{width:40px;height:40px;border-radius:var(--r-p);border:1px solid var(--line);background:var(--card);
+  display:grid;place-items:center;color:var(--ink2);padding:0;min-height:0;cursor:pointer}
+.icon-b svg{width:19px;height:19px}
+
+/* ---- carduri ---- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:var(--pad);
+  box-shadow:var(--sh);margin-bottom:12px}
+.card > h2{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:600;margin-bottom:12px}
+
+/* ---- butoane ---- */
+button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line2);background:var(--card);
+  border-radius:var(--r-s);padding:10px 14px;min-height:42px;transition:transform .18s var(--ease),background .15s,border-color .15s}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.45;cursor:default}
+.pr{background:var(--verde);border-color:var(--verde);color:#fff;font-weight:600}
+.pr:active{background:var(--verde-d)}
+.gh{background:transparent;border-color:var(--line2)}
+.mic{min-height:34px;padding:6px 11px;font-size:13px;border-radius:var(--r-p)}
+.danger{color:var(--rosu);border-color:var(--rosu)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+
+/* ---- segmente / chips ---- */
+.seg{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r-p);padding:3px;overflow-x:auto}
+.seg button{flex:1 1 0;min-width:fit-content;border:0;background:transparent;border-radius:var(--r-p);
+  min-height:34px;padding:6px 12px;font-size:13.5px;color:var(--ink2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);font-weight:600;box-shadow:var(--sh)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin:0 calc(var(--pad) * -1);padding-left:var(--pad);padding-right:var(--pad)}
+.chip{border:1px solid var(--line2);background:var(--card);border-radius:var(--r-p);padding:6px 12px;font-size:13px;
+  min-height:32px;white-space:nowrap;color:var(--ink2)}
+.chip[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#fff;font-weight:600}
+
+/* ---- câmpuri ---- */
+label.f{display:block;margin-bottom:10px}
+label.f > span{display:block;font-size:12px;color:var(--ink3);margin-bottom:5px;font-weight:500}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-s);padding:10px 12px;min-height:44px;font-size:16px}
+textarea{min-height:92px;resize:vertical;line-height:1.5}
+input:focus,select,textarea:focus{outline:2px solid var(--verde);outline-offset:-1px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.search{position:relative}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--ink3)}
+.search input{padding-left:36px}
+
+/* ---- costul zilei ---- */
+.costSus{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.costNr{font-family:var(--serif);font-size:38px;line-height:1;font-weight:600;letter-spacing:-.02em}
+.costNr.mic2{font-size:23px;color:var(--ink2)}
+.costLb{font-size:11.5px;color:var(--ink3);margin-top:3px;letter-spacing:.02em}
+.costJos{display:flex;justify-content:space-between;margin-top:14px;padding-top:11px;
+  border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3)}
+
+/* ---- mese ---- */
+.masa{margin-bottom:14px}
+.masa > h3{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:600;
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.masa > h3 em{font-style:normal;color:var(--ink2);font-weight:500;letter-spacing:0;text-transform:none;font-size:12.5px}
+.linie{display:flex;align-items:center;gap:11px;padding:11px 12px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-s);margin-bottom:6px}
+.linie.gata{background:var(--verde-l);border-color:transparent}
+.linie .tx{flex:1;min-width:0}
+.linie .tx b{display:block;font-weight:500;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linie .tx span{font-size:12px;color:var(--ink3)}
+.tick{width:26px;height:26px;border-radius:var(--r-p);border:1.5px solid var(--line2);background:transparent;
+  padding:0;min-height:0;flex:0 0 auto;display:grid;place-items:center}
+.tick[aria-pressed="true"]{background:var(--verde);border-color:var(--verde)}
+.tick svg{width:14px;height:14px;color:#fff;opacity:0}
+.tick[aria-pressed="true"] svg{opacity:1}
+.gol{text-align:center;color:var(--ink3);font-size:13.5px;padding:18px 10px;border:1px dashed var(--line2);border-radius:var(--r-s)}
+
+/* ---- rețete ---- */
+.reteta{display:flex;gap:12px;align-items:flex-start;padding:13px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-m);margin-bottom:9px;width:100%;text-align:left;min-height:0}
+.reteta .em{width:46px;height:46px;border-radius:var(--r-s);background:var(--bg2);display:grid;place-items:center;
+  font-size:23px;flex:0 0 auto}
+.reteta .tx{flex:1;min-width:0}
+.reteta .tx b{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.15;display:block;letter-spacing:0}
+.reteta .tx .meta{font-size:12px;color:var(--ink3);margin-top:3px}
+.reteta .fav{font-size:15px;color:var(--galben);flex:0 0 auto}
+
+/* ---- săptămână ---- */
+.zile{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.zi{border:1px solid var(--line);background:var(--card);border-radius:var(--r-s);padding:7px 2px;text-align:center;
+  min-height:56px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.zi em{font-style:normal;font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em}
+.zi b{font-size:16px;font-weight:600}
+.zi i{width:5px;height:5px;border-radius:50%;background:var(--verde);display:block}
+.zi[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
+.zi[aria-pressed="true"] em,.zi[aria-pressed="true"] b{color:var(--bg)}
+.zi[aria-pressed="true"] i{background:var(--bg)}
+.zi.azi:not([aria-pressed="true"]){border-color:var(--verde);border-width:1.5px}
+
+/* ---- listă cumpărături ---- */
+.raion{margin-bottom:16px}
+.raion h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:600;
+  padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.item{display:flex;align-items:center;gap:11px;padding:9px 2px}
+.item .tx{flex:1;min-width:0;font-size:14.5px}
+.item .q{font-size:13px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.item.bif .tx,.item.bif .q{text-decoration:line-through;color:var(--ink3)}
+
+/* ---- fereastră ---- */
+.ov{position:fixed;inset:0;z-index:60;display:none}
+.ov[open]{display:block}
+.ov .bg{position:absolute;inset:0;background:rgba(26,32,22,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.ov .sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:var(--bg);
+  border-radius:var(--r-l) var(--r-l) 0 0;box-shadow:var(--sh-l);
+  padding:8px var(--pad) calc(20px + env(safe-area-inset-bottom,0px));
+  animation:sus .3s var(--ease)}
+@keyframes sus{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.ov .grab{width:38px;height:4px;border-radius:var(--r-p);background:var(--line2);margin:6px auto 12px}
+.ov h2{font-family:var(--serif);font-weight:400;font-size:25px;line-height:1.1;letter-spacing:0;margin-bottom:3px}
+.ov .inchide{position:sticky;top:0;float:right;margin:-4px -4px 0 0}
+
+/* ---- navigare ---- */
+nav{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:0 12px calc(10px + env(safe-area-inset-bottom,0px))}
+nav ul{max-width:560px;margin:0 auto;list-style:none;display:flex;align-items:center;padding:7px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-p);box-shadow:var(--sh-l)}
+nav li{flex:1}
+nav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0;text-decoration:none;
+  color:var(--ink3);font-size:10.5px;font-weight:500;border-radius:var(--r-p)}
+nav a svg{width:21px;height:21px}
+nav a[aria-current="page"]{color:var(--verde)}
+nav .plus a{background:var(--verde);color:#fff;width:50px;height:50px;border-radius:var(--r-p);justify-content:center;
+  margin:-16px auto 0;box-shadow:0 6px 18px -6px rgba(79,122,46,.7)}
+nav .plus a svg{width:25px;height:25px}
+nav .plus span{display:none}
+
+/* ---- diverse ---- */
+.view{display:none}
+.view.on{display:block}
+.msj{border-radius:var(--r-s);padding:10px 12px;font-size:13.5px;margin-bottom:10px;border:1px solid transparent}
+.msj.ok{background:var(--verde-l);color:var(--verde-d);border-color:var(--verde)}
+.msj.nu{background:var(--rosu-l);color:var(--rosu);border-color:var(--rosu)}
+.msj.info{background:var(--bg2);color:var(--ink2);border-color:var(--line2)}
+.hint{font-size:12px;color:var(--ink3);margin-top:5px;line-height:1.4}
+.sep{height:1px;background:var(--line);margin:14px 0}
+.nr{font-variant-numeric:tabular-nums}
+.sus{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(104px + env(safe-area-inset-bottom,0px));
+  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:var(--r-p);font-size:13.5px;z-index:70;
+  box-shadow:var(--sh-l);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease);max-width:88vw;text-align:center}
+.sus.on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+/* ======================= STRAT PREMIUM ======================= */
+:root{
+  --serif:"Literata",ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.1em; --h2-fs:12px; --h2-w:600; --h2-al:left;
+  --card-pad:16px; --btn-r:var(--r-s); --nav-r:999px;
+  --spec:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);
+  --grain:.018;
+}
+body{background-image:var(--pagina,none);background-attachment:fixed}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:2}
+nav{z-index:50}
+.ov{z-index:60}
+
+/* suprafețe cu adâncime reală: lumină sus, umbră în straturi */
+.card,.linie,.reteta,.zi,nav ul,.ov .sheet{position:relative}
+.card::before,.reteta::before,nav ul::before,.ov .sheet::before{
+  content:"";position:absolute;left:12%;right:12%;top:0;height:1px;background:var(--spec);
+  opacity:var(--spec-op,.55);pointer-events:none;border-radius:inherit}
+.card{box-shadow:var(--card-sh,var(--sh))}
+
+/* apăsare cu arc */
+button,.reteta,.zi,.tick{transition:transform .34s var(--ease),box-shadow .34s var(--ease),
+  background .18s ease,border-color .18s ease,color .18s ease}
+button:active,.reteta:active,.zi:active{transform:scale(.965)}
+.pr{background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 55%);
+  box-shadow:0 1px 1px rgba(0,0,0,.18),0 8px 18px -8px var(--pr-glow,rgba(79,122,46,.65)),
+    inset 0 1px 0 rgba(255,255,255,.35)}
+.pr:active{box-shadow:0 1px 1px rgba(0,0,0,.2),0 3px 8px -4px var(--pr-glow,rgba(79,122,46,.6)),
+    inset 0 1px 0 rgba(255,255,255,.2)}
+
+/* intrarea conținutului, în cascadă */
+@keyframes intrare{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body.anim .view.on > *{animation:intrare .44s var(--ease) backwards}
+body.anim .view.on > *:nth-child(1){animation-delay:.02s}
+body.anim .view.on > *:nth-child(2){animation-delay:.07s}
+body.anim .view.on > *:nth-child(3){animation-delay:.12s}
+body.anim .view.on > *:nth-child(n+4){animation-delay:.16s}
+body.anim #meseAzi .masa{animation:intrare .4s var(--ease) backwards}
+body.anim #meseAzi .masa:nth-child(2){animation-delay:.05s}
+body.anim #meseAzi .masa:nth-child(3){animation-delay:.1s}
+body.anim #meseAzi .masa:nth-child(4){animation-delay:.15s}
+body.anim #listaRetete .reteta{animation:intrare .38s var(--ease) backwards}
+body.anim #listaRetete .reteta:nth-child(-n+8){animation-delay:calc(.03s * var(--i,1))}
+
+/* titluri după temă */
+.card > h2,.masa > h3,.raion h3{font-family:var(--h2-ff);text-transform:var(--h2-tt);
+  letter-spacing:var(--h2-ls);font-size:var(--h2-fs);font-weight:var(--h2-w);text-align:var(--h2-al)}
+.card{border-radius:var(--r-m);padding:var(--card-pad);background:var(--card);border:1px solid var(--line)}
+button{border-radius:var(--btn-r)}
+.mic{border-radius:var(--r-p)}
+nav ul{border-radius:var(--nav-r)}
+
+/* ======================= TEME ======================= */
+/* 1 · PIAȚĂ (implicit) */
+html[data-tema="piata"]{--pr-glow:rgba(79,122,46,.6)}
+
+/* 2 · CAIET */
+html[data-tema="caiet"]{
+  --bg:#F6F0E2; --bg2:#EDE5D2; --ink:#2A2416; --ink2:#5E543C; --ink3:#8B8166;
+  --line:#DED4BC; --line2:#CFC2A4; --card:#FBF7EC;
+  --verde:#6E7B2E; --verde-d:#55601F; --verde-l:#E9E9CF;
+  --prun:#C96B5B; --prun-l:#F7E4DE; --rosu:#C0392B; --rosu-l:#F8E3DF;
+  --galben:#B07D16; --galben-l:#F7EBCF;
+  --serif:"Newsreader",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+  --r-s:3px; --r-m:4px; --r-l:8px; --r-p:3px; --btn-r:3px; --nav-r:0px;
+  --h2-ff:var(--sans); --h2-ls:.14em; --h2-fs:11px; --h2-col:var(--prun);
+  --pagina:repeating-linear-gradient(var(--bg) 0 31px,#E4D9C0 31px 32px);
+  --spec-op:0; --grain:.03;
+  --card-sh:0 1px 0 #E4D9C0;
+  --pr-glow:rgba(110,123,46,.5);
+}
+html[data-tema="caiet"] .card{border:1px solid var(--line2)}
+html[data-tema="caiet"] .card > h2,html[data-tema="caiet"] .masa > h3,html[data-tema="caiet"] .raion h3{color:var(--prun)}
+html[data-tema="caiet"] .top h1{font-weight:600}
+html[data-tema="caiet"] .reteta .tx b{font-weight:600}
+html[data-tema="caiet"] nav ul{border-left:0;border-right:0;border-bottom:0;background:#2A2416;border-color:#2A2416}
+html[data-tema="caiet"] nav{padding:0}
+html[data-tema="caiet"] nav a{color:#A79C80}
+html[data-tema="caiet"] nav a[aria-current="page"]{color:#F6F0E2}
+
+/* 3 · BISTRO */
+html[data-tema="bistro"]{
+  --bg:#15130F; --bg2:#1E1B15; --ink:#F2EBDC; --ink2:#B3A68C; --ink3:#8A7F68;
+  --line:#2A2619; --line2:#3C372C; --card:#1B1813;
+  --verde:#C8A24A; --verde-d:#A8863A; --verde-l:#2A2415;
+  --prun:#B08A6A; --prun-l:#2A2019; --rosu:#C86A5A; --rosu-l:#2E1C18;
+  --galben:#D8B45C; --galben-l:#2E2714;
+  --serif:"Cormorant Garamond",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+  --r-s:2px; --r-m:3px; --r-l:4px; --r-p:999px; --btn-r:2px; --nav-r:0px;
+  --h2-ls:.3em; --h2-fs:10px; --h2-w:400; --h2-al:center;
+  --spec:linear-gradient(90deg,transparent,rgba(200,162,74,.55),transparent); --spec-op:.9;
+  --grain:.035; --card-pad:18px;
+  --pr-glow:rgba(200,162,74,.45);
+}
+html[data-tema="bistro"] .top h1{font-weight:300;letter-spacing:.02em}
+html[data-tema="bistro"] .serif,html[data-tema="bistro"] .reteta .tx b{font-weight:400}
+html[data-tema="bistro"] .pr{color:#15130F}
+html[data-tema="bistro"] nav ul{background:#15130F;border-left:0;border-right:0;border-bottom:0}
+html[data-tema="bistro"] nav{padding:0}
+html[data-tema="bistro"] nav a{text-transform:uppercase;letter-spacing:.2em;font-size:8.5px;font-weight:300}
+
+/* 4 · TEJGHEA */
+html[data-tema="tejghea"]{
+  --bg:#FFF8EC; --bg2:#FBEDD8; --ink:#20160C; --ink2:#5E4E3C; --ink3:#8A7A66;
+  --line:#EADCC6; --line2:#DCCBB0; --card:#FFFFFF;
+  --verde:#17A04E; --verde-d:#12803E; --verde-l:#D9F2E2;
+  --prun:#E0564A; --prun-l:#FCE2DE; --rosu:#E0564A; --rosu-l:#FCE2DE;
+  --galben:#F0A81E; --galben-l:#FDEFD2;
+  --serif:"Bricolage Grotesque",system-ui,sans-serif; --sans:"Bricolage Grotesque",system-ui,sans-serif;
+  --r-s:16px; --r-m:22px; --r-l:28px; --r-p:999px; --btn-r:14px; --nav-r:24px;
+  --h2-tt:none; --h2-ls:-.02em; --h2-fs:15px; --h2-w:800;
+  --card-sh:0 2px 0 rgba(32,22,12,.07),0 14px 30px -20px rgba(32,22,12,.55);
+  --grain:0; --spec-op:.35;
+  --pr-glow:rgba(23,160,78,.55);
+}
+html[data-tema="tejghea"] .top h1{font-weight:800;letter-spacing:-.03em}
+html[data-tema="tejghea"] .card > h2{color:var(--ink)}
+html[data-tema="tejghea"] .reteta .tx b{font-weight:700;letter-spacing:-.02em}
+html[data-tema="tejghea"] nav ul{background:#20160C;border-color:#20160C}
+html[data-tema="tejghea"] nav a{color:#9C8B74}
+html[data-tema="tejghea"] nav a[aria-current="page"]{color:#FFF8EC}
+html[data-tema="tejghea"] nav .plus a{background:#F0A81E;color:#20160C}
+
+/* 5 · CUPTOR */
+html[data-tema="cuptor"]{
+  --bg:#17120F; --bg2:#201A15; --ink:#F6EDE4; --ink2:#B8A697; --ink3:#8C7D70;
+  --line:#2B2219; --line2:#3E3227; --card:#1E1813;
+  --verde:#E2703A; --verde-d:#C35A28; --verde-l:#2E1D14;
+  --prun:#C9A227; --prun-l:#2A2411; --rosu:#D94F3D; --rosu-l:#2E1714;
+  --galben:#E8B33C; --galben-l:#2E2512;
+  --serif:"Bricolage Grotesque",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif;
+  --r-s:8px; --r-m:14px; --r-l:20px; --btn-r:10px;
+  --h2-ls:.16em; --h2-fs:10.5px;
+  --spec:linear-gradient(90deg,transparent,rgba(226,112,58,.5),transparent); --spec-op:.8;
+  --card-sh:0 1px 2px rgba(0,0,0,.5),0 18px 40px -26px rgba(226,112,58,.5);
+  --grain:.04;
+  --pr-glow:rgba(226,112,58,.6);
+}
+html[data-tema="cuptor"] .top h1{font-weight:800;letter-spacing:-.03em}
+html[data-tema="cuptor"] .pr{color:#1A0F08}
+
+/* 6 · GRĂDINĂ */
+html[data-tema="gradina"]{
+  --bg:#F4F8F3; --bg2:#E6EFE4; --ink:#17251A; --ink2:#48584A; --ink3:#7A8A7C;
+  --line:#DCE7DA; --line2:#C6D6C4; --card:#FFFFFF;
+  --verde:#2E8B6B; --verde-d:#226B52; --verde-l:#DCF0E7;
+  --prun:#7C6AAE; --prun-l:#EAE5F6; --rosu:#C2506A; --rosu-l:#FAE4EA;
+  --galben:#C08A2E; --galben-l:#F8EED8;
+  --serif:"Literata",ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+  --r-s:14px; --r-m:20px; --r-l:26px; --btn-r:14px; --nav-r:999px;
+  --h2-ls:.12em; --h2-fs:11px;
+  --card-sh:0 1px 2px rgba(23,37,26,.05),0 20px 44px -30px rgba(46,139,107,.75);
+  --grain:.012;
+  --pr-glow:rgba(46,139,107,.5);
+}
+html[data-tema="gradina"] body,html[data-tema="gradina"]{--pagina:radial-gradient(900px 500px at 100% -10%,#DFF0E6,transparent 60%),radial-gradient(700px 420px at -10% 100%,#E8F2E4,transparent 62%)}
+
+/* 7 · PIPERI */
+html[data-tema="piperi"]{
+  --bg:#FFFFFF; --bg2:#F2F2F2; --ink:#0A0A0A; --ink2:#444444; --ink3:#7A7A7A;
+  --line:#E2E2E2; --line2:#111111; --card:#FFFFFF;
+  --verde:#111111; --verde-d:#000000; --verde-l:#F0F0F0;
+  --prun:#D7263D; --prun-l:#FBE4E8; --rosu:#D7263D; --rosu-l:#FBE4E8;
+  --galben:#111111; --galben-l:#F0F0F0;
+  --serif:"Archivo",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif;
+  --r-s:0px; --r-m:0px; --r-l:0px; --r-p:0px; --btn-r:0px; --nav-r:0px;
+  --h2-ls:.18em; --h2-fs:10.5px; --h2-w:700;
+  --card-sh:none; --spec-op:0; --grain:0;
+  --pr-glow:rgba(0,0,0,.35);
+}
+html[data-tema="piperi"] .card{border:1.5px solid var(--ink)}
+html[data-tema="piperi"] .top h1{font-weight:700;letter-spacing:-.04em;text-transform:uppercase}
+html[data-tema="piperi"] .reteta{border:1.5px solid var(--ink)}
+html[data-tema="piperi"] .reteta .tx b{font-weight:700;letter-spacing:-.02em}
+html[data-tema="piperi"] .linie{border:1px solid var(--ink)}
+html[data-tema="piperi"] nav{padding:0}
+html[data-tema="piperi"] nav ul{background:#0A0A0A;border-color:#0A0A0A}
+html[data-tema="piperi"] nav a{color:#8A8A8A;text-transform:uppercase;letter-spacing:.1em;font-size:9px;font-weight:700}
+html[data-tema="piperi"] nav a[aria-current="page"]{color:#fff}
+html[data-tema="piperi"] nav .plus a{background:#D7263D;border-radius:0}
+
+/* 8 · DULCE */
+html[data-tema="dulce"]{
+  --bg:#FDF4F4; --bg2:#F8E7E9; --ink:#2E1B22; --ink2:#5F4049; --ink3:#9A7A83;
+  --line:#F0DADE; --line2:#E4C4CA; --card:#FFFFFF;
+  --verde:#B2456B; --verde-d:#90304F; --verde-l:#FBE3EA;
+  --prun:#7B5FA8; --prun-l:#EFE8F7; --rosu:#C94F4F; --rosu-l:#FBE6E6;
+  --galben:#D99A2B; --galben-l:#FBF0D8;
+  --serif:"Newsreader",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Outfit",system-ui,sans-serif;
+  --r-s:18px; --r-m:26px; --r-l:32px; --btn-r:999px; --nav-r:999px;
+  --h2-tt:none; --h2-ls:0; --h2-fs:14px; --h2-w:600;
+  --card-sh:0 2px 4px rgba(46,27,34,.04),0 22px 44px -28px rgba(178,69,107,.6);
+  --grain:.01;
+  --pr-glow:rgba(178,69,107,.5);
+}
+html[data-tema="dulce"]{--pagina:radial-gradient(800px 460px at 110% -5%,#FBE3EA,transparent 62%),radial-gradient(640px 400px at -15% 95%,#F3E8FA,transparent 64%)}
+html[data-tema="dulce"] .top h1{font-family:var(--serif);font-weight:600}
+html[data-tema="dulce"] .card > h2{color:var(--ink2)}
+
+
+/* ---- alegerea temei ---- */
+.teme{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tema{display:block;text-align:left;padding:9px;border-radius:var(--r-m);border:1px solid var(--line2);
+  background:var(--card);min-height:0}
+.tema.on{border-color:var(--verde);border-width:2px;padding:8px}
+.tema .prev{display:flex;gap:4px;height:42px;border-radius:calc(var(--r-s) + 2px);overflow:hidden;margin-bottom:8px;
+  padding:7px;align-items:flex-end}
+.tema .prev i{flex:1;border-radius:3px;display:block}
+.tema .nm{display:block;font-weight:600;font-size:13.5px}
+.tema .ds{display:block;font-size:11px;color:var(--ink3);line-height:1.3;margin-top:1px}
+.p-piata{background:#F1F2EC}   .p-piata i:nth-child(1){height:70%;background:#4F7A2E}
+.p-piata i:nth-child(2){height:45%;background:#6B2D4F} .p-piata i:nth-child(3){height:30%;background:#C98A12}
+.p-caiet{background:repeating-linear-gradient(#F6F0E2 0 7px,#E4D9C0 7px 8px)}
+.p-caiet i:nth-child(1){height:70%;background:#6E7B2E} .p-caiet i:nth-child(2){height:45%;background:#C96B5B}
+.p-caiet i:nth-child(3){height:30%;background:#2A2416}
+.p-bistro{background:#15130F} .p-bistro i:nth-child(1){height:70%;background:#C8A24A}
+.p-bistro i:nth-child(2){height:45%;background:#B08A6A} .p-bistro i:nth-child(3){height:30%;background:#F2EBDC}
+.p-tejghea{background:#FFF8EC} .p-tejghea i{border-radius:99px}
+.p-tejghea i:nth-child(1){height:70%;background:#17A04E} .p-tejghea i:nth-child(2){height:45%;background:#F0A81E}
+.p-tejghea i:nth-child(3){height:30%;background:#E0564A}
+.p-cuptor{background:#17120F} .p-cuptor i:nth-child(1){height:70%;background:#E2703A}
+.p-cuptor i:nth-child(2){height:45%;background:#E8B33C} .p-cuptor i:nth-child(3){height:30%;background:#F6EDE4}
+.p-gradina{background:#F4F8F3} .p-gradina i{border-radius:99px}
+.p-gradina i:nth-child(1){height:70%;background:#2E8B6B} .p-gradina i:nth-child(2){height:45%;background:#7C6AAE}
+.p-gradina i:nth-child(3){height:30%;background:#C08A2E}
+.p-piperi{background:#fff} .p-piperi i{border-radius:0}
+.p-piperi i:nth-child(1){height:70%;background:#0A0A0A} .p-piperi i:nth-child(2){height:45%;background:#D7263D}
+.p-piperi i:nth-child(3){height:30%;background:#E2E2E2}
+.p-dulce{background:#FDF4F4} .p-dulce i{border-radius:99px}
+.p-dulce i:nth-child(1){height:70%;background:#B2456B} .p-dulce i:nth-child(2){height:45%;background:#7B5FA8}
+.p-dulce i:nth-child(3){height:30%;background:#D99A2B}
+
+
+/* ---- meniul de pe Acasă ---- */
+.meniu{margin-bottom:14px}
+.cursuri{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}
+.curs{position:relative;overflow:hidden;border-radius:var(--r-m);border:1px solid var(--line);
+  background:var(--card);padding:13px 10px 11px;min-height:96px;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;gap:3px;box-shadow:var(--card-sh,var(--sh))}
+.curs:before{content:"";position:absolute;left:0;right:0;top:0;height:62%;opacity:.16;
+  background:radial-gradient(120% 90% at 50% 0,var(--c,var(--verde)),transparent 70%)}
+.curs .ic{font-size:26px;line-height:1;position:relative;margin-bottom:2px}
+.curs .nm{font-weight:600;font-size:13px;letter-spacing:-.01em;position:relative}
+.curs .ct{font-size:11px;color:var(--ink3);position:relative}
+.curs:after{content:"";position:absolute;left:14px;right:14px;top:0;height:2px;border-radius:0 0 3px 3px;
+  background:var(--c,var(--verde));opacity:.9}
+.rapide{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);gap:7px;
+  overflow-x:auto;scroll-snap-type:x proximity;padding:2px calc(var(--pad)) 2px 0;
+  margin:0 calc(var(--pad) * -1);padding-left:var(--pad)}
+.rapide > *{scroll-snap-align:start}
+.rapid{border:1px solid var(--line2);background:var(--card);border-radius:var(--r-p);
+  padding:6px 12px;min-height:36px;font-size:12.5px;display:flex;align-items:center;gap:6px;
+  white-space:nowrap;box-shadow:0 1px 1px rgba(0,0,0,.04)}
+.rapid em{font-style:normal;font-size:14px}
+.rapid b{font-weight:500}
+.rapid span{color:var(--ink3);font-size:11px}
+
+
+/* ---- randarea textului ---- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-optical-sizing:auto;text-rendering:optimizeLegibility;
+  font-feature-settings:"kern" 1,"liga" 1,"calt" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,.serif,.ov h2{font-optical-sizing:auto;text-wrap:balance}
+.ov h2{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.15;letter-spacing:-.015em}
+.reteta .tx b{font-family:var(--serif);font-weight:600;font-size:17.5px;line-height:1.2;letter-spacing:-.01em}
+.nr,.item .q,.linie .tx span,.costNr{font-feature-settings:"tnum" 1,"kern" 1}
+.card > h2,.masa > h3,.raion h3{font-feature-settings:"kern" 1}
+.hint,.linie .tx span,.reteta .tx .meta{text-wrap:pretty}
+.linie .tx b{font-size:15px;letter-spacing:-.005em}
+input,select,textarea,button{font-feature-settings:"kern" 1,"liga" 1}
+/* titlurile serif din carduri, acolo unde apar cifre mari */
+[style*="var(--serif)"]{font-feature-settings:"tnum" 1,"kern" 1}
+
+
+/* ---- poze la rețete ---- */
+.pozaRand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.pozaPrev{width:68px;height:68px;border-radius:var(--r-s);background:var(--bg2);flex:0 0 auto;
+  display:grid;place-items:center;font-size:26px;overflow:hidden;border:1px solid var(--line)}
+.pozaPrev img{width:100%;height:100%;object-fit:cover;display:block}
+.reteta .em{overflow:hidden}
+.reteta .em img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
+.rPoza{width:100%;height:170px;object-fit:cover;border-radius:var(--r-m);display:block;margin-bottom:12px;
+  border:1px solid var(--line)}
+
+
+/* ---- fluiditate ---- */
+.ov .sheet{will-change:transform;touch-action:pan-y}
+.ov .bg{opacity:0;transition:opacity .28s var(--ease)}
+.ov[open] .bg{opacity:1}
+.row,.linie,.reteta,.card{contain:layout style}
+#listaRetete,#meseAzi,#planZi,#listaCump{content-visibility:auto;contain-intrinsic-size:auto 400px}
+.rapide{scrollbar-width:none;overscroll-behavior-x:contain}
+.listContainer,.ov .sheet{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+input,textarea,select{font-size:16px}
+.gol,.linie,.reteta,.rapid,.curs,.tema,.chip{user-select:none}
+
+
+/* ---- mod gătit ---- */
+.ov .sheet.gat{top:0;max-height:100vh;height:100%;border-radius:0;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top,0px) + 10px) var(--pad) calc(16px + env(safe-area-inset-bottom,0px))}
+.gatSus{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.gatSus .tt{flex:1;min-width:0;font-family:var(--serif);font-weight:600;font-size:17px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gatBara{display:flex;gap:4px;margin-bottom:18px}
+.gatBara i{flex:1;height:4px;border-radius:99px;background:var(--line2)}
+.gatBara i.gata{background:var(--verde)}
+.gatBara i.acum{background:var(--verde);box-shadow:0 0 0 2px var(--verde-l)}
+.gatMij{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:flex-start;padding-top:6px}
+.gatNr{font-family:var(--serif);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:10px}
+.gatText{font-family:var(--serif);font-size:27px;line-height:1.3;font-weight:500;letter-spacing:-.01em}
+.gatIng{margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.gatIng h3{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;margin-bottom:8px}
+.gatIng .item{padding:5px 0}
+.gatJos{display:flex;gap:9px;align-items:center;margin-top:14px}
+.gatJos button{flex:1;min-height:52px;font-size:15px;font-weight:600}
+.cron{font-family:var(--serif);font-size:40px;font-weight:600;text-align:center;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:10px 0}
+.cron.sunat{color:var(--rosu)}
+
+/* ---- ce pot găti ---- */
+.potCard{margin-bottom:14px}
+.potLin{display:flex;align-items:center;gap:10px;padding:9px 0;width:100%;text-align:left;
+  background:transparent;border:0;border-bottom:1px solid var(--line);min-height:0}
+.potLin:last-child{border-bottom:0}
+.potLin .em{width:34px;height:34px;border-radius:var(--r-s);background:var(--bg2);display:grid;
+  place-items:center;font-size:17px;flex:0 0 auto;overflow:hidden}
+.potLin .em img{width:100%;height:100%;object-fit:cover}
+.potLin .tx{flex:1;min-width:0}
+.potLin .tx b{display:block;font-weight:500;font-size:14.5px}
+.potLin .tx span{font-size:11.5px;color:var(--ink3)}
+.potLin .st{font-size:11px;font-weight:600;padding:3px 8px;border-radius:var(--r-p);flex:0 0 auto}
+.potLin .st.ok{background:var(--verde-l);color:var(--verde-d)}
+.potLin .st.nu{background:var(--bg2);color:var(--ink3)}
+
+
+/* ---- butoanele de acțiune de pe Acasă ---- */
+.acte{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}
+.act{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;
+  gap:5px;padding:13px 8px 11px;min-height:0;border-radius:var(--r-m);
+  border:1px solid var(--line);background:var(--card);box-shadow:var(--card-sh,var(--sh))}
+.act:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.1;
+  background:radial-gradient(130% 80% at 50% 0,var(--a),transparent 72%)}
+.act .ic{position:relative;width:38px;height:38px;border-radius:var(--r-p);display:grid;place-items:center;
+  color:var(--a);background:color-mix(in srgb,var(--a) 13%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.act .ic svg{width:19px;height:19px}
+.act .nm{position:relative;font-weight:600;font-size:12.5px;letter-spacing:-.01em;line-height:1.1}
+.act .ct{position:relative;font-size:10.5px;color:var(--ink3);line-height:1.1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.act:active{transform:scale(.955)}
+@supports not (background:color-mix(in srgb,red 10%,transparent)){
+  .act .ic{background:var(--bg2)}
+}
+html[data-tema="piperi"] .act{border:1.5px solid var(--ink);border-radius:0}
+html[data-tema="piperi"] .act:before{display:none}
+html[data-tema="caiet"] .act{border-radius:3px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="marca">
+      <img class="logo" src="logo_mic.jpg" alt="" width="46" height="46" onerror="this.style.display='none'">
+      <div>
+        <h1>Rețete</h1>
+        <div class="sub" id="subtitlu">se încarcă…</div>
+      </div>
+    </div>
+    <button class="icon-b" id="bSetari" aria-label="Setări">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.63.67 1.09 1.31 1.09H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </header>
+
+  <!-- ===================== AZI ===================== -->
+  <section class="view on" id="v-azi">
+    <div class="acte">
+      <button class="act" id="bBon" style="--a:var(--prun)">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 21z"/><path d="M9.5 8h5M9.5 12h5M9.5 16h3"/></svg></span>
+        <span class="nm">Bon</span><span class="ct" id="ctBon">scanează</span></button>
+      <button class="act" id="bPreturi" style="--a:var(--galben)">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.6 12 21.2l-8.4-8.4V3.6h9.2z"/><circle cx="8" cy="8" r="1.4"/></svg></span>
+        <span class="nm">Prețuri</span><span class="ct" id="ctPret">—</span></button>
+      <button class="act" id="bNou" style="--a:var(--verde)">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        <span class="nm">Rețetă</span><span class="ct">scrie-o tu</span></button>
+    </div>
+    <input type="file" id="fBon" accept="image/*" hidden>
+    <div id="meniu"></div>
+    <div id="potGati"></div>
+    <div class="card" id="cardCost"></div>
+    <div class="row" style="margin-bottom:12px">
+      <button class="gh mic" id="bZiPrec">‹ ieri</button>
+      <button class="gh mic" id="bZiAzi" style="flex:1">azi</button>
+      <button class="gh mic" id="bZiUrm">mâine ›</button>
+    </div>
+    <div id="meseAzi"></div>
+  </section>
+
+  <!-- ===================== REȚETE ===================== -->
+  <section class="view" id="v-retete">
+    <div class="search" style="margin-bottom:10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="cauta" type="search" placeholder="Caută rețetă sau ingredient" autocomplete="off">
+    </div>
+    <div class="chips" id="filtre" style="margin-bottom:12px"></div>
+    <div id="listaRetete"></div>
+  </section>
+
+  <!-- ===================== ADAUGĂ ===================== -->
+  <section class="view" id="v-adauga">
+    <div class="card">
+      <h2 id="adaugaTitlu">Rețetă nouă</h2>
+      <label class="f"><span>Nume</span><input id="fNume" placeholder="Ciorbă de perișoare"></label>
+      <div class="grid2">
+        <label class="f"><span>Categorie</span><select id="fCat"></select></label>
+        <label class="f"><span>Emoji</span><input id="fEmoji" placeholder="🍲" maxlength="4"></label>
+      </div>
+      <div class="pozaRand">
+        <div class="pozaPrev" id="fPozaPrev"></div>
+        <div style="flex:1;min-width:0">
+          <button class="gh mic" id="bPoza">Pune o poză</button>
+          <button class="gh mic danger" id="bPozaX" hidden>Scoate</button>
+          <div class="hint" id="pozaMsg">Opțional. Apare în listă și în fereastra rețetei.</div>
+        </div>
+      </div>
+      <input type="file" id="fPozaIn" accept="image/*" hidden>
+      <div class="grid2">
+        <label class="f"><span>Porții</span><input id="fPortii" type="number" inputmode="numeric" min="1" value="4"></label>
+        <label class="f"><span>Timp (minute)</span><input id="fTimp" type="number" inputmode="numeric" min="0" value="30"></label>
+      </div>
+      <div class="sep"></div>
+      <label class="f"><span>Ingrediente — unul pe rând, ex. „200 g făină”</span>
+        <textarea id="fIng" placeholder="500 g carne tocată&#10;2 buc ceapă&#10;1 lingură ulei&#10;sare"></textarea></label>
+      <label class="f"><span>Pași — unul pe rând</span>
+        <textarea id="fPasi" placeholder="Călește ceapa 5 minute.&#10;Adaugă carnea și rumenește."></textarea></label>
+      <label class="f"><span>Etichete, separate prin virgulă</span><input id="fTag" placeholder="rapid, de post, cuptor"></label>
+      <label class="f"><span>Notă</span><input id="fNota" placeholder="de la bunica, merge cu smântână"></label>
+      <div class="row end" style="margin-top:6px">
+        <button class="gh" id="bAnuleaza" hidden>Renunță</button>
+        <button class="pr" id="bSalvez">Salvează rețeta</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PLAN ===================== -->
+  <section class="view" id="v-plan">
+    <div class="row" style="margin-bottom:12px;align-items:center">
+      <button class="gh mic" id="bSapPrec">‹</button>
+      <div style="flex:1;text-align:center;font-weight:600" id="sapTitlu">—</div>
+      <button class="gh mic" id="bSapUrm">›</button>
+    </div>
+    <div class="zile" id="zile"></div>
+    <div id="planZi"></div>
+  </section>
+
+  <!-- ===================== LISTĂ ===================== -->
+  <section class="view" id="v-lista">
+    <div class="seg" id="segLista" style="margin-bottom:12px"></div>
+    <div class="row" style="margin-bottom:12px">
+      <input id="extraIn" placeholder="Adaugă: 2 buc lămâie" style="flex:1;min-width:0">
+      <button class="pr" id="bExtra">+</button>
+    </div>
+    <div id="listaCump"></div>
+    <div class="row end" style="margin-top:14px">
+      <button class="gh mic" id="bCopiaza">Copiază lista</button>
+      <button class="gh mic danger" id="bGolesc">Șterge bifele</button>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== FERESTRE ===================== -->
+<div class="ov" id="ovReteta"><div class="bg" data-inchide></div><div class="sheet" id="shReteta"></div></div>
+<div class="ov" id="ovAlege"><div class="bg" data-inchide></div><div class="sheet" id="shAlege"></div></div>
+<div class="ov" id="ovSetari"><div class="bg" data-inchide></div><div class="sheet" id="shSetari"></div></div>
+<div class="ov" id="ovPret"><div class="bg" data-inchide></div><div class="sheet" id="shPret"></div></div>
+<div class="ov" id="ovBon"><div class="bg" data-inchide></div><div class="sheet" id="shBon"></div></div>
+<div class="ov" id="ovGat"><div class="bg"></div><div class="sheet gat" id="shGat"></div></div>
+
+<div class="sus" id="toast"></div>
+
+<nav>
+  <ul>
+    <li><a href="#azi" data-tab="azi" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18M3 12h18M3 17h10"/></svg><span>Azi</span></a></li>
+    <li><a href="#retete" data-tab="retete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M8 8h6M8 12h6"/></svg><span>Rețete</span></a></li>
+    <li class="plus"><a href="#adauga" data-tab="adauga" aria-label="Adaugă"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><span>Adaugă</span></a></li>
+    <li><a href="#plan" data-tab="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Plan</span></a></li>
+    <li><a href="#lista" data-tab="lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></svg><span>Listă</span></a></li>
+  </ul>
+</nav>
+<script>
+(function(){
+"use strict";
+var BUILD="24.11.2026";
+var $=function(id){return document.getElementById(id);};
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
+var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);};
+
+/* ---------------- date ---------------- */
+var CAT=["Mic dejun","Ciorbe","Fel principal","Garnitură","Salate","Desert","Gustare","Băutură"];
+var MESE=["Mic dejun","Prânz","Cină","Gustare"];
+var RAIOANE=["Legume și fructe","Carne și pește","Lactate și ouă","Băcănie","Congelate","Pâine","Condimente","Altele"];
+var EMOJI_CAT={"Mic dejun":"🥣","Ciorbe":"🍲","Fel principal":"🍽️","Garnitură":"🥔","Salate":"🥗","Desert":"🍰","Gustare":"🥨","Băutură":"🥤"};
+
+var RAION_CUV={
+ "Legume și fructe":["ceapa","ceapă","usturoi","morcov","cartof","rosi","roșii","ardei","castravet","varza","varză","salata","salată","spanac","dovlecel","vinete","ciuperc","lamaie","lămâie","mar","măr","banan","portocal","capsun","căpșun","zmeur","patrunjel","pătrunjel","marar","mărar","busuioc","telina","țelină","praz","fasole verde","mazare","mazăre","conopida","conopidă","broccoli","dovleac","ridichi","leustean","leuștean"],
+ "Carne și pește":["carne","pui","porc","vita","vită","miel","curcan","piept","pulpa","pulpă","aripi","cotlet","ceafa","ceafă","mici","carnat","cârnat","slanina","slănină","bacon","sunca","șuncă","peste","pește","somon","ton","macrou","crevet","creier","ficat"],
+ "Lactate și ouă":["lapte","smantana","smântână","iaurt","branza","brânză","cascaval","cașcaval","telemea","mozzarella","parmezan","unt","ou","oua","ouă","frisca","frișcă","mascarpone","ricotta","kefir","sana"],
+ "Băcănie":["faina","făină","zahar","zahăr","orez","paste","spaghete","macaroane","malai","mălai","gris","griș","ulei","otet","oțet","conserv","rosii in suc","pasta de tomate","past","linte","naut","năut","fasole","bulion","miere","nuca","nucă","migdale","seminte","semințe","drojdie","praf de copt","cacao","ciocolata","ciocolată","musli","ovaz","ovăz","bors","borș"],
+ "Congelate":["congelat","inghetata","înghețată","legume congelate"],
+ "Pâine":["paine","pâine","chifl","bagheta","baghetă","lipie","tortilla","pesmet","covrig","blat"],
+ "Condimente":["sare","piper","boia","cimbru","oregano","dafin","chimen","curry","scortisoara","scorțișoară","vanilie","nucsoara","nucșoară","paprika","susan","condiment"]
+};
+var GRAME={"lingura":15,"lingură":15,"lingurita":5,"linguriță":5,"cana":200,"cană":200,"pahar":200,
+  "buc":100,"bucata":100,"bucată":100,"felie":30,"catel":5,"cățel":5,"varf":2,"vârf":2,"plic":10,"praf":1};
+
+var retete=[], plan=[], cfg={}, lista={bifat:{},extra:[]};
+var gata=false, editId=null;
+var ziSel=azi(), sapStart=lunea(new Date()), listaMod="sapt";
+
+function azi(){ return iso(new Date()); }
+function iso(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+function pad(n){ return (n<10?"0":"")+n; }
+function parseIso(s){ var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s||"")); return m?new Date(+m[1],+m[2]-1,+m[3]):new Date(NaN); }
+function lunea(d){ var x=new Date(d); var z=(x.getDay()+6)%7; x.setDate(x.getDate()-z); x.setHours(0,0,0,0); return x; }
+function plusZile(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+var ZN=["Luni","Marți","Miercuri","Joi","Vineri","Sâmbătă","Duminică"];
+var ZS=["Lu","Ma","Mi","Jo","Vi","Sâ","Du"];
+var LN=["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"];
+function ziText(s){ var d=parseIso(s); if(isNaN(d)) return s;
+  return ZN[(d.getDay()+6)%7]+", "+d.getDate()+" "+LN[d.getMonth()]; }
+function nr(v){ var n=parseFloat(String(v==null?"":v).replace(",",".")); return isFinite(n)?n:0; }
+
+function toast(t){ var e=$("toast"); e.textContent=t; e.classList.add("on");
+  clearTimeout(toast._t); toast._t=setTimeout(function(){ e.classList.remove("on"); },2200); }
+
+/* ---------------- ingrediente ---------------- */
+var UNITATI=["kg","g","ml","l","linguri","lingura","lingură","lingurite","linguriță","lingurițe","cani","cana","cană",
+  "buc","bucati","bucăți","bucata","bucată","felii","felie","catei","cățel","căței","plic","plicuri","praf","varf","vârf","pahar"];
+function normU(u){
+  u=String(u||"").toLowerCase();
+  var m={"linguri":"lingură","lingura":"lingură","lingurite":"linguriță","lingurițe":"linguriță","lingurita":"linguriță",
+    "cani":"cană","cana":"cană","bucati":"buc","bucăți":"buc","bucata":"buc","bucată":"buc","bucăţi":"buc",
+    "felii":"felie","catei":"cățel","căței":"cățel","plicuri":"plic","varf":"vârf"};
+  return m[u]||u;
+}
+function parseIng(linie){
+  var s=String(linie||"").trim();
+  if(!s) return null;
+  var m=/^(\d+(?:[.,]\d+)?(?:\s*\/\s*\d+)?)\s*([a-zA-ZăâîșțĂÂÎȘȚ]*)\s+(.+)$/.exec(s);
+  if(!m) return {q:0,u:"",n:s.toLowerCase(),raw:s};
+  var q=nr(m[1]), u=normU(m[2]), rest=m[3];
+  if(u && UNITATI.indexOf(m[2].toLowerCase())<0){ rest=m[2]+" "+rest; u=""; }
+  return {q:q,u:u,n:rest.trim().toLowerCase(),raw:s};
+}
+function raionFor(nume){
+  var n=String(nume||"").toLowerCase();
+  for(var r in RAION_CUV){ var w=RAION_CUV[r];
+    for(var i=0;i<w.length;i++) if(n.indexOf(w[i])>=0) return r; }
+  return "Altele";
+}
+function grame(ing){
+  if(!ing.q) return 0;
+  var u=ing.u;
+  if(u==="kg") return ing.q*1000;
+  if(u==="l") return ing.q*1000;
+  if(u==="g"||u==="ml"||u==="") return ing.q;
+  return ing.q*(GRAME[u]||0);
+}
+
+/* ---------------- stocare: Google Sheets prin Apps Script ---------------- */
+var SRV="retete-server";
+function srv(){ try{ return JSON.parse(localStorage.getItem(SRV)||"{}"); }catch(e){ return {}; } }
+function srvSet(o){ try{ localStorage.setItem(SRV,JSON.stringify(o)); }catch(e){} }
+
+async function call(action,params){
+  var c=srv();
+  if(!c.url) throw {code:"no_server",message:"Pune serverul în Setări."};
+  var ac=(typeof AbortController!=="undefined")?new AbortController():null;
+  var to=ac?setTimeout(function(){ ac.abort(); },30000):0;
+  var r;
+  try{
+    r=await fetch(c.url,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      signal:ac?ac.signal:undefined,
+      body:JSON.stringify(Object.assign({action:action,token:c.token},params||{}))});
+  }catch(e){
+    if(to) clearTimeout(to);
+    if(e&&e.name==="AbortError") throw {code:"timeout",message:"Serverul a durat prea mult."};
+    throw {code:"offline",message:"Nu ajung la server."};
+  }
+  if(to) clearTimeout(to);
+  var j;
+  try{ j=await r.json(); }catch(e){ throw {code:"offline",message:"Răspuns invalid de la server."}; }
+  if(!j.ok) throw {code:j.code||"eroare",message:j.error||"Eroare."};
+  return j;
+}
+function eText(e){
+  if(!e) return "Eroare.";
+  if(e.code==="no_server") return "Pune serverul în Setări.";
+  if(e.code==="bad_token") return "Parolă greșită.";
+  if(e.code==="offline")   return "Fără legătură cu serverul. Lucrez local.";
+  if(e.code==="timeout")   return "Serverul a durat prea mult.";
+  return e.message||"Eroare.";
+}
+
+/* ---- rândul din foaie ↔ obiectul din aplicație ---- */
+function rReteta(r){ return {id:r.id,nume:r.nume,emoji:r.emoji||"",categorie:r.cat||"",
+  portii:r.portii||1,timp:r.timp||0,ingrediente:JSON.stringify(r.ing||[]),
+  pasi:JSON.stringify(r.pasi||[]),etichete:r.tag||"",favorit:r.fav?"da":"",
+  nota:r.nota||"",creat:r.creat||Date.now()}; }
+function oReteta(x){
+  var ing=[],pasi=[];
+  try{ ing=JSON.parse(x.ingrediente||"[]")||[]; }catch(e){}
+  try{ pasi=JSON.parse(x.pasi||"[]")||[]; }catch(e){ pasi=String(x.pasi||"").split("\n").filter(Boolean); }
+  return {id:x.id,nume:x.nume,emoji:x.emoji||"",cat:x.categorie||"",portii:nr(x.portii)||1,
+    timp:nr(x.timp),ing:ing,pasi:pasi,tag:x.etichete||"",fav:!!String(x.favorit||"").trim(),
+    nota:x.nota||"",creat:nr(x.creat),poza:pozaLocal(x.id)};
+}
+function rPlan(x){ return {id:x.id,data:x.data,masa:x.masa,retetaId:x.retetaId||"",
+  nume:x.nume,portii:x.portii||1,mancat:x.mancat?"da":""}; }
+function oPlan(x){ return {id:x.id,data:x.data,masa:x.masa,retetaId:x.retetaId||"",
+  nume:x.nume,portii:nr(x.portii)||1,mancat:!!String(x.mancat||"").trim()}; }
+function rPret(k,p){ return {id:k,produs:p.nume,pret:p.pret,cantitate:p.cant,
+  unitate:p.unit,magazin:p.magazin||"",data:p.data||""}; }
+function oPret(x){ return {nume:x.produs,pret:nr(x.pret),cant:nr(x.cantitate),
+  unit:x.unitate||"",magazin:x.magazin||"",data:x.data||"",istoric:[]}; }
+
+/* ---- pozele stau pe dispozitiv, nu în foaie ---- */
+var PZ="retete-poze", _pz=null;
+function pozeLoad(){ if(_pz) return _pz;
+  try{ _pz=JSON.parse(localStorage.getItem(PZ)||"{}"); }catch(e){ _pz={}; } return _pz; }
+function pozaLocal(id){ return pozeLoad()[id]||""; }
+function pozaSet(id,dataUri){
+  var o=pozeLoad();
+  if(dataUri) o[id]=dataUri; else delete o[id];
+  var ch=Object.keys(o);
+  while(ch.length>40) delete o[ch.shift()];
+  try{ localStorage.setItem(PZ,JSON.stringify(o)); _pz=o; return true; }
+  catch(e){ _pz=null; return false; }
+}
+
+/* ---- scriere, cu coadă dacă serverul nu răspunde ---- */
+var coada=[], scriuT=null;
+function cheieFoaie(cale){
+  if(cale.indexOf("retete/")===0)  return "retete";
+  if(cale.indexOf("plan/")===0)    return "plan";
+  if(cale.indexOf("preturi/")===0) return "preturi";
+  return null;
+}
+function scriu(cale,date){
+  coada.push({cale:cale,date:date,sterge:false});
+  cacheSalvez();
+  clearTimeout(scriuT); scriuT=setTimeout(descarc,400);
+}
+function sterg(cale){
+  coada.push({cale:cale,sterge:true});
+  cacheSalvez();
+  clearTimeout(scriuT); scriuT=setTimeout(descarc,400);
+}
+async function descarc(){
+  if(!srv().url || !coada.length) return;
+  var c=coada; coada=[];
+  var up={retete:[],plan:[],preturi:[]}, del={retete:[],plan:[],preturi:[]}, docs={};
+  c.forEach(function(it){
+    var f=cheieFoaie(it.cale), id=it.cale.split("/")[1];
+    if(!f){ docs[it.cale.split("/")[0]]=it.date; return; }
+    if(it.sterge) del[f].push(id);
+    else if(f==="retete")  up.retete.push(rReteta(it.date));
+    else if(f==="plan")    up.plan.push(rPlan(it.date));
+    else if(f==="preturi") up.preturi.push(rPret(id,it.date));
+  });
+  try{
+    for(var f in del) if(del[f].length) await call("del",{sheet:f,ids:del[f]});
+    for(var f2 in up) if(up[f2].length) await call("upsert",{sheet:f2,rows:up[f2]});
+    for(var d in docs) await call("doc",{id:d,data:docs[d]});
+    cacheSalvez();
+    semnal(true);
+  }catch(e){
+    coada=c.concat(coada);          // le încerc din nou data viitoare
+    cacheSalvez();
+    semnal(false,eText(e));
+  }
+}
+function semnal(ok,txt){
+  var el=$("subtitlu"); if(!el) return;
+  if(ok) el.textContent=(retete.length?retete.length+" rețete":"")+(coada.length?" · "+coada.length+" de trimis":"");
+  else el.textContent=txt||"offline";
+}
+
+/* ---- citire ---- */
+async function incarc(){
+  if(!srv().url) return false;
+  var j=await call("all",{});
+  retete=(j.retete||[]).map(oReteta);
+  plan=(j.plan||[]).map(oPlan);
+  preturi={}; (j.preturi||[]).forEach(function(x){ preturi[x.id]=oPret(x); });
+  cfg=j.cfg||{};
+  lista=j.lista||{bifat:{},extra:[]};
+  if(!lista.bifat) lista.bifat={};
+  if(!lista.extra) lista.extra=[];
+  revLocal=j.rev;
+  cacheSalvez();
+  return true;
+}
+var revLocal=null, pollT=null;
+function porneastaPoll(){
+  clearInterval(pollT);
+  pollT=setInterval(async function(){
+    if(document.hidden || !srv().url) return;
+    try{
+      var j=await call("ping",{});
+      if(revLocal!==null && j.rev!==revLocal){ revLocal=j.rev; await incarc(); randTot(); }
+      else revLocal=j.rev;
+    }catch(e){}
+  },20000);
+  document.addEventListener("visibilitychange",function(){
+    if(!document.hidden && srv().url) descarc();
+  });
+}
+
+/* ---- copie locală, ca să meargă fără semnal ---- */
+var CACHE="retete-v2";
+function cacheSalvez(){
+  try{ localStorage.setItem(CACHE,JSON.stringify({r:retete,p:plan,c:cfg,l:lista,pr:preturi,
+    q:coada,t:Date.now()})); }catch(e){}
+}
+function cacheCitesc(){
+  try{
+    var j=JSON.parse(localStorage.getItem(CACHE)||"null");
+    if(!j) return false;
+    retete=j.r||[]; plan=j.p||[]; cfg=j.c||{};
+    lista=j.l||{bifat:{},extra:[]}; preturi=j.pr||{}; coada=j.q||[];
+    return true;
+  }catch(e){ return false; }
+}
+
+
+/* ================= PREȚURI ȘI BONURI ================= */
+var preturi={};          /* slug -> {nume,pret,cant,unit,peG,magazin,data,istoric[]} */
+var MON="lei";
+
+function slug(n){ return String(n||"").toLowerCase()
+  .replace(/[ăâ]/g,"a").replace(/[îí]/g,"i").replace(/[șş]/g,"s").replace(/[țţ]/g,"t")
+  .replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," "); }
+
+/* cât costă un gram din produsul ăsta */
+function perGram(p){
+  if(!p||!p.pret) return 0;
+  var g=grame({q:nr(p.cant),u:normU(p.unit)});
+  if(!g) return 0;
+  return nr(p.pret)/g;
+}
+function pretPentru(numeIng){
+  var k=slug(numeIng);
+  if(preturi[k]) return preturi[k];
+  var best=null,lung=0;
+  for(var s2 in preturi){
+    if((k.indexOf(s2)>=0||s2.indexOf(k)>=0) && s2.length>lung){ best=preturi[s2]; lung=s2.length; }
+  }
+  return best;
+}
+/* costul unei rețete, pe porție și total */
+function costReteta(r,portii){
+  if(!r) return null;
+  var baza=Math.max(1,nr(r.portii)||1), f=(portii||baza)/baza;
+  var total=0, stiute=0, lipsa=[];
+  (r.ing||[]).forEach(function(i){
+    var p=pretPentru(i.n), g=grame(i)*f;
+    var pg=perGram(p);
+    if(!p||!pg||!g){ lipsa.push(i.n); return; }
+    stiute++; total+=pg*g;
+  });
+  return {total:Math.round(total*100)/100,
+          porție:Math.round(total/Math.max(1,(portii||baza))*100)/100,
+          stiute:stiute,total_ing:(r.ing||[]).length,lipsa:lipsa};
+}
+function costLista(items){
+  var t=0, fara=0;
+  items.forEach(function(it){
+    var p=pretPentru(it.n), pg=perGram(p), g=grame({q:it.q,u:it.u});
+    if(p&&pg&&g){ it.cost=Math.round(pg*g*100)/100; t+=it.cost; }
+    else if(p&&p.pret&&!g){ it.cost=nr(p.pret); t+=it.cost; }
+    else { it.cost=null; fara++; }
+  });
+  return {total:Math.round(t*100)/100,fara:fara};
+}
+
+
+/* ---------- bonul: OCR pe server, verificat de tine ---------- */
+var bonStare={faza:"gol",randuri:[],eroare:"",magazin:"",data:""};
+function deschideBon(){ bonStare={faza:"gol",randuri:[],eroare:"",magazin:"",data:azi()}; randBon(); deschideOv("ovBon"); }
+function randBon(){
+  var h='<div class="grab"></div>'+
+    '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
+    '<h2>Bon de cumpărături</h2>';
+  if(bonStare.faza==="gol"||bonStare.faza==="eroare"){
+    if(bonStare.eroare) h+='<div class="msj nu">'+esc(bonStare.eroare)+'</div>';
+    h+='<div class="hint" style="margin-bottom:14px">Fotografiază bonul drept, cu tot textul în cadru. Citirea se face în contul tău Google, fără niciun cost.</div>'+
+       '<button class="pr" id="bAlegePoza" style="width:100%">Alege poza bonului</button>'+
+       '<div class="hint" style="margin-top:10px">Verifică mereu ce am citit. Bonurile șterse sau mototolite ies prost.</div>';
+  }
+  if(bonStare.faza==="citesc") h+='<div class="msj info">Citesc bonul… 10-20 de secunde.</div>';
+  if(bonStare.faza==="verific"){
+    h+='<div class="hint" style="margin-bottom:10px">'+bonStare.randuri.length+' linii găsite. Corectează ce e greșit, debifează ce nu e produs.</div>'+
+       '<div class="grid2" style="margin-bottom:8px">'+
+       '<label class="f"><span>Magazin</span><input id="bonMag" value="'+esc(bonStare.magazin)+'"></label>'+
+       '<label class="f"><span>Data</span><input id="bonData" type="date" value="'+esc(bonStare.data)+'"></label></div>';
+    bonStare.randuri.forEach(function(r,i){
+      h+='<div class="card" style="padding:11px;margin-bottom:8px">'+
+        '<div class="row" style="align-items:center;margin-bottom:8px">'+
+        '<button class="tick" data-bonbif="'+i+'" aria-pressed="'+(r.on?"true":"false")+'" aria-label="include">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg></button>'+
+        '<input data-bonn="'+i+'" value="'+esc(r.nume)+'" style="flex:1;min-width:0"></div>'+
+        '<div class="grid4">'+
+          '<label class="f" style="margin:0"><span>preț</span><input data-bonp="'+i+'" type="number" step="0.01" inputmode="decimal" value="'+esc(r.pret||"")+'"></label>'+
+          '<label class="f" style="margin:0"><span>cant.</span><input data-bonc="'+i+'" type="number" step="0.01" inputmode="decimal" value="'+esc(r.cant||"")+'"></label>'+
+          '<label class="f" style="margin:0"><span>unitate</span><input data-bonu="'+i+'" value="'+esc(r.unit||"")+'"></label>'+
+          '<div style="align-self:end;font-size:11px;color:var(--ink3)" class="nr">'+
+            (perGram({pret:r.pret,cant:r.cant,unit:r.unit})?(Math.round(perGram({pret:r.pret,cant:r.cant,unit:r.unit})*1000*100)/100+" / kg"):"—")+
+          '</div></div></div>';
+    });
+    h+='<button class="pr" id="bBonSalvez" style="width:100%;margin-top:4px">Salvează prețurile</button>';
+  }
+  $("shBon").innerHTML=h;
+  var b=$("bAlegePoza"); if(b) b.onclick=function(){ $("fBon").click(); };
+  var sv=$("bBonSalvez"); if(sv) sv.onclick=salvezBon;
+}
+function micsorezBon(file,maxL,cal){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onerror=function(){ rej(new Error("n-am putut citi fișierul")); };
+    fr.onload=function(){
+      var im=new Image();
+      im.onerror=function(){ rej(new Error("nu e o imagine validă")); };
+      im.onload=function(){
+        var w=im.width,h=im.height,f=Math.min(1,maxL/Math.max(w,h));
+        var c=document.createElement("canvas");
+        c.width=Math.round(w*f); c.height=Math.round(h*f);
+        var x=c.getContext("2d");
+        x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height);
+        x.drawImage(im,0,0,c.width,c.height);
+        res(c.toDataURL("image/jpeg",cal).split(",")[1]);
+      };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+async function citesteBon(file){
+  if(!srv().url){ bonStare.faza="eroare"; bonStare.eroare="Pune serverul în Setări."; randBon(); return; }
+  bonStare.faza="citesc"; randBon();
+  try{
+    var b64=await micsorezBon(file,1600,0.82);
+    var j=await call("ocr",{b64:b64,mime:"image/jpeg"});
+    var r=j.randuri||[];
+    if(!r.length){
+      bonStare.faza="eroare";
+      bonStare.eroare="N-am găsit produse. Încearcă o poză mai dreaptă și mai luminoasă, sau adaugă prețurile de mână din Prețuri.";
+      randBon(); return;
+    }
+    bonStare.randuri=r.map(function(x){
+      return {nume:String(x.nume||"").trim(),pret:nr(x.pret),cant:nr(x.cant),unit:normU(x.unit||""),on:true};
+    });
+    bonStare.faza="verific"; bonStare.eroare=""; randBon();
+  }catch(e){
+    bonStare.faza="eroare"; bonStare.eroare=eText(e); randBon();
+  }
+}
+function salvezBon(){
+  var mag=($("bonMag")||{}).value||"", dt=($("bonData")||{}).value||azi(), n=0;
+  bonStare.randuri.forEach(function(r,i){
+    var el=function(a){ return document.querySelector('[data-'+a+'="'+i+'"]'); };
+    r.nume=(el("bonn")||{}).value||r.nume;
+    r.pret=nr((el("bonp")||{}).value);
+    r.cant=nr((el("bonc")||{}).value);
+    r.unit=normU((el("bonu")||{}).value||"");
+    if(!r.on||!r.nume||!r.pret) return;
+    var k=slug(r.nume);
+    preturi[k]={nume:r.nume,pret:r.pret,cant:r.cant,unit:r.unit,magazin:mag,data:dt,istoric:[]};
+    scriu("preturi/"+k,preturi[k]); n++;
+  });
+  $("ovBon").removeAttribute("open");
+  randTot();
+  toast(n?("Am salvat "+n+" prețuri."):"Nimic bifat.");
+}
+
+/* ---------- fereastra Prețuri ---------- */
+var pretCauta="";
+function deschidePret(){ pretCauta=""; randPret(); deschideOv("ovPret"); }
+function randPret(){
+  var L=[];
+  for(var k in preturi) L.push(preturi[k]);
+  L=L.filter(function(p){ return !pretCauta||p.nume.indexOf(pretCauta)>=0; })
+     .sort(function(a,b){ return a.nume.localeCompare(b.nume,"ro"); });
+  var h='<div class="grab"></div>'+
+    '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
+    '<h2>Prețuri</h2><div class="hint" style="margin-bottom:12px">'+L.length+' produse știute. Din ele calculez cât costă o rețetă.</div>'+
+    '<div class="search" style="margin-bottom:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
+    '<input id="pretCauta" placeholder="Caută produs" value="'+esc(pretCauta)+'"></div>'+
+    '<div class="card" style="padding:12px"><h2>Adaugă de mână</h2>'+
+      '<label class="f"><span>Produs</span><input id="npNume" placeholder="faina"></label>'+
+      '<div class="grid4">'+
+        '<label class="f" style="margin:0"><span>preț</span><input id="npPret" type="number" step="0.01" inputmode="decimal"></label>'+
+        '<label class="f" style="margin:0"><span>cant.</span><input id="npCant" type="number" step="0.01" inputmode="decimal"></label>'+
+        '<label class="f" style="margin:0"><span>unitate</span><input id="npUnit" placeholder="kg"></label>'+
+        '<button class="pr" id="bNpAdd" style="align-self:end">+</button>'+
+      '</div></div>';
+  if(!L.length) h+='<div class="gol">Niciun preț încă. Încarcă un bon.</div>';
+  L.forEach(function(p){
+    var pg=perGram(p);
+    h+='<div class="linie"><div class="tx"><b>'+esc(p.nume)+'</b><span class="nr">'+
+      esc(p.pret)+' '+MON+(p.cant?(" / "+esc(p.cant)+" "+esc(p.unit)):"")+
+      (pg?(" · "+Math.round(pg*1000*100)/100+" "+MON+"/kg"):" · fără cantitate")+
+      (p.magazin?(" · "+esc(p.magazin)):"")+'</span></div>'+
+      '<button class="icon-b" style="width:32px;height:32px" data-xpret="'+esc(slug(p.nume))+'" aria-label="șterge">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>';
+  });
+  $("shPret").innerHTML=h;
+  var c=$("pretCauta");
+  if(c) c.oninput=function(){ pretCauta=this.value.toLowerCase(); pastrez("#shPret",randPret); };
+  var ad=$("bNpAdd");
+  if(ad) ad.onclick=function(){
+    var n3=($("npNume").value||"").trim().toLowerCase();
+    if(!n3||!nr($("npPret").value)){ toast("Pune produsul și prețul."); return; }
+    var k=slug(n3);
+    preturi[k]={nume:n3,pret:nr($("npPret").value),cant:nr($("npCant").value),unit:normU($("npUnit").value||""),
+      magazin:"",data:azi(),istoric:(preturi[k]&&preturi[k].istoric)||[]};
+    scriu("preturi/"+k,preturi[k]);
+    randPret(); randTot(); toast("Adăugat.");
+  };
+}
+
+/* ================= FLUIDITATE =================
+   Trei lucruri stricau senzația: ferestrele săreau sus la fiecare apăsare,
+   animația de intrare repornea la orice redesenare, iar ferestrele nu se
+   închideau prin tragere. */
+
+/* 1. redesenez o fereastră fără să-i pierd poziția sau focusul */
+function pastrez(selSheet,fn){
+  var sh=document.querySelector(selSheet);
+  var top=sh?sh.scrollTop:0;
+  var a=document.activeElement, id=(a&&a.id)||"", st=0, en=0;
+  if(a&&("selectionStart" in a)){ try{ st=a.selectionStart; en=a.selectionEnd; }catch(e){} }
+  fn();
+  var sh2=document.querySelector(selSheet);
+  if(sh2) sh2.scrollTop=top;
+  if(id){ var n=$(id); if(n&&n.focus){ n.focus({preventScroll:true});
+    if("setSelectionRange" in n){ try{ n.setSelectionRange(st,en); }catch(e){} } } }
+}
+
+/* 2. animația de intrare doar la schimbarea filei, nu la fiecare redesenare */
+var animAt=0;
+function porneAnim(){
+  animAt=Date.now();
+  document.body.classList.add("anim");
+  clearTimeout(porneAnim._t);
+  porneAnim._t=setTimeout(function(){ document.body.classList.remove("anim"); },700);
+}
+
+/* 3. tragere în jos ca să închizi fereastra */
+function legTragere(ov){
+  var sh=ov.querySelector(".sheet"); if(!sh||sh.dataset.trag) return;
+  sh.dataset.trag="1";
+  var y0=null, dy=0, pornit=false;
+  sh.addEventListener("touchstart",function(e){
+    if(sh.scrollTop>0){ y0=null; return; }
+    y0=e.touches[0].clientY; dy=0; pornit=false;
+    sh.style.transition="none";
+  },{passive:true});
+  sh.addEventListener("touchmove",function(e){
+    if(y0===null) return;
+    dy=e.touches[0].clientY-y0;
+    if(dy<=0){ sh.style.transform=""; return; }
+    if(!pornit && dy>6) pornit=true;
+    if(pornit) sh.style.transform="translateY("+dy+"px)";
+  },{passive:true});
+  sh.addEventListener("touchend",function(){
+    if(y0===null) return;
+    sh.style.transition="transform .3s var(--ease)";
+    if(dy>110){ sh.style.transform="translateY(100%)";
+      setTimeout(function(){ ov.removeAttribute("open"); sh.style.transition=""; sh.style.transform=""; },260); }
+    else sh.style.transform="";
+    y0=null;
+  });
+}
+function deschideOv(id){
+  var ov=$(id); if(!ov) return;
+  ov.setAttribute("open",""); legTragere(ov);
+  var sh=ov.querySelector(".sheet"); if(sh) sh.scrollTop=0;
+}
+
+/* ================= POZE ================= */
+var fPoza=null;   /* id-ul asset-ului pentru rețeta din formular */
+function pozaUrl(v){ return v||""; }
+function pozaPrev(){
+  var el=$("fPozaPrev"); if(!el) return;
+  el.innerHTML = fPoza ? '<img src="'+esc(pozaUrl(fPoza))+'" alt="" onerror="this.remove()">' : ($("fEmoji").value||"🍴");
+  if($("bPozaX")) $("bPozaX").hidden=!fPoza;
+  if($("bPoza")) $("bPoza").textContent=fPoza?"Schimbă poza":"Pune o poză";
+}
+/* micșorez pe telefon înainte de încărcare: 1200px, JPEG 0.78 */
+function micsorez(file,maxL,cal){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onerror=function(){ rej(new Error("n-am putut citi fișierul")); };
+    fr.onload=function(){
+      var im=new Image();
+      im.onerror=function(){ rej(new Error("nu e o imagine validă")); };
+      im.onload=function(){
+        var w=im.width,h=im.height,f=Math.min(1,maxL/Math.max(w,h));
+        var c=document.createElement("canvas");
+        c.width=Math.round(w*f); c.height=Math.round(h*f);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+        c.toBlob(function(b){ b?res(b):rej(new Error("conversia a eșuat")); },"image/jpeg",cal);
+      };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+async function urcPoza(file){
+  var m=$("pozaMsg"); if(m) m.textContent="Se pregătește…";
+  try{
+    var uri=await micsorezUri(file,900,0.72);
+    fPoza=uri;
+    pozaPrev();
+    if(m) m.textContent="Gata. Poza stă pe telefonul ăsta, nu în foaie.";
+  }catch(e){
+    if(m) m.textContent="N-a mers: "+((e&&e.message)||e);
+  }
+}
+function micsorezUri(file,maxL,cal){
+  return new Promise(function(res,rej){
+    var fr=new FileReader();
+    fr.onerror=function(){ rej(new Error("n-am putut citi fișierul")); };
+    fr.onload=function(){
+      var im=new Image();
+      im.onerror=function(){ rej(new Error("nu e o imagine validă")); };
+      im.onload=function(){
+        var w=im.width,h=im.height,f=Math.min(1,maxL/Math.max(w,h));
+        var c=document.createElement("canvas");
+        c.width=Math.round(w*f); c.height=Math.round(h*f);
+        c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+        res(c.toDataURL("image/jpeg",cal));
+      };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+/* ================= CE POT GĂTI ACUM ================= */
+function amIngredientul(nume){
+  if(pretPentru(nume)) return true;
+  var n=slug(nume);
+  var baza=["sare","piper","apa","ulei","zahar","faina"];
+  for(var i=0;i<baza.length;i++) if(n.indexOf(baza[i])>=0) return true;
+  return false;
+}
+function potGati(r){
+  var ing=(r.ing||[]), lipsa=[];
+  ing.forEach(function(i){ if(!amIngredientul(i.n)) lipsa.push(i.n); });
+  return {lipsa:lipsa,am:ing.length-lipsa.length,total:ing.length};
+}
+
+/* ================= MOD GĂTIT ================= */
+var gat={id:null,pas:0,portii:1,sec:0,ruleaza:false,t:null,sunat:false};
+function deschideGat(id,portii){
+  var r=retetaDupaId(id); if(!r) return;
+  gat={id:id,pas:0,portii:portii||nr(r.portii)||1,sec:0,ruleaza:false,t:null,sunat:false};
+  randGat(); deschideOv("ovGat");
+}
+function inchideGat(){
+  opresteCron();
+  $("ovGat").removeAttribute("open");
+}
+/* caut minutele din textul pasului, ca să pot porni cronometrul */
+function minutePas(text){
+  var m=/(\d+)\s*(?:-\s*\d+\s*)?(?:de\s+)?(minute|minut|min\b)/i.exec(String(text||""));
+  if(m) return +m[1];
+  var h=/(\d+)\s*(?:de\s+)?(ore|oră|ora|h\b)/i.exec(String(text||""));
+  if(h) return +h[1]*60;
+  return 0;
+}
+function mmss(s){
+  s=Math.max(0,Math.round(s));
+  return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+}
+function porneCron(sec){
+  opresteCron();
+  gat.sec=sec; gat.ruleaza=true; gat.sunat=false;
+  gat.t=setInterval(function(){
+    gat.sec--;
+    if(gat.sec<=0){
+      gat.sec=0; gat.ruleaza=false; gat.sunat=true;
+      clearInterval(gat.t); gat.t=null;
+      if(navigator.vibrate) try{ navigator.vibrate([200,100,200]); }catch(e){}
+      toast("Gata pasul "+(gat.pas+1)+".");
+    }
+    var c=$("cronTxt"); if(c){ c.textContent=mmss(gat.sec); c.className="cron"+(gat.sunat?" sunat":""); }
+    var b=$("bCron"); if(b&&!gat.ruleaza) b.textContent="Pornește din nou";
+  },1000);
+  randGat();
+}
+function opresteCron(){ if(gat.t){ clearInterval(gat.t); gat.t=null; } gat.ruleaza=false; }
+function randGat(){
+  var r=retetaDupaId(gat.id); if(!r) return;
+  var pasi=r.pasi||[], n=pasi.length||1, baza=Math.max(1,nr(r.portii)||1), f=gat.portii/baza;
+  var text=pasi[gat.pas]||"Gata.";
+  var min=minutePas(text);
+  var h='<div class="gatSus">'+
+    '<div class="tt">'+esc(r.nume)+'</div>'+
+    '<button class="icon-b" id="bGatX" aria-label="Ieși"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'+
+    '<div class="gatBara">'+pasi.map(function(_,i){
+      return '<i class="'+(i<gat.pas?"gata":(i===gat.pas?"acum":""))+'"></i>';
+    }).join("")+'</div>'+
+    '<div class="gatMij">'+
+      '<div class="gatNr">Pasul '+(gat.pas+1)+' din '+n+'</div>'+
+      '<div class="gatText">'+esc(text)+'</div>'+
+      ((gat.sec>0||gat.sunat)?'<div class="cron'+(gat.sunat?" sunat":"")+'" id="cronTxt">'+mmss(gat.sec)+'</div>':'')+
+      (min?'<button class="gh" id="bCron" style="margin-top:10px">'+
+        (gat.ruleaza?"Oprește cronometrul":(gat.sunat?"Pornește din nou":"Pornește "+min+" min"))+'</button>':'')+
+      '<div class="gatIng"><h3>Ingrediente, pentru '+gat.portii+' porții</h3>'+
+        (r.ing||[]).map(function(i){
+          var q=i.q?(Math.round(i.q*f*100)/100):0;
+          return '<div class="item"><span class="tx">'+esc(i.n)+'</span><span class="q">'+(q?esc(q+(i.u?" "+i.u:"")):"")+'</span></div>';
+        }).join("")+'</div>'+
+    '</div>'+
+    '<div class="gatJos">'+
+      '<button class="gh" id="bGatP" '+(gat.pas===0?"disabled":"")+'>Înapoi</button>'+
+      (gat.pas<n-1?'<button class="pr" id="bGatN">Următorul</button>'
+                  :'<button class="pr" id="bGatGata">Am terminat</button>')+
+    '</div>';
+  $("shGat").innerHTML=h;
+  $("bGatX").onclick=inchideGat;
+  var p=$("bGatP"); if(p) p.onclick=function(){ if(gat.pas>0){ opresteCron(); gat.sec=0; gat.sunat=false; gat.pas--; randGat(); } };
+  var nx=$("bGatN"); if(nx) nx.onclick=function(){ opresteCron(); gat.sec=0; gat.sunat=false; gat.pas++; randGat(); };
+  var gg=$("bGatGata"); if(gg) gg.onclick=function(){ inchideGat(); toast("Poftă bună."); };
+  var bc=$("bCron"); if(bc) bc.onclick=function(){
+    if(gat.ruleaza){ opresteCron(); randGat(); }
+    else porneCron(min*60);
+  };
+}
+
+/* ================= CE POT GĂTI ACUM ================= */
+function randPotGati(){
+  var el=$("potGati"); if(!el) return;
+  if(!retete.length || !Object.keys(preturi).length){ el.innerHTML=""; return; }
+  var L=retete.map(function(r){ var p=potGati(r); return {r:r,p:p}; })
+    .filter(function(x){ return x.p.total>0; })
+    .sort(function(a,b){ return a.p.lipsa.length-b.p.lipsa.length || a.p.total-b.p.total; });
+  var gata=L.filter(function(x){ return !x.p.lipsa.length; });
+  var aproape=L.filter(function(x){ return x.p.lipsa.length>0 && x.p.lipsa.length<=2; }).slice(0,4);
+  if(!gata.length && !aproape.length){ el.innerHTML=""; return; }
+  var h='<div class="card potCard"><h2>Ce pot găti acum</h2>';
+  gata.slice(0,5).concat(aproape).forEach(function(x){
+    var r=x.r, lip=x.p.lipsa;
+    h+='<button class="potLin" data-reteta="'+esc(r.id)+'">'+
+      '<span class="em">'+(r.poza?'<img src="'+esc(pozaUrl(r.poza))+'" alt="" loading="lazy" onerror="this.remove()">':esc(r.emoji||EMOJI_CAT[r.cat]||"🍴"))+'</span>'+
+      '<span class="tx"><b>'+esc(r.nume)+'</b><span>'+
+        (lip.length?("îți lipsesc: "+esc(lip.slice(0,2).join(", "))):(nr(r.timp)?nr(r.timp)+" minute":"ai tot"))+
+      '</span></span>'+
+      '<span class="st '+(lip.length?"nu":"ok")+'">'+(lip.length?("−"+lip.length):"ai tot")+'</span></button>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+/* ================= MENIUL DE PE ACASĂ ================= */
+var CURSURI=[
+  {id:"starter",nume:"Starter",ic:"🥣",cat:["Ciorbe","Salate","Gustare"],c:"var(--verde)"},
+  {id:"main",   nume:"Fel principal",ic:"🍽️",cat:["Fel principal","Garnitură"],c:"var(--prun)"},
+  {id:"desert", nume:"Desert",ic:"🍰",cat:["Desert","Băutură"],c:"var(--galben)"}
+];
+function masaAcum(){
+  var h=new Date().getHours();
+  if(h<11) return "Mic dejun";
+  if(h<16) return "Prânz";
+  if(h<21) return "Cină";
+  return "Gustare";
+}
+/* rapidele: favoritele întâi, apoi cele puse cel mai des în plan, apoi cele scurte */
+function rapide(n){
+  var folos={};
+  plan.forEach(function(x){ if(x.retetaId) folos[x.retetaId]=(folos[x.retetaId]||0)+1; });
+  return retete.slice().sort(function(a,b){
+    var fa=(a.fav?1000:0)+(folos[a.id]||0)*10-(nr(a.timp)||99)/100;
+    var fb=(b.fav?1000:0)+(folos[b.id]||0)*10-(nr(b.timp)||99)/100;
+    return fb-fa;
+  }).slice(0,n||10);
+}
+function randMeniu(){
+  var h='<div class="meniu">';
+  h+='<div class="cursuri">'+CURSURI.map(function(c){
+    var n=retete.filter(function(r){ return c.cat.indexOf(r.cat)>=0; }).length;
+    return '<button class="curs" data-curs="'+c.id+'" style="--c:'+c.c+'">'+
+      '<span class="ic">'+c.ic+'</span>'+
+      '<span class="nm">'+esc(c.nume)+'</span>'+
+      '<span class="ct">'+(n?n+(n===1?" rețetă":" rețete"):"nimic încă")+'</span></button>';
+  }).join("")+'</div>';
+  var R=rapide(10);
+  if(R.length){
+    h+='<div class="rapide">'+R.map(function(r){
+      var c=costReteta(r,nr(r.portii)||1);
+      return '<button class="rapid" data-rapid="'+esc(r.id)+'">'+
+        (r.poza?'<img src="'+esc(pozaUrl(r.poza))+'" alt="" style="width:20px;height:20px;border-radius:6px;object-fit:cover">'
+               :'<em>'+esc(r.emoji||EMOJI_CAT[r.cat]||"🍴")+'</em>')+'<b>'+esc(r.nume)+'</b>'+
+        '<span>'+(r.timp?nr(r.timp)+"′":"")+(c&&c.stiute?" · "+c.porție.toFixed(0)+" "+MON:"")+'</span></button>';
+    }).join("")+'</div>';
+  }else{
+    h+='<button class="gol" style="width:100%" id="bSeed">Pune 10 rețete rapide ca să ai de unde începe</button>';
+  }
+  h+='</div>';
+  $("meniu").innerHTML=h;
+  var sd=$("bSeed"); if(sd) sd.onclick=seedRetete;
+}
+
+/* 10 rețete de pornire, cu ingrediente și macro pe porție */
+function seedRetete(){
+  var S=[
+   ["Carbonara","🍝","Fel principal",2,20,620,28,70,24,["200 g spaghete","100 g bacon","2 buc oua","50 g parmezan","1 vârf piper"],["Fierbe pastele al dente.","Rumenește baconul.","Amestecă ouăle cu parmezanul.","Stinge focul și combină, cu apă de paste."]],
+   ["Aglio e olio","🧄","Fel principal",2,15,480,13,62,20,["200 g spaghete","4 cățel usturoi","4 lingură ulei","1 vârf piper","sare"],["Fierbe pastele.","Rumenește usturoiul feliat în ulei.","Combină cu apă de paste."]],
+   ["Salată grecească","🥗",'Salate',2,10,260,8,14,19,["2 buc rosii","1 buc castravete","100 g telemea","10 buc masline","2 lingură ulei"],["Taie legumele mare.","Pune brânza deasupra.","Stropește cu ulei."]],
+   ["Omletă cu brânză","🍳","Mic dejun",1,10,420,28,4,32,["3 buc oua","60 g cascaval","10 g unt"],["Bate ouăle cu sare.","Topește untul.","Adaugă brânza la final."]],
+   ["Ciorbă de legume","🍲","Ciorbe",6,50,140,4,22,4,["3 buc morcov","2 buc cartof","1 buc ceapa","1 buc ardei","2 lingură ulei","100 ml bors"],["Călește ceapa.","Adaugă restul legumelor și apă.","Acrește la final."]],
+   ["Piept de pui la tigaie","🍗","Fel principal",2,20,330,45,1,16,["400 g piept de pui","2 lingură ulei","1 vârf boia","sare"],["Bate pieptul subțire.","Prăjește 4 minute pe parte."]],
+   ["Orez cu legume","🍚","Garnitură",4,30,290,7,52,6,["300 g orez","2 buc morcov","1 buc ceapa","2 lingură ulei"],["Călește legumele.","Adaugă orezul și apă dublă.","Fierbe 18 minute."]],
+   ["Cartofi la cuptor","🥔","Garnitură",4,45,220,5,38,6,["1 kg cartof","3 lingură ulei","1 cimbru","sare"],["Taie cartofii felii.","Coace 40 de minute la 200."]],
+   ["Clătite","🥞","Desert",4,25,310,9,42,11,["250 g faina","3 buc oua","400 ml lapte","2 lingură ulei","2 lingură zahar"],["Amestecă totul.","Prăjește subțire pe ambele părți."]],
+   ["Iaurt cu miere și nuci","🍯","Gustare",1,3,290,12,28,14,["200 g iaurt","1 lingură miere","30 g nuca"],["Pune totul în bol."]]
+  ];
+  var n=0;
+  S.forEach(function(x,i){
+    if(retete.some(function(r){ return r.nume===x[0]; })) return;
+    var r={id:uid(),nume:x[0],emoji:x[1],cat:x[2],portii:x[3],timp:x[4],
+      ing:x[9].map(parseIng).filter(Boolean),pasi:x[10],tag:"",nota:"",fav:false,creat:Date.now()+i};
+    retete.push(r); scriu("retete/"+r.id,r); n++;
+  });
+  randTot();
+  toast("Am adăugat "+n+" rețete. Le poți modifica oricând.");
+}
+
+/* ---------------- randare: AZI ---------------- */
+function planZiua(d){ return plan.filter(function(x){ return x.data===d; }); }
+function retetaDupaId(id){ for(var i=0;i<retete.length;i++) if(retete[i].id===id) return retete[i]; return null; }
+
+function costLinie(x){
+  var r=x.retetaId?retetaDupaId(x.retetaId):null;
+  if(!r) return null;
+  var c=costReteta(r,nr(x.portii)||1);
+  return (c&&c.stiute)?c.total:null;
+}
+function randAzi(){
+  var zi=planZiua(ziSel);
+  var tot=0, fara=0;
+  zi.forEach(function(x){ var c=costLinie(x); if(c==null) fara++; else tot+=c; });
+  var luna=ziSel.slice(0,7), totLuna=0;
+  plan.forEach(function(x){ if(String(x.data||"").slice(0,7)!==luna) return;
+    var c=costLinie(x); if(c!=null) totLuna+=c; });
+  $("cardCost").innerHTML=
+    '<div class="costSus">'+
+      '<div><div class="costNr nr">'+tot.toFixed(2)+'</div><div class="costLb">'+MON+' azi'+
+        (fara?' · '+fara+' fără preț':'')+'</div></div>'+
+      '<div style="text-align:right"><div class="costNr mic2 nr">'+totLuna.toFixed(2)+'</div>'+
+        '<div class="costLb">'+MON+' luna asta</div></div>'+
+    '</div>'+
+    '<div class="costJos"><span>'+zi.length+(zi.length===1?' masă':' mese')+' în plan</span>'+
+      '<span>'+zi.filter(function(x){return x.mancat;}).length+' bifate</span></div>';
+
+  randMeniu();
+  randPotGati();
+  var np=Object.keys(preturi).length;
+  if($("ctPret")) $("ctPret").textContent = np?(np+" produse"):"niciunul";
+  if($("ctBon")) $("ctBon").textContent = np?"adaugă încă":"scanează";
+  $("bZiAzi").textContent = ziSel===azi()?"azi":ziText(ziSel);
+  var h=[];
+  MESE.forEach(function(masa){
+    var linii=zi.filter(function(x){ return x.masa===masa; });
+    var k=0; linii.forEach(function(x){ var c=costLinie(x); if(c!=null) k+=c; });
+    h.push('<div class="masa"><h3>'+masa+(k?' <em class="nr">'+k.toFixed(2)+' '+MON+'</em>':'')+'</h3>');
+    if(!linii.length){
+      h.push('<button class="gol" style="width:100%" data-add="'+esc(masa)+'">+ adaugă la '+masa.toLowerCase()+'</button>');
+    }else{
+      linii.forEach(function(x){
+        var cc=costLinie(x);
+        h.push('<div class="linie'+(x.mancat?' gata':'')+'">'+
+          '<button class="tick" data-tick="'+esc(x.id)+'" aria-pressed="'+(x.mancat?"true":"false")+'" aria-label="mâncat">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg></button>'+
+          '<div class="tx"><b>'+esc(x.nume)+'</b><span class="nr">'+(nr(x.portii)||1)+(nr(x.portii)===1?' porție':' porții')+(cc!=null?' · '+cc.toFixed(2)+' '+MON:'')+'</span></div>'+
+          (x.retetaId?'<button class="icon-b" style="width:32px;height:32px" data-gat2="'+esc(x.retetaId)+'|'+(nr(x.portii)||1)+'" aria-label="gătește">'+
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11h16M6 11a6 6 0 0 1 12 0M5 15h14M7 19h10"/></svg></button>':'')+
+          '<button class="icon-b" style="width:32px;height:32px" data-sterg="'+esc(x.id)+'" aria-label="șterge">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>');
+      });
+      h.push('<button class="gh mic" data-add="'+esc(masa)+'" style="margin-top:2px">+ încă ceva</button>');
+    }
+    h.push('</div>');
+  });
+  $("meseAzi").innerHTML=h.join("");
+}
+
+/* ---------------- randare: REȚETE ---------------- */
+var filtruCat="", cautaTxt="";
+function randFiltre(){
+  var h=['<button class="chip" data-cat="" aria-pressed="'+(filtruCat?"false":"true")+'">Toate</button>'];
+  h.push('<button class="chip" data-cat="★" aria-pressed="'+(filtruCat==="★"?"true":"false")+'">★ Favorite</button>');
+  CAT.forEach(function(c){
+    var n=retete.filter(function(r){ return r.cat===c; }).length;
+    if(!n) return;
+    h.push('<button class="chip" data-cat="'+esc(c)+'" aria-pressed="'+(filtruCat===c?"true":"false")+'">'+esc(c)+' '+n+'</button>');
+  });
+  $("filtre").innerHTML=h.join("");
+}
+function reteteFiltrate(){
+  var q=cautaTxt.trim().toLowerCase();
+  return retete.filter(function(r){
+    if(filtruCat==="★" && !r.fav) return false;
+    if(filtruCat && filtruCat!=="★" && r.cat!==filtruCat) return false;
+    if(!q) return true;
+    if(String(r.nume||"").toLowerCase().indexOf(q)>=0) return true;
+    if(String(r.tag||"").toLowerCase().indexOf(q)>=0) return true;
+    return (r.ing||[]).some(function(i){ return String(i.n||"").indexOf(q)>=0; });
+  }).sort(function(a,b){ return String(a.nume||"").localeCompare(String(b.nume||""),"ro"); });
+}
+function randRetete(){
+  randFiltre();
+  var L=reteteFiltrate();
+  if(!L.length){
+    $("listaRetete").innerHTML='<div class="gol">'+(retete.length?"Nimic potrivit.":"Nicio rețetă încă. Apasă + ca să adaugi prima.")+'</div>';
+    return;
+  }
+  $("listaRetete").innerHTML=L.map(function(r){
+    var pg2=potGati(r);
+    return '<button class="reteta" data-reteta="'+esc(r.id)+'">'+
+      '<span class="em">'+(r.poza?'<img src="'+esc(pozaUrl(r.poza))+'" alt="" loading="lazy" onerror="this.remove()">':esc(r.emoji||EMOJI_CAT[r.cat]||"🍴"))+'</span>'+
+      '<span class="tx"><b>'+esc(r.nume)+'</b><span class="meta nr">'+
+        esc(r.cat||"")+(r.timp?" · "+nr(r.timp)+" min":"")+
+        (function(){ var c=costReteta(r,nr(r.portii)||1); return (c&&c.stiute)?(" · "+c.porție.toFixed(2)+" "+MON+"/porție"):""; })()+
+      '</span></span>'+(r.fav?'<span class="fav">★</span>':'')+'</button>';
+  }).join("");
+}
+
+/* ---------------- fereastra rețetei ---------------- */
+var deschisId=null, scalaPortii=0;
+function deschideReteta(id){
+  var r=retetaDupaId(id); if(!r) return;
+  deschisId=id; scalaPortii=nr(r.portii)||1;
+  randSheetReteta();
+  deschideOv("ovReteta");
+}
+function randSheetReteta(){
+  var r=retetaDupaId(deschisId); if(!r) return;
+  var baza=nr(r.portii)||1, f=scalaPortii/baza;
+  var ing=(r.ing||[]).map(function(i){
+    var q=i.q?(Math.round(i.q*f*100)/100):0;
+    return '<div class="item"><span class="tx">'+esc(i.n)+'</span><span class="q">'+(q?esc(q+(i.u?" "+i.u:"")):"")+'</span></div>';
+  }).join("")||'<div class="hint">Fără ingrediente trecute.</div>';
+  var pasi=(r.pasi||[]).map(function(p,k){
+    return '<div class="item" style="align-items:flex-start"><span class="q" style="min-width:20px">'+(k+1)+'.</span><span class="tx">'+esc(p)+'</span></div>';
+  }).join("")||'<div class="hint">Fără pași.</div>';
+  $("shReteta").innerHTML=
+    '<div class="grab"></div>'+
+    '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
+    (r.poza?'<img class="rPoza" src="'+esc(pozaUrl(r.poza))+'" alt="" onerror="this.remove()">':'')+
+    '<h2>'+(r.poza?'':esc(r.emoji||EMOJI_CAT[r.cat]||"🍴")+' ')+esc(r.nume)+'</h2>'+
+    '<div class="hint" style="margin-bottom:14px">'+esc(r.cat||"")+(r.timp?" · "+nr(r.timp)+" minute":"")+(r.nota?" · "+esc(r.nota):"")+'</div>'+
+    costBloc(r)+
+    '<div class="row" style="align-items:center;margin-bottom:12px">'+
+      '<button class="gh mic" data-por="-">−</button>'+
+      '<div style="flex:1;text-align:center;font-weight:600" class="nr">'+scalaPortii+' porții</div>'+
+      '<button class="gh mic" data-por="+">+</button>'+
+    '</div>'+
+    '<div class="card"><h2>Ingrediente</h2>'+ing+'</div>'+
+    '<div class="card"><h2>Pași</h2>'+pasi+'</div>'+
+    '<div class="row" style="margin-top:4px">'+
+      '<button class="pr" data-gateste="1" style="flex:1">Gătește</button>'+
+      '<button class="gh" data-fav="1">'+(r.fav?"★":"☆")+'</button>'+
+    '</div>'+
+    '<div class="row" style="margin-top:8px">'+
+      '<button class="gh" data-inplan="1" style="flex:1">Pune în plan</button>'+
+    '</div>'+
+    '<div class="row end" style="margin-top:8px">'+
+      '<button class="gh mic" data-editez="1">Modifică</button>'+
+      '<button class="gh mic danger" data-stergR="1">Șterge rețeta</button>'+
+    '</div>';
+}
+
+function costBloc(r){
+  var c=costReteta(r,scalaPortii);
+  if(!c) return "";
+  if(!c.stiute) return '<div class="msj info">Nu știu prețul niciunui ingredient. Încarcă un bon ca să-ți spun cât costă.</div>';
+  var sig=c.stiute===c.total_ing;
+  return '<div class="card" style="margin-bottom:12px"><div class="row" style="justify-content:space-between;align-items:baseline">'+
+    '<span><b class="nr" style="font-family:var(--serif);font-size:25px">'+c.total.toFixed(2)+'</b> <span class="hint" style="display:inline">'+MON+' pentru '+scalaPortii+' porții</span></span>'+
+    '<span class="nr" style="color:var(--ink2)">'+c.porție.toFixed(2)+' '+MON+'/porție</span></div>'+
+    (sig?'':'<div class="hint" style="margin-top:6px">Estimare din '+c.stiute+' din '+c.total_ing+' ingrediente. Lipsesc: '+esc(c.lipsa.slice(0,4).join(", "))+(c.lipsa.length>4?"…":"")+'</div>')+
+    '</div>';
+}
+
+/* ---------------- fereastra „alege” ---------------- */
+var alegeMasa="Prânz", alegeData=null, alegeCurs=null;
+function deschideAlege(masa,data,curs){
+  alegeMasa=masa||"Prânz"; alegeData=data||ziSel; alegeCurs=curs||null;
+  randSheetAlege("");
+  deschideOv("ovAlege");
+}
+function randSheetAlege(q){
+  q=(q||"").toLowerCase();
+  var L=retete.filter(function(r){
+      if(alegeCurs && alegeCurs.cat.indexOf(r.cat)<0) return false;
+      return !q||String(r.nume||"").toLowerCase().indexOf(q)>=0; })
+    .sort(function(a,b){ return String(a.nume||"").localeCompare(String(b.nume||""),"ro"); }).slice(0,40);
+  $("shAlege").innerHTML=
+    '<div class="grab"></div>'+
+    '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
+    '<h2>'+esc(alegeCurs?alegeCurs.nume:alegeMasa)+'</h2>'+
+    '<div class="hint" style="margin-bottom:12px">'+esc(alegeMasa)+' · '+esc(ziText(alegeData))+'</div>'+
+    '<div class="search" style="margin-bottom:10px">'+
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'+
+      '<input id="alegeCauta" placeholder="Caută rețetă" value="'+esc(q)+'" autocomplete="off"></div>'+
+    (alegeCurs?'<div class="seg" style="margin-bottom:10px">'+MESE.map(function(m){
+        return '<button data-alegemasa="'+esc(m)+'" aria-pressed="'+(alegeMasa===m?"true":"false")+'">'+esc(m)+'</button>';
+      }).join("")+'</div>':'')+
+    (L.length?L.map(function(r){
+      return '<button class="reteta" data-pune="'+esc(r.id)+'">'+
+        '<span class="em">'+esc(r.emoji||EMOJI_CAT[r.cat]||"🍴")+'</span>'+
+        '<span class="tx"><b>'+esc(r.nume)+'</b><span class="meta nr">'+(function(){
+          var c=costReteta(r,nr(r.portii)||1); return (c&&c.stiute)?(c.porție.toFixed(2)+" "+MON+"/porție"):(nr(r.timp)?nr(r.timp)+" min":"");
+        })()+'</span></span></button>';
+    }).join(""):'<div class="gol">Nicio rețetă. Scrie mai jos ce ai mâncat.</div>')+
+    '<div class="sep"></div><h2 class="serif" style="font-size:19px;margin-bottom:8px">Sau ceva simplu</h2>'+
+    '<label class="f"><span>Ce ai mâncat</span><input id="libNume" placeholder="Iaurt cu miere"></label>'+
+    '<button class="pr" id="bLib" style="width:100%">Adaugă</button>';
+  var ci=$("alegeCauta");
+  if(ci) ci.oninput=function(){ var v=this.value; pastrez("#shAlege",function(){ randSheetAlege(v); }); };
+}
+function pune(retetaId,nume,macro,portii){
+  var x={id:uid(),data:alegeData,masa:alegeMasa,retetaId:retetaId||"",nume:nume,
+    portii:portii||1,mancat:false};
+  plan.push(x);
+  scriu("plan/"+x.id,x);
+  $("ovAlege").removeAttribute("open");
+  alegeCurs=null;
+  randTot();
+  toast(nume+" → "+alegeMasa.toLowerCase());
+}
+
+/* ---------------- PLAN ---------------- */
+function randPlan(){
+  var l=sapStart, d=plusZile(l,6);
+  $("sapTitlu").textContent = l.getDate()+" "+LN[l.getMonth()].slice(0,3)+" – "+d.getDate()+" "+LN[d.getMonth()].slice(0,3);
+  var h=[];
+  for(var i=0;i<7;i++){
+    var z=plusZile(l,i), s=iso(z), n=planZiua(s).length;
+    h.push('<button class="zi'+(s===azi()?" azi":"")+'" data-zi="'+s+'" aria-pressed="'+(s===ziSel?"true":"false")+'">'+
+      '<em>'+ZS[i]+'</em><b class="nr">'+z.getDate()+'</b>'+(n?'<i></i>':'<span style="height:5px"></span>')+'</button>');
+  }
+  $("zile").innerHTML=h.join("");
+
+  var zi=planZiua(ziSel), kTot=0;
+  zi.forEach(function(x){ var c=costLinie(x); if(c!=null) kTot+=c; });
+  var o=['<div class="card"><h2>'+esc(ziText(ziSel))+(kTot?' · <span class="nr">'+kTot.toFixed(2)+' '+MON+'</span>':'')+'</h2>'];
+  MESE.forEach(function(masa){
+    var linii=zi.filter(function(x){ return x.masa===masa; });
+    o.push('<div class="masa"><h3>'+masa+'</h3>');
+    linii.forEach(function(x){
+      var cl=costLinie(x);
+      o.push('<div class="linie"><div class="tx"><b>'+esc(x.nume)+'</b><span class="nr">'+(nr(x.portii)||1)+(nr(x.portii)===1?' porție':' porții')+(cl!=null?' · '+cl.toFixed(2)+' '+MON:'')+'</span></div>'+
+        '<button class="icon-b" style="width:32px;height:32px" data-sterg="'+esc(x.id)+'" aria-label="șterge">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>');
+    });
+    o.push('<button class="gh mic" data-add="'+esc(masa)+'">+ adaugă</button></div>');
+  });
+  o.push('</div>');
+  $("planZi").innerHTML=o.join("");
+}
+
+/* ---------------- LISTĂ DE CUMPĂRĂTURI ---------------- */
+function intervalLista(){
+  if(listaMod==="azi") return [ziSel,ziSel];
+  if(listaMod==="sapt") return [iso(sapStart),iso(plusZile(sapStart,6))];
+  var a=new Date(), b=plusZile(a,6);
+  return [iso(a),iso(b)];
+}
+function agreg(){
+  var iv=intervalLista(), hartă={};
+  plan.forEach(function(x){
+    if(x.data<iv[0]||x.data>iv[1]) return;
+    if(x.mancat) return;
+    var r=x.retetaId?retetaDupaId(x.retetaId):null;
+    if(!r||!r.ing) return;
+    var f=(nr(x.portii)||1)/Math.max(1,nr(r.portii)||1);
+    r.ing.forEach(function(i){
+      var k=i.n+"|"+(i.u||"");
+      if(!hartă[k]) hartă[k]={n:i.n,u:i.u,q:0,r:raionFor(i.n),k:k,din:[]};
+      hartă[k].q+=(i.q||0)*f;
+      if(hartă[k].din.indexOf(r.nume)<0) hartă[k].din.push(r.nume);
+    });
+  });
+  (lista.extra||[]).forEach(function(e){
+    var k=e.n+"|"+(e.u||"");
+    if(hartă[k]){ hartă[k].q+=nr(e.q); hartă[k].extra=true; }
+    else hartă[k]={n:e.n,u:e.u,q:nr(e.q),r:raionFor(e.n),k:k,extra:true,din:[]};
+  });
+  var arr=[];
+  for(var k in hartă){ var it=hartă[k]; it.q=Math.round(it.q*100)/100; arr.push(it); }
+  return arr;
+}
+function randLista(){
+  $("segLista").innerHTML=[["azi","Ziua aleasă"],["sapt","Săptămâna"],["7","Următoarele 7 zile"]].map(function(o){
+    return '<button data-mod="'+o[0]+'" aria-pressed="'+(listaMod===o[0]?"true":"false")+'">'+o[1]+'</button>';
+  }).join("");
+  var items=agreg();
+  if(!items.length){
+    $("listaCump").innerHTML='<div class="gol">Nimic de cumpărat. Pune rețete în plan sau adaugă manual.</div>';
+    return;
+  }
+  var c=costLista(items);
+  var pe={};
+  items.forEach(function(it){ (pe[it.r]=pe[it.r]||[]).push(it); });
+  var h=[], bif=lista.bifat||{};
+  h.push('<div class="card" style="display:flex;justify-content:space-between;align-items:baseline">'+
+    '<span><b class="nr" style="font-family:var(--serif);font-size:27px">'+c.total.toFixed(2)+'</b> <span class="hint" style="display:inline">'+MON+' estimat</span></span>'+
+    '<span class="hint">'+items.length+' produse'+(c.fara?(" · "+c.fara+" fără preț"):"")+'</span></div>');
+  RAIOANE.forEach(function(r){
+    var L=pe[r]; if(!L) return;
+    L.sort(function(a,b){ return a.n.localeCompare(b.n,"ro"); });
+    var gata=L.every(function(i){ return bif[i.k]; });
+    h.push('<div class="raion"><h3>'+esc(r)+(gata?" ✓":"")+'</h3>');
+    L.forEach(function(it){
+      var b=!!bif[it.k];
+      h.push('<div class="item'+(b?" bif":"")+'">'+
+        '<button class="tick" data-bif="'+esc(it.k)+'" aria-pressed="'+(b?"true":"false")+'" aria-label="bifat">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg></button>'+
+        '<span class="tx">'+esc(it.n)+(it.extra?'':'')+'</span>'+
+        '<span class="q">'+(it.q?esc(it.q+(it.u?" "+it.u:"")):"")+
+          (it.cost!=null?' <b style="color:var(--ink)">'+it.cost.toFixed(2)+'</b>':'')+'</span>'+
+        (it.extra?'<button class="icon-b" style="width:30px;height:30px" data-xextra="'+esc(it.n)+'" aria-label="scoate">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>':'')+
+        '</div>');
+    });
+    h.push('</div>');
+  });
+  $("listaCump").innerHTML=h.join("");
+}
+function listaText(){
+  var items=agreg(), pe={}, bif=lista.bifat||{}, out=[];
+  costLista(items);
+  items.forEach(function(it){ if(bif[it.k]) return; (pe[it.r]=pe[it.r]||[]).push(it); });
+  RAIOANE.forEach(function(r){
+    var L=pe[r]; if(!L) return;
+    out.push(r.toUpperCase());
+    L.sort(function(a,b){ return a.n.localeCompare(b.n,"ro"); });
+    L.forEach(function(it){ out.push("- "+it.n+(it.q?" — "+it.q+(it.u?" "+it.u:""):"")+(it.cost!=null?("  "+it.cost.toFixed(2)+" "+MON):"")); });
+    out.push("");
+  });
+  return out.join("\n").trim();
+}
+
+/* ---------------- SETĂRI ---------------- */
+var TEME=[
+  ["piata","Piață","verde pe alb, carduri curate"],
+  ["caiet","Caiet","foaie liniată, margine roșie"],
+  ["bistro","Bistro","întunecat și auriu, ca un meniu"],
+  ["tejghea","Tejghea","blocuri de culoare, cifre groase"],
+  ["cuptor","Cuptor","cărbune și jar, portocaliu cald"],
+  ["gradina","Grădină","verde-mentă, aerisit, rotunjit"],
+  ["piperi","Piperi","alb-negru tăios, accent roșu"],
+  ["dulce","Dulce","roz prăfuit, forme moi"]
+];
+function temaCurenta(){ try{ return localStorage.getItem("retete-tema")||"piata"; }catch(e){ return "piata"; } }
+function setTema(t){ document.documentElement.setAttribute("data-tema",t);
+  try{ localStorage.setItem("retete-tema",t); }catch(e){} }
+function randSetari(){
+  $("shSetari").innerHTML=
+    '<div class="grab"></div>'+
+    '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
+    '<h2>Setări</h2><div style="height:14px"></div>'+
+    '<div class="card"><h2>Server</h2>'+
+      '<label class="f"><span>URL-ul /exec din Apps Script</span><input id="svUrl" placeholder="https://script.google.com/macros/s/.../exec" value="'+esc(srv().url||"")+'"></label>'+
+      '<label class="f"><span>Parola (TOKEN din Code.gs)</span><input id="svTok" type="password" value="'+esc(srv().token||"")+'"></label>'+
+      '<button class="pr" id="bSv" style="width:100%">Salvează și testează</button>'+
+      '<div class="hint" id="svMsg">'+(srv().url?"Legat.":"Nelegat — aplicația merge doar pe telefonul ăsta.")+'</div>'+
+    '</div>'+
+    '<div class="card"><h2>Temă</h2><div class="teme">'+TEME.map(function(x){
+      return '<button class="tema'+(temaCurenta()===x[0]?" on":"")+'" data-pune-tema="'+x[0]+'">'+
+        '<span class="prev p-'+x[0]+'"><i></i><i></i><i></i></span>'+
+        '<span class="nm">'+esc(x[1])+'</span><span class="ds">'+esc(x[2])+'</span></button>';
+    }).join("")+'</div></div>'+
+    '<div class="card"><h2>Datele tale</h2>'+
+      '<div class="hint" style="margin-bottom:10px">'+retete.length+' rețete · '+plan.length+' intrări în plan'+
+      (srv().url?' · în Google Sheets':' · doar pe acest dispozitiv')+'</div>'+
+      '<div class="row"><button class="gh mic" id="bExport">Copiază tot (JSON)</button>'+
+      '<button class="gh mic" id="bImport">Adaugă din JSON</button></div></div>'+
+    '<div class="hint" style="text-align:center">Rețete · '+BUILD+'</div>';
+}
+
+/* ---------------- navigare ---------------- */
+var tabCurent="azi";
+function arata(t){
+  tabCurent=t;
+  ["azi","retete","adauga","plan","lista"].forEach(function(k){
+    var v=$("v-"+k); if(v) v.classList.toggle("on",k===t);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("nav a"),function(a){
+    if(a.dataset.tab===t) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+  window.scrollTo(0,0);
+  porneAnim();
+  randTab(t);
+}
+function randTab(t){
+  if(t==="azi") randAzi();
+  else if(t==="retete") randRetete();
+  else if(t==="plan") randPlan();
+  else if(t==="lista") randLista();
+}
+function randTot(){
+  randTab(tabCurent);
+  semnal(true);
+}
+
+/* ---------------- formular rețetă ---------------- */
+function umpleCat(){
+  $("fCat").innerHTML=CAT.map(function(c){ return '<option>'+esc(c)+'</option>'; }).join("");
+}
+function formGol(){
+  editId=null;
+  $("adaugaTitlu").textContent="Rețetă nouă";
+  $("bSalvez").textContent="Salvează rețeta";
+  $("bAnuleaza").hidden=true;
+  ["fNume","fEmoji","fIng","fPasi","fTag","fNota"].forEach(function(id){ $(id).value=""; });
+  $("fPortii").value=4; $("fTimp").value=30; $("fCat").selectedIndex=2;
+  fPoza=null; pozaPrev();
+  if($("pozaMsg")) $("pozaMsg").textContent="Opțional. Apare în listă și în fereastra rețetei.";
+}
+function formUmple(r){
+  editId=r.id;
+  $("adaugaTitlu").textContent="Modifici rețeta";
+  $("bSalvez").textContent="Salvează modificările";
+  $("bAnuleaza").hidden=false;
+  $("fNume").value=r.nume||""; $("fEmoji").value=r.emoji||"";
+  fPoza=r.poza||null; pozaPrev();
+  $("fCat").value=r.cat||CAT[2];
+  $("fPortii").value=nr(r.portii)||4; $("fTimp").value=nr(r.timp)||0;
+  $("fIng").value=(r.ing||[]).map(function(i){ return i.raw||((i.q?i.q+" ":"")+(i.u?i.u+" ":"")+i.n); }).join("\n");
+  $("fPasi").value=(r.pasi||[]).join("\n");
+  $("fTag").value=r.tag||""; $("fNota").value=r.nota||"";
+  arata("adauga");
+}
+function citescForm(){
+  var nume=$("fNume").value.trim();
+  if(!nume) return null;
+  var ing=$("fIng").value.split("\n").map(parseIng).filter(Boolean);
+  var pasi=$("fPasi").value.split("\n").map(function(s){ return s.trim(); }).filter(Boolean);
+  return {id:editId||uid(),nume:nume,emoji:$("fEmoji").value.trim(),poza:fPoza||"",cat:$("fCat").value,
+    portii:nr($("fPortii").value)||1,timp:nr($("fTimp").value),
+    ing:ing,pasi:pasi,tag:$("fTag").value.trim(),nota:$("fNota").value.trim(),
+    fav:editId?!!(retetaDupaId(editId)||{}).fav:false,
+    creat:editId?((retetaDupaId(editId)||{}).creat||Date.now()):Date.now()};
+}
+
+/* ---------------- evenimente ---------------- */
+document.addEventListener("click",function(ev){
+  var el=ev.target.closest?ev.target.closest("[data-tab],[data-inchide],[data-add],[data-tick],[data-sterg],[data-reteta],[data-cat],[data-zi],[data-mod],[data-bif],[data-xextra],[data-pune],[data-por],[data-fav],[data-inplan],[data-editez],[data-stergR],[data-pune-tema],[data-xpret],[data-bonbif],[data-curs],[data-rapid],[data-alegemasa],[data-gateste],[data-gat2]"):null;
+  if(!el) return;
+  var d=el.dataset;
+
+  if(d.tab){ ev.preventDefault(); location.hash="#"+d.tab; arata(d.tab); if(d.tab==="adauga"&&!editId) formGol(); return; }
+  if("inchide" in d){ ev.preventDefault();
+    var ov=el.closest(".ov"); if(ov) ov.removeAttribute("open"); return; }
+
+  if(d.add){ deschideAlege(d.add, tabCurent==="plan"?ziSel:ziSel); return; }
+  if(d.tick){
+    var x=plan.filter(function(y){ return y.id===d.tick; })[0];
+    if(x){ x.mancat=!x.mancat; scriu("plan/"+x.id,x); randTot(); }
+    return;
+  }
+  if(d.sterg){
+    plan=plan.filter(function(y){ return y.id!==d.sterg; });
+    sterg("plan/"+d.sterg); randTot(); return;
+  }
+  if(d.reteta){ deschideReteta(d.reteta); return; }
+  if("cat" in d){ filtruCat=d.cat; randRetete(); return; }
+  if(d.zi){ ziSel=d.zi; randPlan(); return; }
+  if(d.mod){ listaMod=d.mod; randLista(); return; }
+  if(d.bif){
+    lista.bifat=lista.bifat||{};
+    if(lista.bifat[d.bif]) delete lista.bifat[d.bif]; else lista.bifat[d.bif]=1;
+    scriu("lista/main",lista); randLista(); return;
+  }
+  if(d.xextra){
+    lista.extra=(lista.extra||[]).filter(function(e){ return e.n!==d.xextra; });
+    scriu("lista/main",lista); randLista(); return;
+  }
+  if(d.pune){
+    var r=retetaDupaId(d.pune); if(!r) return;
+    pune(r.id,r.nume,null,1); return;
+  }
+  if(d.por){
+    scalaPortii=Math.max(1,scalaPortii+(d.por==="+"?1:-1));
+    pastrez("#shReteta",randSheetReteta); return;
+  }
+  if(d.fav){
+    var rr=retetaDupaId(deschisId); if(!rr) return;
+    rr.fav=!rr.fav; scriu("retete/"+rr.id,rr); pastrez("#shReteta",randSheetReteta); randTot(); return;
+  }
+  if(d.gat2){ var pp=d.gat2.split("|"); deschideGat(pp[0],nr(pp[1])||1); return; }
+  if(d.gateste){
+    $("ovReteta").removeAttribute("open");
+    deschideGat(deschisId,scalaPortii);
+    return;
+  }
+  if(d.inplan){
+    var r2=retetaDupaId(deschisId); if(!r2) return;
+    $("ovReteta").removeAttribute("open");
+    deschideAlege(MESE[1],ziSel);
+    return;
+  }
+  if(d.editez){
+    var r3=retetaDupaId(deschisId); if(!r3) return;
+    $("ovReteta").removeAttribute("open"); formUmple(r3); return;
+  }
+  if(d.stergR){
+    var r4=retetaDupaId(deschisId); if(!r4) return;
+    if(!el.dataset.sigur){ el.dataset.sigur="1"; el.textContent="Sigur? Apasă iar"; 
+      setTimeout(function(){ if(el){ delete el.dataset.sigur; el.textContent="Șterge rețeta"; } },4000); return; }
+    retete=retete.filter(function(x){ return x.id!==r4.id; });
+    sterg("retete/"+r4.id);
+    $("ovReteta").removeAttribute("open");
+    randTot(); toast("Rețeta a fost ștearsă."); return;
+  }
+  if(d.puneTema){ setTema(d.puneTema); pastrez("#shSetari",randSetari); return; }
+  if(d.bonbif!==undefined){
+    var i=+d.bonbif; bonStare.randuri[i].on=!bonStare.randuri[i].on;
+    el.setAttribute("aria-pressed",bonStare.randuri[i].on?"true":"false"); return;
+  }
+  if(d.bonbif!==undefined){
+    var ib=+d.bonbif; bonStare.randuri[ib].on=!bonStare.randuri[ib].on;
+    el.setAttribute("aria-pressed",bonStare.randuri[ib].on?"true":"false"); return;
+  }
+  if(d.xpret){ delete preturi[d.xpret]; sterg("preturi/"+d.xpret); randPret(); randTot(); return; }
+  if(d.curs){
+    var cu=CURSURI.filter(function(c){ return c.id===d.curs; })[0];
+    if(!cu) return;
+    deschideAlege(masaAcum(), ziSel, cu);
+    return;
+  }
+  if(d.alegemasa){ alegeMasa=d.alegemasa; var qq=$("alegeCauta")?$("alegeCauta").value:""; pastrez("#shAlege",function(){ randSheetAlege(qq); }); return; }
+  if(d.rapid){
+    var rr2=retetaDupaId(d.rapid); if(!rr2) return;
+    alegeMasa=masaAcum(); alegeData=ziSel;
+    pune(rr2.id,rr2.nume,null,1);
+    return;
+  }
+});
+
+$("bSetari").onclick=function(){ randSetari(); deschideOv("ovSetari"); };
+$("bPreturi").onclick=deschidePret;
+$("bBon").onclick=deschideBon;
+$("fBon").onchange=function(){ var f=this.files&&this.files[0]; this.value="";
+  if(!f) return;
+  if(!$("ovBon").hasAttribute("open")) deschideOv("ovBon");
+  citesteBon(f); };
+$("bNou").onclick=function(){ formGol(); location.hash="#adauga"; arata("adauga"); };
+$("bPoza").onclick=function(){ $("fPozaIn").click(); };
+$("bPozaX").onclick=function(){ fPoza=null; pozaPrev(); };
+$("fPozaIn").onchange=function(){ var f=this.files&&this.files[0]; this.value=""; if(f) urcPoza(f); };
+$("fEmoji").addEventListener("input",function(){ if(!fPoza) pozaPrev(); });
+$("fBon").onchange=function(){ var f=this.files&&this.files[0]; this.value="";
+  if(!f) return;
+  if(!$("ovBon").hasAttribute("open")) deschideOv("ovBon");
+  citesteBon(f); };
+$("cauta").oninput=function(){ cautaTxt=this.value; randRetete(); };
+$("bZiPrec").onclick=function(){ ziSel=iso(plusZile(parseIso(ziSel),-1)); randAzi(); };
+$("bZiUrm").onclick=function(){ ziSel=iso(plusZile(parseIso(ziSel),1)); randAzi(); };
+$("bZiAzi").onclick=function(){ ziSel=azi(); randAzi(); };
+$("bSapPrec").onclick=function(){ sapStart=plusZile(sapStart,-7); randPlan(); };
+$("bSapUrm").onclick=function(){ sapStart=plusZile(sapStart,7); randPlan(); };
+
+$("bSalvez").onclick=function(){
+  var r=citescForm();
+  if(!r){ toast("Pune un nume rețetei."); return; }
+  var i=-1; for(var k=0;k<retete.length;k++) if(retete[k].id===r.id) i=k;
+  if(i>=0) retete[i]=r; else retete.push(r);
+  if(!pozaSet(r.id,r.poza||"")) toast("Poza n-a încăput în memoria telefonului.");
+  scriu("retete/"+r.id,r);
+  var eraNou=(i<0);
+  formGol();
+  arata("retete"); location.hash="#retete";
+  toast(eraNou?"Rețetă salvată.":"Modificări salvate.");
+};
+$("bAnuleaza").onclick=function(){ formGol(); arata("retete"); location.hash="#retete"; };
+
+$("bExtra").onclick=function(){
+  var v=$("extraIn").value.trim(); if(!v) return;
+  var p=parseIng(v); if(!p) return;
+  lista.extra=lista.extra||[];
+  lista.extra.push({n:p.n,q:p.q,u:p.u});
+  $("extraIn").value="";
+  scriu("lista/main",lista); randLista();
+};
+$("extraIn").addEventListener("keydown",function(e){ if(e.key==="Enter") $("bExtra").click(); });
+$("bCopiaza").onclick=function(){
+  var t=listaText();
+  if(!t){ toast("Lista e goală."); return; }
+  navigator.clipboard.writeText(t).then(function(){ toast("Lista e în clipboard."); },
+    function(){ toast("Nu am putut copia."); });
+};
+$("bGolesc").onclick=function(){ lista.bifat={}; scriu("lista/main",lista); randLista(); toast("Bifele au fost șterse."); };
+
+document.addEventListener("click",function(ev){
+  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport"):null;
+  if(!b) return;
+  if(b.id==="bLib"){
+    var n=$("libNume").value.trim(); if(!n){ toast("Scrie ce ai mâncat."); return; }
+    pune("",n,null,1);
+  }
+  if(b.id==="bSv"){
+    srvSet({url:($("svUrl").value||"").trim(),token:($("svTok").value||"").trim()});
+    var m=$("svMsg"); if(m) m.textContent="Încerc…";
+    (async function(){
+      try{
+        await call("ping",{});
+        await incarc();
+        porneastaPoll(); descarc(); randTot();
+        if($("svMsg")) $("svMsg").textContent="Merge. Datele s-au încărcat.";
+        toast("Server legat.");
+      }catch(e){ if($("svMsg")) $("svMsg").textContent=eText(e); }
+    })();
+  }
+  if(b.id==="bExport"){
+    navigator.clipboard.writeText(JSON.stringify({retete:retete,plan:plan,cfg:cfg},null,1))
+      .then(function(){ toast("Copiat. Lipește undeva în siguranță."); },function(){ toast("Nu am putut copia."); });
+  }
+  if(b.id==="bImport"){
+    var t=prompt?null:null;
+    var zona=document.createElement("textarea");
+    zona.placeholder="Lipește JSON-ul aici";
+    zona.style.cssText="width:100%;min-height:120px;margin-top:8px";
+    var ok=document.createElement("button"); ok.className="pr"; ok.textContent="Adaugă"; ok.style.marginTop="8px";
+    b.parentNode.appendChild(zona); b.parentNode.appendChild(ok); b.disabled=true;
+    ok.onclick=function(){
+      try{
+        var j=JSON.parse(zona.value);
+        (j.retete||[]).forEach(function(r){ if(!r.id) r.id=uid();
+          if(!retetaDupaId(r.id)){ retete.push(r); scriu("retete/"+r.id,r); } });
+        randTot(); toast("Am adăugat "+(j.retete||[]).length+" rețete.");
+        zona.remove(); ok.remove(); b.disabled=false;
+      }catch(e){ toast("JSON invalid."); }
+    };
+  }
+});
+
+window.addEventListener("hashchange",function(){
+  var h=(location.hash||"#azi").slice(1);
+  if(["azi","retete","adauga","plan","lista"].indexOf(h)>=0) arata(h);
+});
+
+/* ---------------- pornire ---------------- */
+setTema(temaCurenta());
+umpleCat();
+formGol();
+cacheCitesc();
+randTot();
+
+(async function(){
+  if(!srv().url){ semnal(false,"Pune serverul în Setări"); return; }
+  try{
+    await incarc();
+    gata=true;
+    randTot(); semnal(true);
+    porneastaPoll();
+    if(coada.length) descarc();
+  }catch(e){
+    semnal(false,eText(e));
+  }
+})();
+
+var hStart=(location.hash||"").slice(1);
+if(["retete","adauga","plan","lista"].indexOf(hStart)>=0) arata(hStart);
+})();
+</script>
+</body>
+</html>
