@@ -591,7 +591,7 @@ html[data-tema="caiet"] .act{border-radius:3px}
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
         <span class="nm">Rețetă</span><span class="ct">scrie-o tu</span></button>
     </div>
-    <input type="file" id="fBon" accept="image/*" hidden>
+    <input type="file" id="fBon" accept="image/*,application/pdf,.pdf,text/plain,.txt,.csv" multiple hidden>
     <div id="meniu"></div>
     <div id="potGati"></div>
     <div class="card" id="cardCost"></div>
@@ -994,8 +994,8 @@ function costLista(items){
 
 
 /* ---------- bonul: OCR pe server, verificat de tine ---------- */
-var bonStare={faza:"gol",randuri:[],eroare:"",magazin:"",data:""};
-function deschideBon(){ bonStare={faza:"gol",randuri:[],eroare:"",magazin:"",data:azi()}; randBon(); deschideOv("ovBon"); }
+var bonStare={faza:"gol",fisiere:[],randuri:[],eroare:"",magazin:"",data:""};
+function deschideBon(){ bonStare={faza:"gol",fisiere:[],randuri:[],eroare:"",magazin:"",data:azi()}; randBon(); deschideOv("ovBon"); }
 function randBon(){
   var h='<div class="grab"></div>'+
     '<button class="icon-b inchide" data-inchide aria-label="Închide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>'+
@@ -1003,13 +1003,23 @@ function randBon(){
   if(bonStare.faza==="gol"||bonStare.faza==="eroare"){
     if(bonStare.eroare) h+='<div class="msj nu">'+esc(bonStare.eroare)+'</div>';
     h+='<div class="hint" style="margin-bottom:14px">Poză, PDF sau fișier text. Bonul digital (PDF de la magazin) se citește exact; cel fotografiat depinde de cât e de clar. Totul se face în contul tău Google, fără niciun cost.</div>'+
-       '<button class="pr" id="bAlegePoza" style="width:100%">Alege fișierul</button>'+
-       '<div class="hint" style="margin-top:10px">Merg .pdf, .txt, .csv și pozele. Verifică mereu ce am citit.</div>'+
+       '<button class="'+((bonStare.fisiere&&bonStare.fisiere.length)?"gh":"pr")+'" id="bAlegePoza" style="width:100%">'+((bonStare.fisiere&&bonStare.fisiere.length)?"Mai adaugă un bon":"Alege fișierele")+'</button>'+
+       (((bonStare.fisiere&&bonStare.fisiere.length))
+         ? bonStare.fisiere.map(function(f,i){
+             return '<div class="card" style="padding:11px;margin-top:8px;display:flex;align-items:center;gap:10px">'+
+               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="width:20px;height:20px;flex:0 0 auto;color:var(--ink3)"><path d="M14 3v5h5M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/></svg>'+
+               '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(f.name||"fișier")+'</span>'+
+               '<span class="nr" style="font-size:11px;color:var(--ink3)">'+Math.max(1,Math.round((f.size||0)/1024))+' KB</span>'+
+               '<button class="icon-b" data-bonx="'+i+'" aria-label="Scoate" style="width:28px;height:28px;flex:0 0 auto">'+
+               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+           }).join('')+
+           '<button class="pr" id="bTrimiteBon" style="width:100%;margin-top:10px">Trimite '+(bonStare.fisiere.length>1?(bonStare.fisiere.length+" bonuri"):"bonul")+'</button>'
+         : '<div class="hint" style="margin-top:10px">Poți alege mai multe odată. Merg .pdf, .txt, .csv și pozele.</div>')+
        '<div class="sep"></div>'+
        '<label class="f"><span>Sau lipește textul bonului</span><textarea id="bonText" placeholder="LAPTE 1L&#9;6,49&#10;PIEPT PUI&#9;28,90"></textarea></label>'+
        '<button class="gh" id="bBonText" style="width:100%">Citește textul lipit</button>';
   }
-  if(bonStare.faza==="citesc") h+='<div class="msj info">Citesc bonul… 10-20 de secunde.</div>';
+  if(bonStare.faza==="citesc") h+='<div class="msj info">'+(bonStare.progres?esc(bonStare.progres):"Citesc bonul… 10-20 de secunde.")+'</div>';
   if(bonStare.faza==="verific"){
     h+='<div class="hint" style="margin-bottom:10px">'+bonStare.randuri.length+' linii găsite. Corectează ce e greșit, debifează ce nu e produs.</div>'+
        '<div class="grid2" style="margin-bottom:8px">'+
@@ -1033,6 +1043,10 @@ function randBon(){
   }
   $("shBon").innerHTML=h;
   var b=$("bAlegePoza"); if(b) b.onclick=function(){ $("fBon").click(); };
+  var tb=$("bTrimiteBon"); if(tb) tb.onclick=function(){ citesteBonuri(bonStare.fisiere||[]); };
+  Array.prototype.forEach.call($("shBon").querySelectorAll("[data-bonx]"),function(x){
+    x.onclick=function(){ bonStare.fisiere.splice(+x.getAttribute("data-bonx"),1); randBon(); };
+  });
   var bt=$("bBonText"); if(bt) bt.onclick=function(){
     var t=($("bonText")||{}).value||"";
     if(t.trim().length<10){ toast("Lipește textul bonului."); return; }
@@ -1096,33 +1110,51 @@ async function citesteText(txt){
     arataRanduri(j.randuri||[]);
   }catch(e){ bonStare.faza="eroare"; bonStare.eroare=eText(e); randBon(); }
 }
-async function citesteBon(file){
-  if(!srv().url){ bonStare.faza="eroare"; bonStare.eroare="Pune serverul în Setări."; randBon(); return; }
+async function randuriDin(file){
   var tip=String(file.type||""), num=String(file.name||"").toLowerCase();
   var ePdf=(tip==="application/pdf")||/\.pdf$/.test(num);
   var eTxt=(tip.indexOf("text/")===0)||/\.(txt|csv)$/.test(num);
   if(eTxt){
-    try{ var t=await fisierText(file); await citesteText(t); }
-    catch(e){ bonStare.faza="eroare"; bonStare.eroare=String((e&&e.message)||e); randBon(); }
-    return;
+    var t=await fisierText(file);
+    var jt=await call("text",{text:t});
+    return jt.randuri||[];
   }
-  bonStare.faza="citesc"; randBon();
-  try{
-    var b64, mime, nm;
-    if(ePdf){
-      if(file.size>8*1024*1024) throw new Error("PDF-ul e prea mare (peste 8 MB).");
-      b64=await fisierB64(file); mime="application/pdf"; nm="bon.pdf";
-    }else{
-      b64=await micsorezBon(file,1600,0.82); mime="image/jpeg"; nm="bon.jpg";
-    }
-    var j=await call("ocr",{b64:b64,mime:mime,nume:nm});
-    arataRanduri(j.randuri||[]);
-  }catch(e){
-    bonStare.faza="eroare";
-    bonStare.eroare=(e&&e.code)?eText(e):String((e&&e.message)||e);
-    randBon();
+  var b64, mime, nm;
+  if(ePdf){
+    if(file.size>8*1024*1024) throw new Error("PDF-ul „"+(file.name||"")+"” e prea mare (peste 8 MB).");
+    b64=await fisierB64(file); mime="application/pdf"; nm="bon.pdf";
+  }else{
+    b64=await micsorezBon(file,1600,0.82); mime="image/jpeg"; nm="bon.jpg";
   }
+  var j=await call("ocr",{b64:b64,mime:mime,nume:nm});
+  return j.randuri||[];
 }
+async function citesteBonuri(lista){
+  if(!lista||!lista.length) return;
+  if(!srv().url){ bonStare.faza="eroare"; bonStare.eroare="Pune serverul în Setări."; randBon(); return; }
+  var tot=[], gresite=[];
+  for(var i=0;i<lista.length;i++){
+    bonStare.faza="citesc";
+    bonStare.progres=(lista.length>1)?("Bonul "+(i+1)+" din "+lista.length+"… "+(lista[i].name||"")):"";
+    randBon();
+    try{
+      var r=await randuriDin(lista[i]);
+      r.forEach(function(x){ tot.push(x); });
+    }catch(e){
+      gresite.push((lista[i].name||"fișier")+": "+((e&&e.code)?eText(e):String((e&&e.message)||e)));
+    }
+  }
+  bonStare.progres="";
+  if(!tot.length){
+    bonStare.faza="eroare";
+    bonStare.eroare=gresite.length?gresite.join(" · ")
+      :"N-am găsit produse. La poză: una mai dreaptă și mai luminoasă. La PDF: deschide-l, copiază textul și lipește-l în caseta de jos.";
+    randBon(); return;
+  }
+  arataRanduri(tot);
+  if(gresite.length) toast(gresite.length+" fișiere n-au mers.");
+}
+async function citesteBon(file){ return citesteBonuri([file]); }
 function salvezBon(){
   var mag=($("bonMag")||{}).value||"", dt=($("bonData")||{}).value||azi(), n=0;
   bonStare.randuri.forEach(function(r,i){
@@ -2015,19 +2047,20 @@ document.addEventListener("click",function(ev){
 $("bSetari").onclick=function(){ randSetari(); deschideOv("ovSetari"); };
 $("bPreturi").onclick=deschidePret;
 $("bBon").onclick=deschideBon;
-$("fBon").onchange=function(){ var f=this.files&&this.files[0]; this.value="";
-  if(!f) return;
-  if(!$("ovBon").hasAttribute("open")) deschideOv("ovBon");
-  citesteBon(f); };
 $("bNou").onclick=function(){ formGol(); location.hash="#adauga"; arata("adauga"); };
 $("bPoza").onclick=function(){ $("fPozaIn").click(); };
 $("bPozaX").onclick=function(){ fPoza=null; pozaPrev(); };
 $("fPozaIn").onchange=function(){ var f=this.files&&this.files[0]; this.value=""; if(f) urcPoza(f); };
 $("fEmoji").addEventListener("input",function(){ if(!fPoza) pozaPrev(); });
-$("fBon").onchange=function(){ var f=this.files&&this.files[0]; this.value="";
-  if(!f) return;
-  if(!$("ovBon").hasAttribute("open")) deschideOv("ovBon");
-  citesteBon(f); };
+$("fBon").onchange=function(){ var L=[].slice.call(this.files||[]); this.value="";
+  if(!L.length) return;
+  if(!bonStare.fisiere) bonStare.fisiere=[];
+  L.forEach(function(f){
+    var dubla=bonStare.fisiere.some(function(x){ return x.name===f.name&&x.size===f.size; });
+    if(!dubla) bonStare.fisiere.push(f);
+  });
+  bonStare.faza="gol"; bonStare.eroare="";
+  if(!$("ovBon").hasAttribute("open")) deschideOv("ovBon"); else randBon(); };
 $("cauta").oninput=function(){ cautaTxt=this.value; randRetete(); };
 $("bZiPrec").onclick=function(){ ziSel=iso(plusZile(parseIso(ziSel),-1)); randAzi(); };
 $("bZiUrm").onclick=function(){ ziSel=iso(plusZile(parseIso(ziSel),1)); randAzi(); };
