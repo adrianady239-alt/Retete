@@ -70,6 +70,14 @@ button:disabled{opacity:.45;cursor:default}
 .gh{background:transparent;border-color:var(--line2)}
 .mic{min-height:34px;padding:6px 11px;font-size:13px;border-radius:var(--r-p)}
 .danger{color:var(--rosu);border-color:var(--rosu)}
+.comut{flex:0 0 auto;width:52px;height:31px;min-height:0;padding:0;border-radius:999px;
+  border:1px solid var(--line2);background:var(--bg2);position:relative;
+  transition:background .18s var(--ease),border-color .18s}
+.comut i{position:absolute;top:3px;left:3px;width:23px;height:23px;border-radius:999px;
+  background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.18);display:block;
+  transition:transform .18s var(--ease)}
+.comut.on{background:var(--verde);border-color:var(--verde)}
+.comut.on i{transform:translateX(21px)}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .row.end{justify-content:flex-end}
 
@@ -207,6 +215,24 @@ nav .plus span{display:none}
 body{background-image:var(--pagina,none);background-attachment:fixed}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:var(--grain);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ================= FUNDAL CU MÂNCARE ================= */
+#fundal{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  contain:strict;opacity:0}
+html[data-fundal="da"] #fundal{opacity:1}
+#fundal i{position:absolute;display:block;line-height:1;
+  font-size:var(--d,34px);opacity:var(--o,.09);
+  will-change:transform;
+  animation:pluteste var(--t,46s) linear var(--w,0s) infinite}
+@keyframes pluteste{
+  0%  {transform:translate3d(0,112vh,0) rotate(0deg) scale(.86)}
+  50% {transform:translate3d(var(--x,24px),52vh,0) rotate(calc(var(--r,22deg) / 2)) scale(1)}
+  100%{transform:translate3d(0,-22vh,0) rotate(var(--r,22deg)) scale(.86)}
+}
+html[data-fundal="da"] body.opreste-fundal #fundal i{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){
+  #fundal i{animation:none;transform:translate3d(0,46vh,0)}
+}
 .wrap{position:relative;z-index:2}
 nav{z-index:50}
 .ov{z-index:60}
@@ -334,6 +360,131 @@ html[data-tema="carduri"] nav ul{border-radius:0;border-left:0;border-right:0;bo
 html[data-tema="carduri"] nav{padding:0}
 
 
+/* ---- mișcări de fundal, una pe temă ---- */
+@keyframes aluneca{   /* Piață: traversare în diagonală */
+  0%  {transform:translate3d(-12vw,106vh,0) rotate(0deg)}
+  100%{transform:translate3d(16vw,-20vh,0) rotate(var(--r,30deg))}
+}
+@keyframes abureste{  /* Cuptor: urcă, se umflă și se stinge */
+  0%  {transform:translate3d(0,104vh,0) scale(.6);opacity:0}
+  18% {opacity:var(--o,.1)}
+  72% {opacity:var(--o,.1)}
+  100%{transform:translate3d(var(--x,30px),-14vh,0) scale(1.5);opacity:0}
+}
+@keyframes se_rostogoleste{ /* Citrice: coboară legănat și se rotește */
+  0%  {transform:translate3d(0,-18vh,0) rotate(0deg)}
+  50% {transform:translate3d(var(--x,34px),44vh,0) rotate(180deg)}
+  100%{transform:translate3d(0,108vh,0) rotate(360deg)}
+}
+@keyframes licareste{ /* Noapte: plutește încet și pâlpâie */
+  0%  {transform:translate3d(0,102vh,0) scale(.9);opacity:0}
+  12% {opacity:var(--o,.14)}
+  40% {opacity:calc(var(--o,.14) * .35)}
+  62% {opacity:var(--o,.14)}
+  88% {opacity:calc(var(--o,.14) * .4)}
+  100%{transform:translate3d(var(--x,20px),-16vh,0) scale(1.05);opacity:0}
+}
+html[data-tema="piata"]   #fundal i{animation-name:aluneca}
+html[data-tema="cuptor"]  #fundal i{animation-name:abureste}
+html[data-tema="citrice"] #fundal i{animation-name:se_rostogoleste}
+html[data-tema="noapte"]  #fundal i{animation-name:licareste}
+html[data-tema="cuptor"] #fundal i{filter:blur(.4px)}
+html[data-tema="noapte"] #fundal i{filter:saturate(.7)}
+
+/* ---- 3 · PIAȚĂ ---- */
+html[data-tema="piata"]{
+  --bg:#FBFAF3; --bg2:#F1F0E4;
+  --ink:#1C2118; --ink2:#4E5647; --ink3:#878F7E;
+  --line:#E6E5D6; --line2:#D4D4C2; --card:#FFFFFF;
+  --verde:#3E6B34; --verde-d:#2F5327; --verde-l:#E2EBDC;
+  --prun:#8A4B2A; --prun-l:#F3E5DB;
+  --rosu:#B33A2B; --rosu-l:#F7E2DE;
+  --galben:#B5841A; --galben-l:#F7EFD9;
+  --r-s:8px; --r-m:12px; --r-l:18px;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.13em; --h2-fs:11px; --h2-w:600;
+  --card-pad:15px; --btn-r:8px; --nav-r:0;
+  --sh:none; --sh-l:0 18px 40px -26px rgba(28,33,24,.5); --card-sh:none;
+  --grain:.016; --pagina:none; --pr-glow:rgba(62,107,52,.5);
+}
+html[data-tema="piata"] .card,html[data-tema="piata"] .reteta{border:1px solid var(--line)}
+html[data-tema="piata"] .top h1{font-weight:600;letter-spacing:-.03em}
+html[data-tema="piata"] nav ul{border-radius:0;border-left:0;border-right:0;border-bottom:0}
+html[data-tema="piata"] nav{padding:0}
+html[data-tema="piata"] .curs{border:1px solid var(--line)}
+
+/* ---- 4 · CUPTOR ---- */
+html[data-tema="cuptor"]{
+  --bg:#FFF7EE; --bg2:#FBEBDA;
+  --ink:#2A1C12; --ink2:#6A5243; --ink3:#A08874;
+  --line:#F0DFCC; --line2:#E2CDB4; --card:#FFFDFA;
+  --verde:#C2561B; --verde-d:#A4440F; --verde-l:#FCE4D2;
+  --prun:#7A3B1E; --prun-l:#F6E3D5;
+  --rosu:#B8381F; --rosu-l:#FBE1D9;
+  --galben:#C08A14; --galben-l:#FBEFD6;
+  --r-s:12px; --r-m:18px; --r-l:26px;
+  --sans:"Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Literata",ui-serif,Georgia,serif;
+  --h2-ff:var(--serif); --h2-tt:none; --h2-ls:-.01em; --h2-fs:16px; --h2-w:600;
+  --card-pad:17px; --btn-r:999px; --nav-r:999px;
+  --sh:0 1px 2px rgba(70,40,20,.05),0 14px 30px -20px rgba(70,40,20,.45);
+  --sh-l:0 2px 8px rgba(70,40,20,.08),0 30px 56px -28px rgba(70,40,20,.5);
+  --grain:.022; --pr-glow:rgba(194,86,27,.55);
+}
+html[data-tema="cuptor"]{--pagina:radial-gradient(760px 420px at 108% -8%,#FBDFC4,transparent 62%),radial-gradient(620px 380px at -12% 92%,#F7E6CF,transparent 64%)}
+html[data-tema="cuptor"] .top h1{font-family:var(--serif);font-weight:600}
+html[data-tema="cuptor"] .card > h2{font-family:var(--serif);text-transform:none;letter-spacing:-.01em;font-size:16px}
+
+/* ---- 5 · CITRICE ---- */
+html[data-tema="citrice"]{
+  --bg:#FCFDF4; --bg2:#F2F7DF;
+  --ink:#1B2410; --ink2:#4C5A38; --ink3:#86936E;
+  --line:#E7EED3; --line2:#D5E0B9; --card:#FFFFFF;
+  --verde:#5C8A12; --verde-d:#476C0B; --verde-l:#E9F2D6;
+  --prun:#357A6B; --prun-l:#DCEFE9;
+  --rosu:#C0501C; --rosu-l:#FAE5DA;
+  --galben:#C9A200; --galben-l:#FBF3D2;
+  --r-s:16px; --r-m:26px; --r-l:34px;
+  --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.1em; --h2-fs:12px; --h2-w:500;
+  --card-pad:18px; --btn-r:999px; --nav-r:999px;
+  --sh:none; --sh-l:0 20px 44px -28px rgba(40,60,15,.45); --card-sh:none;
+  --grain:0; --pagina:none; --pr-glow:rgba(92,138,18,.55);
+}
+html[data-tema="citrice"] .top h1{font-weight:500;letter-spacing:-.03em}
+html[data-tema="citrice"] .card{border:0}
+html[data-tema="citrice"] .curs{border:0;box-shadow:none}
+html[data-tema="citrice"] nav ul{border:0;background:rgba(252,253,244,.93)}
+
+/* ---- 6 · NOAPTE (ușor întunecată) ---- */
+html[data-tema="noapte"]{
+  --bg:#1A1E1A; --bg2:#232823;
+  --ink:#ECEFE8; --ink2:#AEB5A8; --ink3:#7C847A;
+  --line:#2D332D; --line2:#3A413A; --card:#222722;
+  --verde:#8FBF6B; --verde-d:#7AA757; --verde-l:#2C3A24;
+  --prun:#C98D6B; --prun-l:#38291F;
+  --rosu:#D97765; --rosu-l:#3A241F;
+  --galben:#D6AE57; --galben-l:#37301C;
+  --r-s:13px; --r-m:20px; --r-l:28px;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Literata",ui-serif,Georgia,serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.12em; --h2-fs:11px; --h2-w:600;
+  --card-pad:16px; --btn-r:12px; --nav-r:999px;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 16px 32px -22px rgba(0,0,0,.9);
+  --sh-l:0 3px 10px rgba(0,0,0,.4),0 32px 60px -28px rgba(0,0,0,.95);
+  --grain:.02; --pr-glow:rgba(143,191,107,.45);
+}
+html[data-tema="noapte"]{--pagina:radial-gradient(720px 420px at 50% -12%,#243024,transparent 66%)}
+html[data-tema="noapte"] .card,html[data-tema="noapte"] .reteta{border:1px solid var(--line)}
+html[data-tema="noapte"] .top h1{font-family:var(--serif);font-weight:500}
+html[data-tema="noapte"] .pr{color:#16200F}
+html[data-tema="noapte"] nav ul{background:rgba(26,30,26,.9);border-color:var(--line)}
+html[data-tema="noapte"] input,html[data-tema="noapte"] textarea,html[data-tema="noapte"] select{
+  background:var(--bg2);color:var(--ink);border-color:var(--line2)}
+html[data-tema="noapte"] .gol{border-color:var(--line2)}
+
 /* ---- alegerea temei ---- */
 .teme{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .tema{display:block;text-align:left;padding:9px;border-radius:var(--r-m);border:1px solid var(--line2);
@@ -352,6 +503,19 @@ html[data-tema="carduri"] nav{padding:0}
 .p-carduri i{border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .p-carduri i:nth-child(1){height:76%;background:#DCE8DC} .p-carduri i:nth-child(2){height:54%;background:#F3E2D2}
 .p-carduri i:nth-child(3){height:36%;background:#1A1A18}
+.p-piata{background:#FBFAF3} .p-piata i{border-radius:2px}
+.p-piata i:nth-child(1){height:74%;background:#3E6B34} .p-piata i:nth-child(2){height:50%;background:#B33A2B}
+.p-piata i:nth-child(3){height:32%;background:#B5841A}
+.p-cuptor{background:linear-gradient(135deg,#FFF7EE,#FBDFC4)}
+.p-cuptor i{border-radius:99px}
+.p-cuptor i:nth-child(1){height:72%;background:#C2561B} .p-cuptor i:nth-child(2){height:48%;background:#7A3B1E}
+.p-cuptor i:nth-child(3){height:30%;background:#C08A14}
+.p-citrice{background:#FCFDF4} .p-citrice i{border-radius:99px}
+.p-citrice i:nth-child(1){height:76%;background:#5C8A12} .p-citrice i:nth-child(2){height:52%;background:#C9A200}
+.p-citrice i:nth-child(3){height:34%;background:#357A6B}
+.p-noapte{background:#1A1E1A} .p-noapte i{border-radius:4px}
+.p-noapte i:nth-child(1){height:70%;background:#8FBF6B} .p-noapte i:nth-child(2){height:46%;background:#D6AE57}
+.p-noapte i:nth-child(3){height:30%;background:#C98D6B}
 
 
 /* ---- meniul de pe Acasă ---- */
@@ -482,6 +646,7 @@ input,textarea,select{font-size:16px}
 </style>
 </head>
 <body>
+<div id="fundal" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
     <div class="marca">
@@ -589,6 +754,7 @@ input,textarea,select{font-size:16px}
     <div class="row end" style="margin-top:14px">
       <button class="gh mic" id="bCopiaza">Copiază lista</button>
       <button class="gh mic danger" id="bGolesc">Șterge bifele</button>
+      <button class="gh mic danger" id="bSterg">Șterge lista</button>
     </div>
   </section>
 </div>
@@ -828,16 +994,19 @@ async function incarc(){
   return true;
 }
 var revLocal=null, pollT=null;
+var ultimPoll=0;
 function porneastaPoll(){
   clearInterval(pollT);
   pollT=setInterval(async function(){
     if(document.hidden || !srv().url) return;
+    if(tabCurent!=="lista" && (Date.now()-ultimPoll)<20000) return;
+    ultimPoll=Date.now();
     try{
       var j=await call("ping",{});
       if(revLocal!==null && j.rev!==revLocal){ revLocal=j.rev; await incarc(); randTot(); }
       else revLocal=j.rev;
     }catch(e){}
-  },20000);
+  },6000);
   document.addEventListener("visibilitychange",function(){
     if(!document.hidden && srv().url) descarc();
   });
@@ -1739,7 +1908,7 @@ function randLista(){
       h.push('<div class="item'+(b?" bif":"")+'">'+
         '<button class="tick" data-bif="'+esc(it.k)+'" aria-pressed="'+(b?"true":"false")+'" aria-label="bifat">'+
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg></button>'+
-        '<span class="tx">'+esc(it.n)+(it.extra?'':'')+'</span>'+
+        '<span class="tx">'+esc(it.n)+'</span>'+
         '<span class="q">'+(it.q?esc(it.q+(it.u?" "+it.u:"")):"")+
           (it.cost!=null?' <b style="color:var(--ink)">'+it.cost.toFixed(2)+'</b>':'')+'</span>'+
         (it.extra?'<button class="icon-b" style="width:30px;height:30px" data-xextra="'+esc(it.n)+'" aria-label="scoate">'+
@@ -1766,12 +1935,17 @@ function listaText(){
 
 /* ---------------- SETĂRI ---------------- */
 var TEME=[
-  ["pastel","Pastel","forme moi, culoare pe fel"],
-  ["carduri","Carduri","carusel cu poze, curat"]
+  ["pastel","Pastel","forme moi, ingrediente care urcă"],
+  ["carduri","Carduri","carusel cu poze, curat"],
+  ["piata","Piață","alb-verde tăios, traversare în diagonală"],
+  ["cuptor","Cuptor","cald și rotunjit, aburi care se ridică"],
+  ["citrice","Citrice","verde-lămâie, felii care se rostogolesc"],
+  ["noapte","Noapte","întunecat, mirodenii care pâlpâie"]
 ];
 function temaCurenta(){ try{ return localStorage.getItem("retete-tema")||"pastel"; }catch(e){ return "pastel"; } }
 function setTema(t){ document.documentElement.setAttribute("data-tema",t);
-  try{ localStorage.setItem("retete-tema",t); }catch(e){} }
+  try{ localStorage.setItem("retete-tema",t); }catch(e){}
+  if(typeof fundalPornit==="function" && fundalPornit()) desenFundal();   /* alt set de glife */ }
 function randSetari(){
   $("shSetari").innerHTML=
     '<div class="grab"></div>'+
@@ -1783,6 +1957,11 @@ function randSetari(){
       '<button class="pr" id="bSv" style="width:100%">Salvează și testează</button>'+
       '<div class="hint" id="svMsg">'+(srv().url?"Legat.":"Nelegat — aplicația merge doar pe telefonul ăsta.")+'</div>'+
     '</div>'+
+    '<div class="card"><h2>Fundal</h2>'+
+      '<div class="row" style="align-items:center;justify-content:space-between;gap:12px">'+
+      '<span class="hint" style="flex:1">Legume și ingrediente care plutesc încet în spate. Se oprește singur când ieși din aplicație.</span>'+
+      '<button class="comut'+(fundalPornit()?" on":"")+'" id="bFundal" role="switch" aria-checked="'+(fundalPornit()?"true":"false")+'" aria-label="Animații pe fundal"><i></i></button>'+
+      '</div></div>'+
     '<div class="card"><h2>Temă</h2><div class="teme">'+TEME.map(function(x){
       return '<button class="tema'+(temaCurenta()===x[0]?" on":"")+'" data-pune-tema="'+x[0]+'">'+
         '<span class="prev p-'+x[0]+'"><i></i><i></i><i></i></span>'+
@@ -1795,6 +1974,56 @@ function randSetari(){
       '<button class="gh mic" id="bImport">Adaugă din JSON</button></div></div>'+
     '<div class="hint" style="text-align:center">Rețete · '+BUILD+'</div>';
 }
+
+
+/* ---------- fundal cu mâncare ---------- */
+var FUNDAL="retete-fundal";
+var GLIFE=["🍅","🥕","🧄","🍋","🫒","🌿","🧅","🥦","🍳","🧀","🥖","🫑","🍄","🌶️","🥚","🥬"];
+/* fiecare temă are alt set și alt tempo */
+var FUNDAL_TEMA={
+  pastel : {g:GLIFE,                                              t:[42,86], d:[20,50], o:[.075,.14], n:1},
+  carduri: {g:["🥗","🍲","🥘","🍳","🥖","🧀","🫘","🌿"],              t:[52,96], d:[18,40], o:[.05,.09],  n:.8},
+  piata  : {g:["🥕","🥬","🍆","🫑","🧅","🌽","🥔","🍏","🥒","🧄"],    t:[34,66], d:[22,52], o:[.07,.13],  n:1.1},
+  cuptor : {g:["🥐","🍞","🥖","🥧","🍪","☁️","🫓","🧁"],              t:[26,50], d:[26,64], o:[.06,.12],  n:.85},
+  citrice: {g:["🍋","🍊","🟢","🍈","🌿","🫧","🍐","🥝"],              t:[30,58], d:[20,46], o:[.08,.15],  n:1},
+  noapte : {g:["🌶️","🧄","⭐","🌿","🫙","🍯","🧂","✨"],              t:[38,76], d:[16,38], o:[.12,.24],  n:.9}
+};
+function fundalPornit(){ try{ return localStorage.getItem(FUNDAL)!=="nu"; }catch(e){ return true; } }
+function fundalSet(da){
+  try{ localStorage.setItem(FUNDAL,da?"da":"nu"); }catch(e){}
+  document.documentElement.setAttribute("data-fundal",da?"da":"nu");
+  var f=$("fundal");
+  if(da) desenFundal(); else if(f){ f.innerHTML=""; f.removeAttribute("data-pt"); }
+}
+function desenFundal(){
+  var f=$("fundal"); if(!f) return;
+  var t=temaCurenta();
+  if(f.getAttribute("data-pt")===t && f.childNodes.length) return;   /* deja desenat pentru tema asta */
+  var c=FUNDAL_TEMA[t]||FUNDAL_TEMA.pastel;
+  var intre=function(a,b){ return a+Math.random()*(b-a); };
+  var mic=(window.innerWidth||400)<520;
+  var cate=Math.round((mic?11:16)*c.n);
+  var h="";
+  for(var i=0;i<cate;i++){
+    var g=c.g[Math.floor(Math.random()*c.g.length)];
+    var st=[
+      "left:"+intre(1,94).toFixed(1)+"%",
+      "--d:"+intre(c.d[0],c.d[1]).toFixed(0)+"px",
+      "--o:"+intre(c.o[0],c.o[1]).toFixed(3),
+      "--t:"+intre(c.t[0],c.t[1]).toFixed(0)+"s",
+      "--w:-"+intre(0,c.t[1]).toFixed(0)+"s",
+      "--x:"+intre(-40,40).toFixed(0)+"px",
+      "--r:"+intre(-40,40).toFixed(0)+"deg"
+    ].join(";");
+    h+='<i style="'+st+'">'+g+'</i>';
+  }
+  f.setAttribute("data-pt",t);
+  f.innerHTML=h;
+}
+/* opresc animația când aplicația nu e pe ecran, ca să nu consume baterie */
+document.addEventListener("visibilitychange",function(){
+  document.body.classList.toggle("opreste-fundal",document.hidden);
+});
 
 /* ---------------- navigare ---------------- */
 var tabCurent="azi";
@@ -2010,9 +2239,27 @@ $("bCopiaza").onclick=function(){
     function(){ toast("Nu am putut copia."); });
 };
 $("bGolesc").onclick=function(){ lista.bifat={}; scriu("lista/main",lista); randLista(); toast("Bifele au fost șterse."); };
+$("bSterg").onclick=function(){
+  var iv=intervalLista();
+  var dinPlan=plan.filter(function(x){ return x.data>=iv[0]&&x.data<=iv[1]&&!x.mancat&&x.retetaId; });
+  var nE=(lista.extra||[]).length;
+  if(!dinPlan.length&&!nE){ toast("Lista e deja goală."); return; }
+  var ce=[];
+  if(dinPlan.length) ce.push(dinPlan.length+(dinPlan.length===1?" masă din plan":" mese din plan"));
+  if(nE) ce.push(nE+(nE===1?" produs adăugat de tine":" produse adăugate de tine"));
+  if(!confirm("Șterg "+ce.join(" și ")+". Rețetele rămân. Mergi mai departe?")) return;
+  dinPlan.forEach(function(x){
+    var i=plan.indexOf(x); if(i>=0) plan.splice(i,1);
+    sterg("plan/"+x.id);
+  });
+  lista.extra=[]; lista.bifat={};
+  scriu("lista/main",lista);
+  randTot();
+  toast("Lista a fost ștearsă.");
+};
 
 document.addEventListener("click",function(ev){
-  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport"):null;
+  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport,#bFundal"):null;
   if(!b) return;
   if(b.id==="bLib"){
     var n=$("libNume").value.trim(); if(!n){ toast("Scrie ce ai mâncat."); return; }
@@ -2031,6 +2278,11 @@ document.addEventListener("click",function(ev){
       }catch(e){ if($("svMsg")) $("svMsg").textContent=eText(e); }
     })();
   }
+  if(b.id==="bFundal"){
+    var da=!fundalPornit(); fundalSet(da);
+    b.classList.toggle("on",da); b.setAttribute("aria-checked",da?"true":"false");
+    return;
+  }
   if(b.id==="bExport"){
     navigator.clipboard.writeText(JSON.stringify({retete:retete,plan:plan,cfg:cfg},null,1))
       .then(function(){ toast("Copiat. Lipește undeva în siguranță."); },function(){ toast("Nu am putut copia."); });
@@ -2045,9 +2297,20 @@ document.addEventListener("click",function(ev){
     ok.onclick=function(){
       try{
         var j=JSON.parse(zona.value);
+        var nR=0,nP=0;
         (j.retete||[]).forEach(function(r){ if(!r.id) r.id=uid();
-          if(!retetaDupaId(r.id)){ retete.push(r); scriu("retete/"+r.id,r); } });
-        randTot(); toast("Am adăugat "+(j.retete||[]).length+" rețete.");
+          if(!retetaDupaId(r.id)){ retete.push(r); scriu("retete/"+r.id,r); nR++; } });
+        (j.preturi||[]).forEach(function(x){
+          var n3=String(x.nume||x.produs||"").trim(); if(!n3) return;
+          var pz=nr(x.pret); if(!pz) return;
+          var k=slug(n3);
+          preturi[k]={nume:n3,pret:pz,cant:nr(x.cant||x.cantitate),unit:normU(x.unit||x.unitate||""),
+            magazin:String(x.magazin||""),data:String(x.data||azi()),
+            istoric:(preturi[k]&&preturi[k].istoric)||[]};
+          scriu("preturi/"+k,preturi[k]); nP++;
+        });
+        randTot();
+        toast("Am adăugat "+nR+" rețete și "+nP+" prețuri.");
         zona.remove(); ok.remove(); b.disabled=false;
       }catch(e){ toast("JSON invalid."); }
     };
@@ -2061,6 +2324,7 @@ window.addEventListener("hashchange",function(){
 
 /* ---------------- pornire ---------------- */
 setTema(temaCurenta());
+fundalSet(fundalPornit());
 umpleCat();
 formGol();
 cacheCitesc();
