@@ -629,11 +629,37 @@ html[data-mod="inchis"][data-tema="cuptor"]{ --verde:#EE8B4E; --verde-d:#D4733A;
 html[data-mod="inchis"][data-tema="citrice"]{ --verde:#A9CE4F; --verde-d:#8FB23B; --verde-l:#2A331A;
   --prun:#6FC0AC; --prun-l:#1D302C; --rosu:#E3835A; --rosu-l:#36251C; --galben:#E0C34A; --galben-l:#353017; }
 html[data-mod="inchis"] .pr{color:#15170F}
+html[data-mod="inchis"] nav .plus a{color:#15170F}
+html[data-tema="noapte"] nav .plus a{color:#15170F}
 html[data-mod="inchis"] input,html[data-mod="inchis"] textarea,html[data-mod="inchis"] select{
   background:var(--bg2);color:var(--ink);border-color:var(--line2)}
 html[data-mod="inchis"] .ov .bg{background:rgba(0,0,0,.58)}
 html[data-mod="inchis"] #fundal i{filter:saturate(.72) brightness(1.15)}
 html[data-mod="inchis"] #fundal i{opacity:calc(var(--o,.1) * 1.5)}
+
+/* ---- ce nu prinde modul întunecat: culori scrise direct în teme ---- */
+/* Plăcile de fel: tente închise, altfel textul deschis cade pe pastel și nu se citește. */
+html[data-mod="inchis"][data-tema="pastel"] .curs[data-curs="starter"]{--t:#223327}
+html[data-mod="inchis"][data-tema="pastel"] .curs[data-curs="main"]{--t:#3A2820}
+html[data-mod="inchis"][data-tema="pastel"] .curs[data-curs="desert"]{--t:#2E2740}
+html[data-mod="inchis"][data-tema="carduri"] .curs[data-curs="starter"]{--t:#232A23}
+html[data-mod="inchis"][data-tema="carduri"] .curs[data-curs="main"]{--t:#2F2821}
+html[data-mod="inchis"][data-tema="carduri"] .curs[data-curs="desert"]{--t:#2A2632}
+html[data-mod="inchis"] .curs:before{background:var(--t,var(--bg2))}
+html[data-mod="inchis"] .curs .nm{color:var(--ink)}
+html[data-mod="inchis"] .curs .ct{color:var(--ink2)}
+/* Bara de jos și cardurile albe scrise direct în teme */
+html[data-mod="inchis"][data-tema="pastel"] nav ul{background:rgba(27,23,21,.93)}
+html[data-mod="inchis"][data-tema="citrice"] nav ul{background:rgba(23,26,20,.93)}
+html[data-mod="inchis"][data-tema="carduri"] nav ul{background:rgba(23,25,26,.93)}
+html[data-mod="inchis"][data-tema="piata"] nav ul{background:var(--bg)}
+html[data-mod="inchis"][data-tema="carduri"] .curs,
+html[data-mod="inchis"][data-tema="carduri"] .card,
+html[data-mod="inchis"][data-tema="carduri"] .reteta,
+html[data-mod="inchis"][data-tema="carduri"] .rapid,
+html[data-mod="inchis"][data-tema="pastel"] .rapid{background:var(--card)}
+/* Cuptor are un degrade cald pe pagină, care pe întuneric devine ceață */
+html[data-mod="inchis"][data-tema="cuptor"]{--pagina:radial-gradient(760px 420px at 108% -8%,#2A1C11,transparent 62%)}
 
 /* ---- alegerea temei ---- */
 .teme{display:grid;grid-template-columns:1fr 1fr;gap:9px}
