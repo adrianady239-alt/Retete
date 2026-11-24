@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro" data-tema="piata">
+<html lang="ro" data-tema="pastel">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -49,8 +49,6 @@ h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
 .marca{display:flex;align-items:center;gap:11px;min-width:0}
 .logo{width:46px;height:46px;border-radius:var(--r-s);object-fit:cover;flex:0 0 auto;
   border:1px solid var(--line);background:#FBF7EE;box-shadow:var(--sh)}
-html[data-tema="gradina"] .logo,html[data-tema="dulce"] .logo,html[data-tema="tejghea"] .logo{border-radius:var(--r-p)}
-html[data-tema="piperi"] .logo{border-radius:0;border-color:var(--ink);border-width:1.5px}
 .top h1{font-family:var(--serif);font-size:27px;line-height:1.05;font-weight:600;letter-spacing:-.015em}
 .top .sub{color:var(--ink3);font-size:12.5px;margin-top:2px}
 .icon-b{width:40px;height:40px;border-radius:var(--r-p);border:1px solid var(--line);background:var(--card);
@@ -253,184 +251,107 @@ button{border-radius:var(--btn-r)}
 nav ul{border-radius:var(--nav-r)}
 
 /* ======================= TEME ======================= */
-/* 1 · PIAȚĂ (implicit) */
-html[data-tema="piata"]{--pr-glow:rgba(79,122,46,.6)}
-
-/* 2 · CAIET */
-html[data-tema="caiet"]{
-  --bg:#F6F0E2; --bg2:#EDE5D2; --ink:#2A2416; --ink2:#5E543C; --ink3:#8B8166;
-  --line:#DED4BC; --line2:#CFC2A4; --card:#FBF7EC;
-  --verde:#6E7B2E; --verde-d:#55601F; --verde-l:#E9E9CF;
-  --prun:#C96B5B; --prun-l:#F7E4DE; --rosu:#C0392B; --rosu-l:#F8E3DF;
-  --galben:#B07D16; --galben-l:#F7EBCF;
-  --serif:"Newsreader",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
-  --r-s:3px; --r-m:4px; --r-l:8px; --r-p:3px; --btn-r:3px; --nav-r:0px;
-  --h2-ff:var(--sans); --h2-ls:.14em; --h2-fs:11px; --h2-col:var(--prun);
-  --pagina:repeating-linear-gradient(var(--bg) 0 31px,#E4D9C0 31px 32px);
-  --spec-op:0; --grain:.03;
-  --card-sh:0 1px 0 #E4D9C0;
-  --pr-glow:rgba(110,123,46,.5);
+/* 1 · PASTEL (implicit) — forme moi, culoare pe fel */
+html[data-tema="pastel"]{
+  --bg:#FFF6F0; --bg2:#FBECE3;
+  --ink:#2C2320; --ink2:#6B5751; --ink3:#A4908A;
+  --line:#F1E0D6; --line2:#E6D2C6;
+  --card:#FFFFFF;
+  --verde:#C25B3A; --verde-d:#A84829; --verde-l:#FBE3D8;
+  --prun:#4F7F62; --prun-l:#DCEADF;
+  --rosu:#C2402F; --rosu-l:#FBE0DA;
+  --galben:#C98A12; --galben-l:#FBEFDA;
+  --r-s:14px; --r-m:22px; --r-l:30px;
+  --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"DM Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.09em; --h2-fs:12px; --h2-w:500;
+  --card-pad:18px; --btn-r:999px; --nav-r:999px;
+  --sh:none; --sh-l:0 20px 44px -28px rgba(70,40,28,.5);
+  --card-sh:none;
+  --grain:0;
+  --pr-glow:rgba(194,91,58,.5);
 }
-html[data-tema="caiet"] .card{border:1px solid var(--line2)}
-html[data-tema="caiet"] .card > h2,html[data-tema="caiet"] .masa > h3,html[data-tema="caiet"] .raion h3{color:var(--prun)}
-html[data-tema="caiet"] .top h1{font-weight:600}
-html[data-tema="caiet"] .reteta .tx b{font-weight:600}
-html[data-tema="caiet"] nav ul{border-left:0;border-right:0;border-bottom:0;background:#2A2416;border-color:#2A2416}
-html[data-tema="caiet"] nav{padding:0}
-html[data-tema="caiet"] nav a{color:#A79C80}
-html[data-tema="caiet"] nav a[aria-current="page"]{color:#F6F0E2}
+html[data-tema="pastel"]{--pagina:none}
+html[data-tema="pastel"] .top h1{font-weight:500;letter-spacing:-.025em}
+html[data-tema="pastel"] .card{border:0}
+html[data-tema="pastel"] .pr,html[data-tema="pastel"] .gh,html[data-tema="pastel"] .rapid{border-radius:999px}
+html[data-tema="pastel"] .curs{border:0;box-shadow:none;border-radius:26px;align-items:flex-start;
+  justify-content:center;text-align:left;padding:16px 14px}
+html[data-tema="pastel"] .curs:after{display:none}
+html[data-tema="pastel"] .curs:before{opacity:1;inset:0;height:100%;background:var(--t,#E8E3DC)}
+html[data-tema="pastel"] .curs[data-curs="starter"]{--t:#CFE5D4}
+html[data-tema="pastel"] .curs[data-curs="main"]{--t:#FFD9C7}
+html[data-tema="pastel"] .curs[data-curs="desert"]{--t:#E6DAF5}
+html[data-tema="pastel"] .curs .ic{font-size:30px}
+html[data-tema="pastel"] .curs .nm{font-size:14px;font-weight:500}
+html[data-tema="pastel"] .curs .ct{color:var(--ink2);opacity:.72}
+html[data-tema="pastel"] .rapid{border-color:transparent;box-shadow:none;background:#fff;padding:9px 14px;min-height:38px}
+html[data-tema="pastel"] nav ul{border:0;background:rgba(255,246,240,.93)}
+html[data-tema="pastel"] .reteta,html[data-tema="pastel"] .sheet{border-radius:var(--r-l) var(--r-l) 0 0}
 
-/* 3 · BISTRO */
-html[data-tema="bistro"]{
-  --bg:#15130F; --bg2:#1E1B15; --ink:#F2EBDC; --ink2:#B3A68C; --ink3:#8A7F68;
-  --line:#2A2619; --line2:#3C372C; --card:#1B1813;
-  --verde:#C8A24A; --verde-d:#A8863A; --verde-l:#2A2415;
-  --prun:#B08A6A; --prun-l:#2A2019; --rosu:#C86A5A; --rosu-l:#2E1C18;
-  --galben:#D8B45C; --galben-l:#2E2714;
-  --serif:"Cormorant Garamond",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
-  --r-s:2px; --r-m:3px; --r-l:4px; --r-p:999px; --btn-r:2px; --nav-r:0px;
-  --h2-ls:.3em; --h2-fs:10px; --h2-w:400; --h2-al:center;
-  --spec:linear-gradient(90deg,transparent,rgba(200,162,74,.55),transparent); --spec-op:.9;
-  --grain:.035; --card-pad:18px;
-  --pr-glow:rgba(200,162,74,.45);
+/* 2 · CARDURI — carusel orizontal, carduri cu poză */
+html[data-tema="carduri"]{
+  --bg:#EEEDE9; --bg2:#E4E3DE;
+  --ink:#14150F; --ink2:#55564F; --ink3:#8B8C85;
+  --line:#DEDDD7; --line2:#CECDC6;
+  --card:#FFFFFF;
+  --verde:#1A1A18; --verde-d:#000; --verde-l:#E6E3DA;
+  --prun:#7A5C3E; --prun-l:#F0E7DC;
+  --rosu:#A8402F; --rosu-l:#F6E2DD;
+  --galben:#A8791A; --galben-l:#F6EEDC;
+  --r-s:11px; --r-m:18px; --r-l:26px;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"Inter Display","Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  --h2-ff:var(--sans); --h2-tt:uppercase; --h2-ls:.12em; --h2-fs:11px; --h2-w:600;
+  --card-pad:15px; --btn-r:12px; --nav-r:0;
+  --sh:0 1px 2px rgba(0,0,0,.04),0 16px 28px -22px rgba(0,0,0,.5);
+  --sh-l:0 2px 6px rgba(0,0,0,.06),0 28px 52px -26px rgba(0,0,0,.55);
+  --grain:0;
+  --pr-glow:rgba(26,26,24,.45);
 }
-html[data-tema="bistro"] .top h1{font-weight:300;letter-spacing:.02em}
-html[data-tema="bistro"] .serif,html[data-tema="bistro"] .reteta .tx b{font-weight:400}
-html[data-tema="bistro"] .pr{color:#15130F}
-html[data-tema="bistro"] nav ul{background:#15130F;border-left:0;border-right:0;border-bottom:0}
-html[data-tema="bistro"] nav{padding:0}
-html[data-tema="bistro"] nav a{text-transform:uppercase;letter-spacing:.2em;font-size:8.5px;font-weight:300}
-
-/* 4 · TEJGHEA */
-html[data-tema="tejghea"]{
-  --bg:#FFF8EC; --bg2:#FBEDD8; --ink:#20160C; --ink2:#5E4E3C; --ink3:#8A7A66;
-  --line:#EADCC6; --line2:#DCCBB0; --card:#FFFFFF;
-  --verde:#17A04E; --verde-d:#12803E; --verde-l:#D9F2E2;
-  --prun:#E0564A; --prun-l:#FCE2DE; --rosu:#E0564A; --rosu-l:#FCE2DE;
-  --galben:#F0A81E; --galben-l:#FDEFD2;
-  --serif:"Bricolage Grotesque",system-ui,sans-serif; --sans:"Bricolage Grotesque",system-ui,sans-serif;
-  --r-s:16px; --r-m:22px; --r-l:28px; --r-p:999px; --btn-r:14px; --nav-r:24px;
-  --h2-tt:none; --h2-ls:-.02em; --h2-fs:15px; --h2-w:800;
-  --card-sh:0 2px 0 rgba(32,22,12,.07),0 14px 30px -20px rgba(32,22,12,.55);
-  --grain:0; --spec-op:.35;
-  --pr-glow:rgba(23,160,78,.55);
-}
-html[data-tema="tejghea"] .top h1{font-weight:800;letter-spacing:-.03em}
-html[data-tema="tejghea"] .card > h2{color:var(--ink)}
-html[data-tema="tejghea"] .reteta .tx b{font-weight:700;letter-spacing:-.02em}
-html[data-tema="tejghea"] nav ul{background:#20160C;border-color:#20160C}
-html[data-tema="tejghea"] nav a{color:#9C8B74}
-html[data-tema="tejghea"] nav a[aria-current="page"]{color:#FFF8EC}
-html[data-tema="tejghea"] nav .plus a{background:#F0A81E;color:#20160C}
-
-/* 5 · CUPTOR */
-html[data-tema="cuptor"]{
-  --bg:#17120F; --bg2:#201A15; --ink:#F6EDE4; --ink2:#B8A697; --ink3:#8C7D70;
-  --line:#2B2219; --line2:#3E3227; --card:#1E1813;
-  --verde:#E2703A; --verde-d:#C35A28; --verde-l:#2E1D14;
-  --prun:#C9A227; --prun-l:#2A2411; --rosu:#D94F3D; --rosu-l:#2E1714;
-  --galben:#E8B33C; --galben-l:#2E2512;
-  --serif:"Bricolage Grotesque",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif;
-  --r-s:8px; --r-m:14px; --r-l:20px; --btn-r:10px;
-  --h2-ls:.16em; --h2-fs:10.5px;
-  --spec:linear-gradient(90deg,transparent,rgba(226,112,58,.5),transparent); --spec-op:.8;
-  --card-sh:0 1px 2px rgba(0,0,0,.5),0 18px 40px -26px rgba(226,112,58,.5);
-  --grain:.04;
-  --pr-glow:rgba(226,112,58,.6);
-}
-html[data-tema="cuptor"] .top h1{font-weight:800;letter-spacing:-.03em}
-html[data-tema="cuptor"] .pr{color:#1A0F08}
-
-/* 6 · GRĂDINĂ */
-html[data-tema="gradina"]{
-  --bg:#F4F8F3; --bg2:#E6EFE4; --ink:#17251A; --ink2:#48584A; --ink3:#7A8A7C;
-  --line:#DCE7DA; --line2:#C6D6C4; --card:#FFFFFF;
-  --verde:#2E8B6B; --verde-d:#226B52; --verde-l:#DCF0E7;
-  --prun:#7C6AAE; --prun-l:#EAE5F6; --rosu:#C2506A; --rosu-l:#FAE4EA;
-  --galben:#C08A2E; --galben-l:#F8EED8;
-  --serif:"Literata",ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
-  --r-s:14px; --r-m:20px; --r-l:26px; --btn-r:14px; --nav-r:999px;
-  --h2-ls:.12em; --h2-fs:11px;
-  --card-sh:0 1px 2px rgba(23,37,26,.05),0 20px 44px -30px rgba(46,139,107,.75);
-  --grain:.012;
-  --pr-glow:rgba(46,139,107,.5);
-}
-html[data-tema="gradina"] body,html[data-tema="gradina"]{--pagina:radial-gradient(900px 500px at 100% -10%,#DFF0E6,transparent 60%),radial-gradient(700px 420px at -10% 100%,#E8F2E4,transparent 62%)}
-
-/* 7 · PIPERI */
-html[data-tema="piperi"]{
-  --bg:#FFFFFF; --bg2:#F2F2F2; --ink:#0A0A0A; --ink2:#444444; --ink3:#7A7A7A;
-  --line:#E2E2E2; --line2:#111111; --card:#FFFFFF;
-  --verde:#111111; --verde-d:#000000; --verde-l:#F0F0F0;
-  --prun:#D7263D; --prun-l:#FBE4E8; --rosu:#D7263D; --rosu-l:#FBE4E8;
-  --galben:#111111; --galben-l:#F0F0F0;
-  --serif:"Archivo",system-ui,sans-serif; --sans:"Archivo",system-ui,sans-serif;
-  --r-s:0px; --r-m:0px; --r-l:0px; --r-p:0px; --btn-r:0px; --nav-r:0px;
-  --h2-ls:.18em; --h2-fs:10.5px; --h2-w:700;
-  --card-sh:none; --spec-op:0; --grain:0;
-  --pr-glow:rgba(0,0,0,.35);
-}
-html[data-tema="piperi"] .card{border:1.5px solid var(--ink)}
-html[data-tema="piperi"] .top h1{font-weight:700;letter-spacing:-.04em;text-transform:uppercase}
-html[data-tema="piperi"] .reteta{border:1.5px solid var(--ink)}
-html[data-tema="piperi"] .reteta .tx b{font-weight:700;letter-spacing:-.02em}
-html[data-tema="piperi"] .linie{border:1px solid var(--ink)}
-html[data-tema="piperi"] nav{padding:0}
-html[data-tema="piperi"] nav ul{background:#0A0A0A;border-color:#0A0A0A}
-html[data-tema="piperi"] nav a{color:#8A8A8A;text-transform:uppercase;letter-spacing:.1em;font-size:9px;font-weight:700}
-html[data-tema="piperi"] nav a[aria-current="page"]{color:#fff}
-html[data-tema="piperi"] nav .plus a{background:#D7263D;border-radius:0}
-
-/* 8 · DULCE */
-html[data-tema="dulce"]{
-  --bg:#FDF4F4; --bg2:#F8E7E9; --ink:#2E1B22; --ink2:#5F4049; --ink3:#9A7A83;
-  --line:#F0DADE; --line2:#E4C4CA; --card:#FFFFFF;
-  --verde:#B2456B; --verde-d:#90304F; --verde-l:#FBE3EA;
-  --prun:#7B5FA8; --prun-l:#EFE8F7; --rosu:#C94F4F; --rosu-l:#FBE6E6;
-  --galben:#D99A2B; --galben-l:#FBF0D8;
-  --serif:"Newsreader",ui-serif,"Iowan Old Style",Georgia,serif; --sans:"Outfit",system-ui,sans-serif;
-  --r-s:18px; --r-m:26px; --r-l:32px; --btn-r:999px; --nav-r:999px;
-  --h2-tt:none; --h2-ls:0; --h2-fs:14px; --h2-w:600;
-  --card-sh:0 2px 4px rgba(46,27,34,.04),0 22px 44px -28px rgba(178,69,107,.6);
-  --grain:.01;
-  --pr-glow:rgba(178,69,107,.5);
-}
-html[data-tema="dulce"]{--pagina:radial-gradient(800px 460px at 110% -5%,#FBE3EA,transparent 62%),radial-gradient(640px 400px at -15% 95%,#F3E8FA,transparent 64%)}
-html[data-tema="dulce"] .top h1{font-family:var(--serif);font-weight:600}
-html[data-tema="dulce"] .card > h2{color:var(--ink2)}
+html[data-tema="carduri"]{--pagina:none}
+html[data-tema="carduri"] .top h1{font-family:var(--serif);font-weight:600;letter-spacing:-.025em}
+html[data-tema="carduri"] .cursuri{display:flex;grid-template-columns:none;gap:12px;
+  overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;
+  margin:0 calc(var(--pad) * -1);padding:2px var(--pad) 10px}
+html[data-tema="carduri"] .cursuri::-webkit-scrollbar{display:none}
+html[data-tema="carduri"] .curs{flex:0 0 190px;scroll-snap-align:start;border:0;overflow:hidden;
+  min-height:0;padding:0;align-items:stretch;justify-content:flex-start;gap:0;text-align:left;
+  border-radius:18px;box-shadow:var(--sh)}
+html[data-tema="carduri"] .curs:after{display:none}
+html[data-tema="carduri"] .curs{background:#fff}
+html[data-tema="carduri"] .curs:before{position:static;height:124px;opacity:1;flex:0 0 auto;background:var(--t,#E3E6E0)}
+html[data-tema="carduri"] .curs[data-curs="starter"]{--t:#DCE8DC}
+html[data-tema="carduri"] .curs[data-curs="main"]{--t:#F3E2D2}
+html[data-tema="carduri"] .curs[data-curs="desert"]{--t:#EDE3F2}
+html[data-tema="carduri"] .curs .ic{position:absolute;top:36px;left:0;right:0;font-size:46px;margin:0;text-align:center}
+html[data-tema="carduri"] .curs .nm{padding:13px 14px 0;font-family:var(--serif);font-size:15.5px;letter-spacing:-.02em}
+html[data-tema="carduri"] .curs .ct{padding:5px 14px 14px;font-size:12px}
+html[data-tema="carduri"] .card,html[data-tema="carduri"] .reteta{background:#fff;border:0}
+html[data-tema="carduri"] .rapid{border-radius:999px;padding:9px 13px;background:#fff;border-color:transparent}
+html[data-tema="carduri"] .curs .ic{top:42px}
+html[data-tema="carduri"] nav ul{border-radius:0;border-left:0;border-right:0;border-bottom:0}
+html[data-tema="carduri"] nav{padding:0}
 
 
 /* ---- alegerea temei ---- */
 .teme{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .tema{display:block;text-align:left;padding:9px;border-radius:var(--r-m);border:1px solid var(--line2);
   background:var(--card);min-height:0}
-.tema.on{border-color:var(--verde);border-width:2px;padding:8px}
+.tema.on{border-color:var(--prun);border-width:2px;padding:8px}
 .tema .prev{display:flex;gap:4px;height:42px;border-radius:calc(var(--r-s) + 2px);overflow:hidden;margin-bottom:8px;
   padding:7px;align-items:flex-end}
 .tema .prev i{flex:1;border-radius:3px;display:block}
 .tema .nm{display:block;font-weight:600;font-size:13.5px}
 .tema .ds{display:block;font-size:11px;color:var(--ink3);line-height:1.3;margin-top:1px}
-.p-piata{background:#F1F2EC}   .p-piata i:nth-child(1){height:70%;background:#4F7A2E}
-.p-piata i:nth-child(2){height:45%;background:#6B2D4F} .p-piata i:nth-child(3){height:30%;background:#C98A12}
-.p-caiet{background:repeating-linear-gradient(#F6F0E2 0 7px,#E4D9C0 7px 8px)}
-.p-caiet i:nth-child(1){height:70%;background:#6E7B2E} .p-caiet i:nth-child(2){height:45%;background:#C96B5B}
-.p-caiet i:nth-child(3){height:30%;background:#2A2416}
-.p-bistro{background:#15130F} .p-bistro i:nth-child(1){height:70%;background:#C8A24A}
-.p-bistro i:nth-child(2){height:45%;background:#B08A6A} .p-bistro i:nth-child(3){height:30%;background:#F2EBDC}
-.p-tejghea{background:#FFF8EC} .p-tejghea i{border-radius:99px}
-.p-tejghea i:nth-child(1){height:70%;background:#17A04E} .p-tejghea i:nth-child(2){height:45%;background:#F0A81E}
-.p-tejghea i:nth-child(3){height:30%;background:#E0564A}
-.p-cuptor{background:#17120F} .p-cuptor i:nth-child(1){height:70%;background:#E2703A}
-.p-cuptor i:nth-child(2){height:45%;background:#E8B33C} .p-cuptor i:nth-child(3){height:30%;background:#F6EDE4}
-.p-gradina{background:#F4F8F3} .p-gradina i{border-radius:99px}
-.p-gradina i:nth-child(1){height:70%;background:#2E8B6B} .p-gradina i:nth-child(2){height:45%;background:#7C6AAE}
-.p-gradina i:nth-child(3){height:30%;background:#C08A2E}
-.p-piperi{background:#fff} .p-piperi i{border-radius:0}
-.p-piperi i:nth-child(1){height:70%;background:#0A0A0A} .p-piperi i:nth-child(2){height:45%;background:#D7263D}
-.p-piperi i:nth-child(3){height:30%;background:#E2E2E2}
-.p-dulce{background:#FDF4F4} .p-dulce i{border-radius:99px}
-.p-dulce i:nth-child(1){height:70%;background:#B2456B} .p-dulce i:nth-child(2){height:45%;background:#7B5FA8}
-.p-dulce i:nth-child(3){height:30%;background:#D99A2B}
+.p-pastel{background:#FFF6F0}
+.p-pastel i{border-radius:99px}
+.p-pastel i:nth-child(1){height:72%;background:#CFE5D4} .p-pastel i:nth-child(2){height:50%;background:#FFD9C7}
+.p-pastel i:nth-child(3){height:34%;background:#E6DAF5}
+.p-carduri{background:#F7F5F0}
+.p-carduri i{border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.p-carduri i:nth-child(1){height:76%;background:#DCE8DC} .p-carduri i:nth-child(2){height:54%;background:#F3E2D2}
+.p-carduri i:nth-child(3){height:36%;background:#1A1A18}
 
 
 /* ---- meniul de pe Acasă ---- */
@@ -556,9 +477,6 @@ input,textarea,select{font-size:16px}
 @supports not (background:color-mix(in srgb,red 10%,transparent)){
   .act .ic{background:var(--bg2)}
 }
-html[data-tema="piperi"] .act{border:1.5px solid var(--ink);border-radius:0}
-html[data-tema="piperi"] .act:before{display:none}
-html[data-tema="caiet"] .act{border-radius:3px}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
@@ -1848,16 +1766,10 @@ function listaText(){
 
 /* ---------------- SETĂRI ---------------- */
 var TEME=[
-  ["piata","Piață","verde pe alb, carduri curate"],
-  ["caiet","Caiet","foaie liniată, margine roșie"],
-  ["bistro","Bistro","întunecat și auriu, ca un meniu"],
-  ["tejghea","Tejghea","blocuri de culoare, cifre groase"],
-  ["cuptor","Cuptor","cărbune și jar, portocaliu cald"],
-  ["gradina","Grădină","verde-mentă, aerisit, rotunjit"],
-  ["piperi","Piperi","alb-negru tăios, accent roșu"],
-  ["dulce","Dulce","roz prăfuit, forme moi"]
+  ["pastel","Pastel","forme moi, culoare pe fel"],
+  ["carduri","Carduri","carusel cu poze, curat"]
 ];
-function temaCurenta(){ try{ return localStorage.getItem("retete-tema")||"piata"; }catch(e){ return "piata"; } }
+function temaCurenta(){ try{ return localStorage.getItem("retete-tema")||"pastel"; }catch(e){ return "pastel"; } }
 function setTema(t){ document.documentElement.setAttribute("data-tema",t);
   try{ localStorage.setItem("retete-tema",t); }catch(e){} }
 function randSetari(){
