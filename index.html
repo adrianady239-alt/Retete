@@ -280,11 +280,11 @@ nav ul{border-radius:var(--nav-r)}
 /* 1 · PASTEL (implicit) — forme moi, culoare pe fel */
 html[data-tema="pastel"]{
   --bg:#FFF6F0; --bg2:#FBECE3;
-  --ink:#2C2320; --ink2:#6B5751; --ink3:#A4908A;
+  --ink:#2C2320; --ink2:#5F4C47; --ink3:#7E6A64;
   --line:#F1E0D6; --line2:#E6D2C6;
   --card:#FFFFFF;
-  --verde:#C25B3A; --verde-d:#A84829; --verde-l:#FBE3D8;
-  --prun:#4F7F62; --prun-l:#DCEADF;
+  --verde:#B04E2F; --verde-d:#95401F; --verde-l:#FBE3D8;
+  --prun:#467056; --prun-l:#DCEADF;
   --rosu:#C2402F; --rosu-l:#FBE0DA;
   --galben:#C98A12; --galben-l:#FBEFDA;
   --r-s:14px; --r-m:22px; --r-l:30px;
@@ -318,7 +318,7 @@ html[data-tema="pastel"] .reteta,html[data-tema="pastel"] .sheet{border-radius:v
 /* 2 · CARDURI — carusel orizontal, carduri cu poză */
 html[data-tema="carduri"]{
   --bg:#EEEDE9; --bg2:#E4E3DE;
-  --ink:#14150F; --ink2:#55564F; --ink3:#8B8C85;
+  --ink:#14150F; --ink2:#484942; --ink3:#696A63;
   --line:#DEDDD7; --line2:#CECDC6;
   --card:#FFFFFF;
   --verde:#1A1A18; --verde-d:#000; --verde-l:#E6E3DA;
@@ -394,7 +394,7 @@ html[data-tema="noapte"] #fundal i{filter:saturate(.7)}
 /* ---- 3 · PIAȚĂ ---- */
 html[data-tema="piata"]{
   --bg:#FBFAF3; --bg2:#F1F0E4;
-  --ink:#1C2118; --ink2:#4E5647; --ink3:#878F7E;
+  --ink:#1C2118; --ink2:#454D3E; --ink3:#6B7363;
   --line:#E6E5D6; --line2:#D4D4C2; --card:#FFFFFF;
   --verde:#3E6B34; --verde-d:#2F5327; --verde-l:#E2EBDC;
   --prun:#8A4B2A; --prun-l:#F3E5DB;
@@ -417,7 +417,7 @@ html[data-tema="piata"] .curs{border:1px solid var(--line)}
 /* ---- 4 · CUPTOR ---- */
 html[data-tema="cuptor"]{
   --bg:#FFF7EE; --bg2:#FBEBDA;
-  --ink:#2A1C12; --ink2:#6A5243; --ink3:#A08874;
+  --ink:#2A1C12; --ink2:#5C4536; --ink3:#7C6554;
   --line:#F0DFCC; --line2:#E2CDB4; --card:#FFFDFA;
   --verde:#C2561B; --verde-d:#A4440F; --verde-l:#FCE4D2;
   --prun:#7A3B1E; --prun-l:#F6E3D5;
@@ -439,9 +439,9 @@ html[data-tema="cuptor"] .card > h2{font-family:var(--serif);text-transform:none
 /* ---- 5 · CITRICE ---- */
 html[data-tema="citrice"]{
   --bg:#FCFDF4; --bg2:#F2F7DF;
-  --ink:#1B2410; --ink2:#4C5A38; --ink3:#86936E;
+  --ink:#1B2410; --ink2:#434F31; --ink3:#697457;
   --line:#E7EED3; --line2:#D5E0B9; --card:#FFFFFF;
-  --verde:#5C8A12; --verde-d:#476C0B; --verde-l:#E9F2D6;
+  --verde:#4C7306; --verde-d:#3A5A03; --verde-l:#E9F2D6;
   --prun:#357A6B; --prun-l:#DCEFE9;
   --rosu:#C0501C; --rosu-l:#FAE5DA;
   --galben:#C9A200; --galben-l:#FBF3D2;
@@ -461,7 +461,7 @@ html[data-tema="citrice"] nav ul{border:0;background:rgba(252,253,244,.93)}
 /* ---- 6 · NOAPTE (ușor întunecată) ---- */
 html[data-tema="noapte"]{
   --bg:#1A1E1A; --bg2:#232823;
-  --ink:#ECEFE8; --ink2:#AEB5A8; --ink3:#7C847A;
+  --ink:#ECEFE8; --ink2:#B7BEB1; --ink3:#8A9287;
   --line:#2D332D; --line2:#3A413A; --card:#222722;
   --verde:#8FBF6B; --verde-d:#7AA757; --verde-l:#2C3A24;
   --prun:#C98D6B; --prun-l:#38291F;
@@ -484,6 +484,156 @@ html[data-tema="noapte"] nav ul{background:rgba(26,30,26,.9);border-color:var(--
 html[data-tema="noapte"] input,html[data-tema="noapte"] textarea,html[data-tema="noapte"] select{
   background:var(--bg2);color:var(--ink);border-color:var(--line2)}
 html[data-tema="noapte"] .gol{border-color:var(--line2)}
+
+/* ================= STICLĂ ================= */
+/* Doar pe suprafețele sub care chiar trece conținut: bara de jos, ferestrele
+   glisante, antetul lipit sus. Pe carduri n-are ce refracta, de-aia arată mort. */
+:root{
+  --sti-tenta:255,255,255;
+  --sti-a:.34;          /* mai transparent, ca să se vadă ce trece pe dedesubt */
+  --sti-blur:16px;
+  --sti-sat:200%;
+  --sti-margine:rgba(255,255,255,.7);
+  --sti-lumina:rgba(255,255,255,.9);
+  --sti-umbra:rgba(0,0,0,.1);
+}
+html[data-sticla="da"] nav ul,
+html[data-sticla="da"] .ov .sheet{
+  /* o urmă din accentul temei, ca la geamul colorat */
+  background:
+    linear-gradient(rgba(var(--sti-tenta),var(--sti-a)),rgba(var(--sti-tenta),var(--sti-a))),
+    radial-gradient(140% 180% at 20% -30%,var(--verde-l),transparent 62%);
+  -webkit-backdrop-filter:blur(var(--sti-blur)) saturate(var(--sti-sat)) brightness(1.04);
+  backdrop-filter:blur(var(--sti-blur)) saturate(var(--sti-sat)) brightness(1.04);
+  border:0;
+  box-shadow:
+    inset 0 1.5px 0 var(--sti-lumina),
+    inset 0 -1.5px 1px var(--sti-umbra),
+    var(--sh-l);
+}
+/* chenar în degrade: luminos pe muchia de sus-stânga, stins jos.
+   Fără el arată ca un dreptunghi gri — asta lipsea înainte. */
+html[data-sticla="da"] nav ul,
+html[data-sticla="da"] .ov .sheet{position:relative}
+html[data-sticla="da"] nav ul > *,
+html[data-sticla="da"] .ov .sheet > *{position:relative;z-index:1}
+html[data-sticla="da"] nav ul::marker,
+html[data-sticla="da"] .ov .sheet::marker{content:""}
+html[data-sticla="da"] nav ul,
+html[data-sticla="da"] .ov .sheet{
+  --sti-ch:linear-gradient(135deg,
+    rgba(255,255,255,.95) 0%,
+    rgba(255,255,255,.28) 26%,
+    rgba(255,255,255,.08) 52%,
+    rgba(255,255,255,.4) 78%,
+    rgba(255,255,255,.7) 100%);
+}
+html[data-sticla="da"] nav ul::before,
+html[data-sticla="da"] .ov .sheet::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  padding:1.2px;background:var(--sti-ch);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  z-index:2}
+html[data-sticla="da"] .ov .sheet{border-bottom:0;border-left:0;border-right:0}
+/* sclipirea de pe muchie: o dâră de lumină care trece încet */
+html[data-sticla="da"] nav ul::after,
+html[data-sticla="da"] .ov .sheet::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:0;
+  background:
+    radial-gradient(130% 170% at 50% -45%,rgba(255,255,255,.5),transparent 58%),
+    linear-gradient(105deg,transparent 30%,rgba(255,255,255,.34) 46%,
+      rgba(255,255,255,.05) 55%,transparent 72%);
+  background-size:100% 100%,260% 100%;
+  background-position:0 0,120% 0;
+  background-repeat:no-repeat;
+  animation:sclipire 9s var(--ease) infinite}
+@keyframes sclipire{0%,62%{background-position:0 0,120% 0}100%{background-position:0 0,-40% 0}}
+html[data-sticla="da"] nav li,html[data-sticla="da"] nav a{position:relative;z-index:3}
+/* butonul rotund: geam gros, cu accentul temei pe dedesubt */
+html[data-sticla="da"] .act{
+  background:rgba(var(--sti-tenta),calc(var(--sti-a) + .18));
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  backdrop-filter:blur(14px) saturate(160%);
+  border:1px solid var(--sti-margine);
+  box-shadow:inset 0 1px 0 var(--sti-lumina),0 8px 20px -14px rgba(0,0,0,.5);
+}
+/* fundalul ferestrei: mai mult blur, ca sa se vada ca e geam peste ceva */
+html[data-sticla="da"] .ov .bg{
+  -webkit-backdrop-filter:blur(9px) saturate(120%);
+  backdrop-filter:blur(9px) saturate(120%);
+  background:rgba(26,32,22,.3)}
+/* pe temele închise geamul e fumuriu, nu lăptos */
+html[data-mod="inchis"][data-sticla="da"], html[data-tema="noapte"][data-sticla="da"]{
+  --sti-tenta:26,30,26; --sti-a:.42;
+  --sti-margine:rgba(255,255,255,.1);
+  --sti-lumina:rgba(255,255,255,.14);
+  --sti-umbra:rgba(0,0,0,.35);
+}
+html[data-mod="inchis"][data-sticla="da"], html[data-tema="noapte"][data-sticla="da"]{
+  --sti-ch:linear-gradient(135deg,
+    rgba(255,255,255,.42) 0%, rgba(255,255,255,.1) 30%,
+    rgba(255,255,255,.03) 56%, rgba(255,255,255,.16) 80%, rgba(255,255,255,.3) 100%);
+}
+html[data-mod="inchis"][data-sticla="da"] nav ul::after,
+html[data-mod="inchis"][data-sticla="da"] .ov .sheet::after,
+html[data-tema="noapte"][data-sticla="da"] nav ul::after,
+html[data-tema="noapte"][data-sticla="da"] .ov .sheet::after{opacity:.4}
+@media (prefers-reduced-motion: reduce){
+  html[data-sticla="da"] nav ul::after,
+  html[data-sticla="da"] .ov .sheet::after{animation:none}
+}
+/* fără backdrop-filter nu e sticlă, e doar gri: las suprafața opacă */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  html[data-sticla="da"] nav ul,
+  html[data-sticla="da"] .ov .sheet,
+  html[data-sticla="da"] .act{background:var(--card)}
+  html[data-sticla="da"] nav ul::before,
+  html[data-sticla="da"] .ov .sheet::before,
+  html[data-sticla="da"] nav ul::after,
+  html[data-sticla="da"] .ov .sheet::after{display:none}
+}
+
+/* ================= MOD ÎNTUNECAT ================= */
+/* Păstrez accentul fiecărei teme, schimb doar scara de neutre. */
+html[data-mod="inchis"]{
+  --bg:#17191A; --bg2:#1F2223; --card:#202425;
+  --ink:#ECEEEC; --ink2:#B8BEBB; --ink3:#8A908D;
+  --line:#2B2F30; --line2:#3A3F40;
+  --sh:0 1px 2px rgba(0,0,0,.34),0 16px 32px -22px rgba(0,0,0,.9);
+  --sh-l:0 3px 10px rgba(0,0,0,.42),0 32px 60px -28px rgba(0,0,0,.95);
+  --card-sh:var(--sh);
+  --pagina:none;
+  color-scheme:dark;
+}
+/* neutre calde pentru temele calde */
+html[data-mod="inchis"][data-tema="pastel"],
+html[data-mod="inchis"][data-tema="cuptor"]{
+  --bg:#1B1715; --bg2:#241F1C; --card:#262120;
+  --line:#332C29; --line2:#423A36; --ink:#F0EBE7; --ink2:#BFB5AF; --ink3:#8F8580;
+}
+html[data-mod="inchis"][data-tema="citrice"]{
+  --bg:#171A14; --bg2:#1F231B; --card:#21251D;
+  --line:#2C3127; --line2:#3B4134; --ink:#EDF0E8; --ink2:#B0B7A8; --ink3:#808878;
+}
+/* accentele se deschid, altfel se pierd pe întuneric */
+html[data-mod="inchis"][data-tema="pastel"]{ --verde:#E08A64; --verde-d:#C8714C; --verde-l:#3A2620;
+  --prun:#7FB593; --prun-l:#22301F; --rosu:#E07A68; --rosu-l:#3A2420; --galben:#D8A94F; --galben-l:#352C18; }
+html[data-mod="inchis"][data-tema="carduri"]{ --verde:#E6E3DA; --verde-d:#CFCCC2; --verde-l:#2E3132;
+  --prun:#C39A74; --prun-l:#2F2820; --rosu:#DC8071; --rosu-l:#36241F; --galben:#D4AB5E; --galben-l:#332C1B; }
+html[data-mod="inchis"][data-tema="piata"]{ --verde:#8CC47C; --verde-d:#74A866; --verde-l:#25311F;
+  --prun:#CB9272; --prun-l:#2F251D; --rosu:#E0796A; --rosu-l:#36231F; --galben:#D6AE5B; --galben-l:#342D1A; }
+html[data-mod="inchis"][data-tema="cuptor"]{ --verde:#EE8B4E; --verde-d:#D4733A; --verde-l:#3B2617;
+  --prun:#C98D6B; --prun-l:#33261D; --rosu:#E57B5F; --rosu-l:#38231C; --galben:#DCAE52; --galben-l:#352D18; }
+html[data-mod="inchis"][data-tema="citrice"]{ --verde:#A9CE4F; --verde-d:#8FB23B; --verde-l:#2A331A;
+  --prun:#6FC0AC; --prun-l:#1D302C; --rosu:#E3835A; --rosu-l:#36251C; --galben:#E0C34A; --galben-l:#353017; }
+html[data-mod="inchis"] .pr{color:#15170F}
+html[data-mod="inchis"] input,html[data-mod="inchis"] textarea,html[data-mod="inchis"] select{
+  background:var(--bg2);color:var(--ink);border-color:var(--line2)}
+html[data-mod="inchis"] .ov .bg{background:rgba(0,0,0,.58)}
+html[data-mod="inchis"] #fundal i{filter:saturate(.72) brightness(1.15)}
+html[data-mod="inchis"] #fundal i{opacity:calc(var(--o,.1) * 1.5)}
 
 /* ---- alegerea temei ---- */
 .teme{display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -1957,6 +2107,15 @@ function randSetari(){
       '<button class="pr" id="bSv" style="width:100%">Salvează și testează</button>'+
       '<div class="hint" id="svMsg">'+(srv().url?"Legat.":"Nelegat — aplicația merge doar pe telefonul ăsta.")+'</div>'+
     '</div>'+
+    '<div class="card"><h2>Lumină</h2>'+
+      '<div class="seg" style="margin-bottom:12px">'+
+      [["auto","Automat"],["deschis","Deschis"],["inchis","Închis"]].map(function(x){
+        return '<button data-mod-pune="'+x[0]+'" aria-pressed="'+(modCurent()===x[0]?"true":"false")+'">'+x[1]+'</button>';
+      }).join("")+'</div>'+
+      '<div class="row" style="align-items:center;justify-content:space-between;gap:12px">'+
+      '<span class="hint" style="flex:1">Sticlă pe bara de jos și pe ferestre. Conținutul se vede estompat pe dedesubt.</span>'+
+      '<button class="comut'+(sticlaPornita()?" on":"")+'" id="bSticla" role="switch" aria-checked="'+(sticlaPornita()?"true":"false")+'" aria-label="Sticlă"><i></i></button>'+
+      '</div></div>'+
     '<div class="card"><h2>Fundal</h2>'+
       '<div class="row" style="align-items:center;justify-content:space-between;gap:12px">'+
       '<span class="hint" style="flex:1">Legume și ingrediente care plutesc încet în spate. Se oprește singur când ieși din aplicație.</span>'+
@@ -1975,6 +2134,31 @@ function randSetari(){
     '<div class="hint" style="text-align:center">Rețete · '+BUILD+'</div>';
 }
 
+
+
+/* ---------- mod întunecat și sticlă ---------- */
+var MOD="retete-mod", STICLA="retete-sticla";
+function modCurent(){ try{ return localStorage.getItem(MOD)||"auto"; }catch(e){ return "auto"; } }
+function modRezolvat(m){
+  if(m!=="auto") return m;
+  try{ return window.matchMedia("(prefers-color-scheme: dark)").matches?"inchis":"deschis"; }
+  catch(e){ return "deschis"; }
+}
+function modPune(m){
+  try{ localStorage.setItem(MOD,m); }catch(e){}
+  document.documentElement.setAttribute("data-mod",modRezolvat(m));
+}
+function sticlaPornita(){ try{ return localStorage.getItem(STICLA)==="da"; }catch(e){ return false; } }
+function sticlaSet(da){
+  try{ localStorage.setItem(STICLA,da?"da":"nu"); }catch(e){}
+  document.documentElement.setAttribute("data-sticla",da?"da":"nu");
+}
+/* dacă e pe auto, urmăresc setarea telefonului în timp real */
+try{
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){
+    if(modCurent()==="auto") modPune("auto");
+  });
+}catch(e){}
 
 /* ---------- fundal cu mâncare ---------- */
 var FUNDAL="retete-fundal";
@@ -2092,7 +2276,7 @@ function citescForm(){
 
 /* ---------------- evenimente ---------------- */
 document.addEventListener("click",function(ev){
-  var el=ev.target.closest?ev.target.closest("[data-tab],[data-inchide],[data-add],[data-tick],[data-sterg],[data-reteta],[data-cat],[data-zi],[data-mod],[data-bif],[data-xextra],[data-pune],[data-por],[data-fav],[data-inplan],[data-editez],[data-stergR],[data-pune-tema],[data-xpret],[data-bonbif],[data-curs],[data-rapid],[data-alegemasa],[data-gateste],[data-gat2]"):null;
+  var el=ev.target.closest?ev.target.closest("[data-tab],[data-inchide],[data-add],[data-tick],[data-sterg],[data-reteta],[data-cat],[data-zi],[data-mod],[data-mod-pune],[data-bif],[data-xextra],[data-pune],[data-por],[data-fav],[data-inplan],[data-editez],[data-stergR],[data-pune-tema],[data-xpret],[data-bonbif],[data-curs],[data-rapid],[data-alegemasa],[data-gateste],[data-gat2]"):null;
   if(!el) return;
   var d=el.dataset;
 
@@ -2114,6 +2298,7 @@ document.addEventListener("click",function(ev){
   if("cat" in d){ filtruCat=d.cat; randRetete(); return; }
   if(d.zi){ ziSel=d.zi; randPlan(); return; }
   if(d.mod){ listaMod=d.mod; randLista(); return; }
+  if(d.modPune){ modPune(d.modPune); randSetari(); return; }
   if(d.bif){
     lista.bifat=lista.bifat||{};
     if(lista.bifat[d.bif]) delete lista.bifat[d.bif]; else lista.bifat[d.bif]=1;
@@ -2259,7 +2444,7 @@ $("bSterg").onclick=function(){
 };
 
 document.addEventListener("click",function(ev){
-  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport,#bFundal"):null;
+  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport,#bFundal,#bSticla"):null;
   if(!b) return;
   if(b.id==="bLib"){
     var n=$("libNume").value.trim(); if(!n){ toast("Scrie ce ai mâncat."); return; }
@@ -2277,6 +2462,11 @@ document.addEventListener("click",function(ev){
         toast("Server legat.");
       }catch(e){ if($("svMsg")) $("svMsg").textContent=eText(e); }
     })();
+  }
+  if(b.id==="bSticla"){
+    var sd=!sticlaPornita(); sticlaSet(sd);
+    b.classList.toggle("on",sd); b.setAttribute("aria-checked",sd?"true":"false");
+    return;
   }
   if(b.id==="bFundal"){
     var da=!fundalPornit(); fundalSet(da);
@@ -2323,6 +2513,8 @@ window.addEventListener("hashchange",function(){
 });
 
 /* ---------------- pornire ---------------- */
+modPune(modCurent());
+sticlaSet(sticlaPornita());
 setTema(temaCurenta());
 fundalSet(fundalPornit());
 umpleCat();
