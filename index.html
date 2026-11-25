@@ -2146,6 +2146,11 @@ function randSetari(){
       '<label class="f"><span>Parola (TOKEN din Code.gs)</span><input id="svTok" type="password" value="'+esc(srv().token||"")+'"></label>'+
       '<button class="pr" id="bSv" style="width:100%">Salvează și testează</button>'+
       '<div class="hint" id="svMsg">'+(srv().url?"Legat.":"Nelegat — aplicația merge doar pe telefonul ăsta.")+'</div>'+
+      '<button class="gh mic" id="bDiag" style="width:100%;margin-top:9px">Diagnostic</button>'+
+      '<pre id="diagOut" style="display:none;white-space:pre-wrap;word-break:break-word;'+
+        'font:12px/1.5 ui-monospace,Menlo,monospace;background:var(--bg2);color:var(--ink2);'+
+        'border-radius:var(--r-s);padding:11px;margin-top:9px;overflow-x:auto"></pre>'+
+      '<button class="gh mic" id="bDiagCopy" style="width:100%;margin-top:7px;display:none">Copiază rezultatul</button>'+
     '</div>'+
     '<div class="card"><h2>Lumină</h2>'+
       '<div class="seg" style="margin-bottom:12px">'+
@@ -2175,6 +2180,39 @@ function randSetari(){
 }
 
 
+
+
+/* ---------- diagnostic de transport ----------
+   Trei feluri de a vorbi cu Apps Script. Dacă unul trece și altul nu,
+   știu exact ce să schimb în loc să ghicesc. */
+async function diagnostic(){
+  var c=srv(), u=(c.url||"").trim();
+  if(!u) return "Pune întâi URL-ul.";
+  var corp=JSON.stringify({action:"ping",token:c.token||""});
+  var probe=[
+    ["GET simplu", function(){ return fetch(u,{method:"GET"}); }],
+    ["POST text/plain", function(){ return fetch(u,{method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},body:corp}); }],
+    ["POST formular", function(){ return fetch(u,{method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body:"payload="+encodeURIComponent(corp)}); }],
+    ["POST fără antet", function(){ return fetch(u,{method:"POST",body:corp}); }],
+    ["GET cu parametri", function(){ return fetch(u+"?action=ping&token="+
+      encodeURIComponent(c.token||"")); }]
+  ];
+  var linii=[];
+  for(var i=0;i<probe.length;i++){
+    var nume=probe[i][0], t0=Date.now();
+    try{
+      var r=await probe[i][1]();
+      var txt=(await r.text()).slice(0,90).replace(/\s+/g," ");
+      linii.push(nume+": "+r.status+" "+(r.ok?"ok":"nu")+" · "+txt);
+    }catch(e){
+      linii.push(nume+": BLOCAT · "+((e&&e.name)||"")+" "+((e&&e.message)||e));
+    }
+  }
+  return linii.join("\n");
+}
 
 /* ---------- mod întunecat și sticlă ---------- */
 var MOD="retete-mod", STICLA="retete-sticla";
@@ -2484,7 +2522,7 @@ $("bSterg").onclick=function(){
 };
 
 document.addEventListener("click",function(ev){
-  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport,#bFundal,#bSticla"):null;
+  var b=ev.target.closest?ev.target.closest("#bSv,#bLib,#bExport,#bImport,#bFundal,#bSticla,#bDiag,#bDiagCopy"):null;
   if(!b) return;
   if(b.id==="bLib"){
     var n=$("libNume").value.trim(); if(!n){ toast("Scrie ce ai mâncat."); return; }
@@ -2510,6 +2548,22 @@ document.addEventListener("click",function(ev){
         toast("Server legat.");
       }catch(e){ if($("svMsg")) $("svMsg").textContent=eText(e); }
     })();
+  }
+  if(b.id==="bDiag"){
+    var o=$("diagOut"); if(!o) return;
+    o.style.display="block"; o.textContent="Încerc cele cinci variante…";
+    diagnostic().then(function(t){
+      o.textContent=t;
+      var cp=$("bDiagCopy"); if(cp) cp.style.display="block";
+    });
+    return;
+  }
+  if(b.id==="bDiagCopy"){
+    var o2=$("diagOut");
+    if(o2&&navigator.clipboard) navigator.clipboard.writeText(o2.textContent)
+      .then(function(){ toast("Copiat."); })
+      .catch(function(){ toast("Selectează textul manual."); });
+    return;
   }
   if(b.id==="bSticla"){
     var sd=!sticlaPornita(); sticlaSet(sd);
