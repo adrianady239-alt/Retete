@@ -1057,7 +1057,18 @@ async function call(action,params){
   }
   if(to) clearTimeout(to);
   var j;
-  try{ j=await r.json(); }catch(e){ throw {code:"offline",message:"Răspuns invalid de la server."}; }
+  var text;
+  try{ text=await r.text(); }catch(e){ throw {code:"offline",message:"Nu ajung la server."}; }
+  var j;
+  try{ j=JSON.parse(text); }
+  catch(e){
+    /* Apps Script a trimis HTML: aproape mereu pagina de login sau o eroare din script */
+    if(/accounts\.google\.com|ServiceLogin|Sign in|Conectați-vă/i.test(text))
+      throw {code:"acces",message:"Serverul cere login."};
+    if(/Exception|TypeError|ReferenceError|Error:/i.test(text))
+      throw {code:"script",message:"Scriptul a crăpat: "+text.replace(/<[^>]*>/g," ").replace(/\s+/g," ").slice(0,120)};
+    throw {code:"html",message:"Serverul a răspuns cu o pagină, nu cu date."};
+  }
   if(!j.ok) throw {code:j.code||"eroare",message:j.error||"Eroare."};
   return j;
 }
@@ -1065,8 +1076,11 @@ function eText(e){
   if(!e) return "Eroare.";
   if(e.code==="no_server") return "Pune serverul în Setări.";
   if(e.code==="bad_token") return "Parolă greșită.";
-  if(e.code==="offline")   return "Fără legătură cu serverul. Lucrez local.";
+  if(e.code==="offline")   return "Nu ajung la server. Verifică internetul și URL-ul /exec.";
   if(e.code==="timeout")   return "Serverul a durat prea mult.";
+  if(e.code==="acces")     return "La deploy, „Who has access” trebuie Anyone, nu Only myself.";
+  if(e.code==="html")      return "URL-ul nu e cel bun — trebuie cel care se termină în /exec.";
+  if(e.code==="script")    return e.message;
   return e.message||"Eroare.";
 }
 
@@ -2477,7 +2491,15 @@ document.addEventListener("click",function(ev){
     pune("",n,null,1);
   }
   if(b.id==="bSv"){
-    srvSet({url:($("svUrl").value||"").trim(),token:($("svTok").value||"").trim()});
+    var u=($("svUrl").value||"").trim();
+    if(u && !/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(u)){
+      var m0=$("svMsg");
+      if(m0) m0.textContent = /\/dev$/.test(u)
+        ? "Ăsta e URL-ul de test (/dev). Ia-l pe cel care se termină în /exec."
+        : "URL-ul nu arată a /exec din Apps Script. Copiază-l din Deploy → Manage deployments.";
+      return;
+    }
+    srvSet({url:u,token:($("svTok").value||"").trim()});
     var m=$("svMsg"); if(m) m.textContent="Încerc…";
     (async function(){
       try{
